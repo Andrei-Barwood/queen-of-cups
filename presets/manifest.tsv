@@ -1,0 +1,54 @@
+display_name	slug	family	variant	status	priority	aliases	notes
+Bass in the Desert	bass-in-the-desert	bass	foundational	planned	010	-	Preset fundacional del sistema y primera referencia de arquitectura.
+bass	bass	bass	base	planned	020	-	Preset neutro y generalista de la familia bass.
+put this on bass	put-this-on-bass	bass	utility	planned	030	-	Preset utilitario, directo y opinionado.
+nice bass	nice-bass	bass	smooth	planned	040	-	Variante amable y equilibrada.
+crunchy bass	crunchy-bass	bass	aggressive	planned	050	-	Variante de contraste y textura.
+upright bass	upright-bass	low-end	organic	planned	060	-	Lectura organica y resonante del low-end.
+synth bass	synth-bass	low-end	synthetic	planned	070	-	Canonico hoy; variantes numericas solo si la familia se parte de verdad.
+808 boom control	808-boom-control	low-end	impact	planned	080	-	Preset de impacto, contencion y subgrave dominante.
+dark vocals	dark-vocals	vocals-atmospheric	dark	planned	090	-	Enfasis en sombra, densidad y presencia intima.
+dreamy camel vocals	dreamy-camel-vocals	vocals-atmospheric	dreamy	planned	100	-	Variante atmosferica y continua.
+sparkley camel vocals	sparkley-camel-vocals	vocals-atmospheric	sparkly	planned	110	-	Variante brillante y de detalle fino.
+warm springy vocals	warm-springy-vocals	vocals-atmospheric	warm	planned	120	-	Variante calida y elastica.
+female vox 1	female-vox-1	female-vocal	dry	planned	130	-	Base clara y frontal del bloque female-vocal.
+female vox 1 wet	female-vox-1-wet	female-vocal	wet	planned	140	-	Derivacion humeda de female-vox-1.
+female vocal wet	female-vocal-wet	female-vocal	wet-wide	planned	150	-	Variante mas amplia y mezclada.
+pop lead vocal	pop-lead-vocal	vocal-utility	lead	planned	160	-	Voz principal y foco frontal.
+vocal help	vocal-help	vocal-utility	assist	planned	170	-	Preset diagnostico y asistivo.
+give backgrounds some life	give-backgrounds-some-life	vocal-utility	background	planned	180	-	Capa de apoyo y movimiento contextual.
+drum bus drivin	drum-bus-drivin	drum-bus	drive	planned	190	-	Empuje, glue y energia de conjunto.
+drum bus island	drum-bus-island	drum-bus	spaced	planned	200	-	Variante mas abierta y separada.
+drum bus wild spring camel	drum-bus-wild-spring-camel	drum-bus	wild	planned	210	-	Version mas elastica y energetica del bus.
+drum bus magic	drum-bus-magic	drum-bus	glue	planned	220	-	Variante de cohesion y polish.
+parallel processing drums	parallel-processing-drums	drum-experimental	parallel	planned	230	-	Base experimental de capas paralelas.
+myon pop parallel magic	myon-pop-parallel-magic	drum-experimental	parallel-pop	planned	240	-	Paralelo mas pulido y pop.
+wildin camel drums	wildin-camel-drums	drum-experimental	parallel-wild	planned	250	-	Paralelo salvaje y contrastado.
+wierdly gated drums	wierdly-gated-drums	drum-experimental	gated	planned	260	-	Variante gated con cortes deliberados.
+kick	kick	drum-pieces-core	anchor	planned	270	-	Golpe ancla y pulso central.
+kick 2	kick-2	drum-pieces-core	anchor-tight	planned	280	-	Variante mas focalizada y seca de kick.
+snare	snare	drum-pieces-core	accent	planned	290	-	Acento principal del bloque.
+urban snare	urban-snare	drum-pieces-core	accent-dry	planned	300	-	Snare mas moderno, seco y frontal.
+urban snare tighter	urban-snare-tighter	drum-pieces-core	accent-tight	planned	310	-	Version mas apretada y controlada del acento.
+hats	hats	drum-detail-and-space	detail	planned	320	-	Microdetalle, brillo y actividad superficial.
+drums overheads	drums-overheads	drum-detail-and-space	overheads-wide	planned	330	-	Perspectiva amplia y panoramica del kit.
+ohs	ohs	drum-detail-and-space	overheads-compact	planned	340	-	Variante compacta de overheads con identidad propia.
+trash drum room	trash-drum-room	drum-detail-and-space	room-trash	planned	350	-	Room roto, sucio y agresivo.
+drum room smash	drum-room-smash	drum-detail-and-space	room-smash	planned	360	-	Room aplastado y dominante.
+fill kollin	fill-kollin	drum-detail-and-space	fill	planned	370	-	Transicion, adorno y movimiento interno.
+heavy bright guitar	heavy-bright-guitar	guitar-heavy-and-electric	bright	planned	380	-	Guitarra electrica pesada con brillo al frente.
+heavy guitar with reverb	heavy-guitar-with-reverb	guitar-heavy-and-electric	reverb	planned	390	-	Guitarra pesada con espacio y cola.
+wildin camel guitar	wildin-camel-guitar	guitar-heavy-and-electric	wild	planned	400	-	Variante electrica mas salvaje y desbordada.
+el gtr driver	el-gtr-driver	guitar-heavy-and-electric	driver	planned	410	-	Preset de drive y empuje electrico.
+gtr	gtr	guitar-heavy-and-electric	base	planned	420	-	Preset general de guitarra electrica hasta que la familia se refine mas.
+acoustic guitar wet	acoustic-guitar-wet	guitar-acoustic-and-plucked	wet	planned	430	-	Cuerda acustica con cola y contexto.
+acoustic gtr	acoustic-gtr	guitar-acoustic-and-plucked	base	planned	440	ac-gtr	Preset acustico canonico; ac-gtr queda como alias corto.
+muted cuatro	muted-cuatro	guitar-acoustic-and-plucked	muted	planned	450	-	Variante muteada y percusiva.
+muted cuatro wet	muted-cuatro-wet	guitar-acoustic-and-plucked	muted-wet	planned	460	-	Variante muteada con espacio adicional.
+keys riding a camel	keys-riding-a-camel	keys-and-piano	base	planned	470	-	Preset general de teclas y lectura armonica.
+jazz piano	jazz-piano	keys-and-piano	jazz	planned	480	-	Piano con color jazz y lectura mas flexible.
+rock piano	rock-piano	keys-and-piano	rock	planned	490	-	Piano con empuje y ataque rock.
+piano beef	piano-beef	keys-and-piano	beef	planned	500	-	Piano con cuerpo reforzado y densidad.
+camels need water	camels-need-water	utility-texture-and-master	refresh	planned	510	-	Preset de refresh o recuperacion dentro del bloque utilitario.
+lofi looper	lofi-looper	utility-texture-and-master	lofi	planned	520	-	Textura repetitiva, memoria corta y degradacion amable.
+master smiley face	master-smiley-face	utility-texture-and-master	master	planned	530	-	Balance final, sweetening y cierre amable.

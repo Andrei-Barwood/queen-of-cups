@@ -1,0 +1,83 @@
+#!/usr/bin/env zsh
+
+setopt NO_UNSET PIPE_FAIL
+
+typeset -gx REINA_PROJECT_ROOT="${0:A:h:h}"
+
+source "$REINA_PROJECT_ROOT/lib/services/errors.zsh"
+source "$REINA_PROJECT_ROOT/lib/services/storage.zsh"
+source "$REINA_PROJECT_ROOT/lib/services/network.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/bootstrap.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/manifest.zsh"
+
+function reina_cmd_help() {
+  cat <<EOF
+Reina de Copas
+
+Uso:
+  reina help
+  reina list
+  reina <preset>
+
+Comandos disponibles hoy:
+  help    muestra esta ayuda
+  list    lista los presets registrados en presets/manifest.tsv
+
+Notas de fundacion:
+  - El runner de presets reales llega en el Dia 2.
+  - Cache: $(reina_storage_cache_dir)
+  - State: $(reina_storage_state_dir)
+  - Logs:  $(reina_storage_logs_dir)
+EOF
+}
+
+function reina_cmd_list() {
+  emulate -L zsh
+
+  if (( $# != 0 )); then
+    reina_fail ERR_USAGE "reina list no acepta argumentos posicionales todavia"
+    return $?
+  fi
+
+  reina_manifest_validate || return $?
+
+  print -- "Preset                         Slug                           Family                         Status       Priority"
+  print -- "------------------------------ ------------------------------ ------------------------------ ----------- --------"
+  reina_manifest_print_table
+}
+
+function reina_main() {
+  emulate -L zsh
+
+  reina_bootstrap || return $?
+
+  local command="${1:-help}"
+  local resolved_record
+
+  if (( $# > 0 )); then
+    shift
+  fi
+
+  case "$command" in
+    help|-h|--help)
+      reina_cmd_help
+      ;;
+    list)
+      reina_cmd_list "$@"
+      ;;
+    *)
+      if resolved_record="$(reina_manifest_find_by_identifier "$command")"; then
+        reina_fail ERR_COMMAND_NOT_IMPLEMENTED "la ejecucion de presets queda reservada para el Dia 2; usa 'reina list' por ahora"
+        return $?
+      fi
+
+      reina_fail ERR_PRESET_NOT_FOUND "preset o comando no encontrado: $command"
+      return $?
+      ;;
+  esac
+
+  return 0
+}
+
+reina_main "$@"
+exit $?
