@@ -12,7 +12,7 @@ function reina_network_init() {
   reina_network_defaults
 
   typeset -gx REINA_NETWORK_CLIENT="${REINA_NETWORK_CURL_BIN:-curl}"
-  typeset -gx REINA_NETWORK_CACHE_DIR="$(reina_storage_cache_dir)/network"
+  typeset -gx REINA_NETWORK_CACHE_DIR="$(reina_storage_network_cache_dir)"
   typeset -gx REINA_NETWORK_CLIENT_AVAILABLE=0
   typeset -gx REINA_NETWORK_INITIALIZED=1
 
@@ -117,46 +117,38 @@ function reina_network_cache_key() {
 
 function reina_network_cache_body_path() {
   emulate -L zsh
-  local key
-  key="$(reina_network_cache_key "${1:-}")"
-
-  [[ -n "$key" ]] || return 1
-  print -- "${REINA_NETWORK_CACHE_DIR}/${key}.body"
+  reina_storage_body_path cache "$(reina_network_cache_key "${1:-}")" network
 }
 
 function reina_network_cache_meta_path() {
   emulate -L zsh
-  local key
-  key="$(reina_network_cache_key "${1:-}")"
-
-  [[ -n "$key" ]] || return 1
-  print -- "${REINA_NETWORK_CACHE_DIR}/${key}.meta"
+  reina_storage_meta_path cache "$(reina_network_cache_key "${1:-}")" network
 }
 
 function reina_network_read_cache() {
   emulate -L zsh
   local cache_key="${1:-}"
-  local body_path meta_path
+  local safe_key
 
   [[ -n "$cache_key" ]] || return 1
-  body_path="$(reina_network_cache_body_path "$cache_key")" || return 1
-  meta_path="$(reina_network_cache_meta_path "$cache_key")" || return 1
+  safe_key="$(reina_network_cache_key "$cache_key")"
 
-  [[ -f "$body_path" ]] || return 1
+  reina_storage_exists cache "$safe_key" network || return 1
+  reina_storage_get cache "$safe_key" network >/dev/null 2>&1 || return 1
 
   REINA_NETWORK_LAST_STATUS="ok"
   REINA_NETWORK_LAST_SOURCE="cache"
-  REINA_NETWORK_LAST_BODY="$(<"$body_path")"
-  REINA_NETWORK_LAST_HEADERS=""
+  REINA_NETWORK_LAST_BODY="$REINA_STORE_LAST_VALUE"
+  if [[ -f "$REINA_STORE_LAST_META_PATH" ]]; then
+    REINA_NETWORK_LAST_HEADERS="$(<"$REINA_STORE_LAST_META_PATH")"
+  else
+    REINA_NETWORK_LAST_HEADERS=""
+  fi
   REINA_NETWORK_LAST_HTTP_STATUS=""
   REINA_NETWORK_LAST_ELAPSED_MS=0
   REINA_NETWORK_LAST_ERROR=""
 
-  if [[ -f "$meta_path" ]]; then
-    REINA_NETWORK_LAST_HEADERS="$(<"$meta_path")"
-  fi
-
-  log_debug "network cache hit key=$cache_key"
+  log_debug "network cache hit key=$safe_key"
   return 0
 }
 
@@ -165,25 +157,14 @@ function reina_network_write_cache() {
   local cache_key="${1:-}"
   local body="${2:-}"
   local endpoint="${3:-}"
-  local body_path meta_path timestamp
+  local safe_key
 
   [[ -n "$cache_key" ]] || return 0
 
-  mkdir -p "$REINA_NETWORK_CACHE_DIR" || return 1
-  body_path="$(reina_network_cache_body_path "$cache_key")" || return 1
-  meta_path="$(reina_network_cache_meta_path "$cache_key")" || return 1
-  timestamp="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+  safe_key="$(reina_network_cache_key "$cache_key")"
+  reina_storage_put cache "$safe_key" "$body" network 86400 "remote:$endpoint" || return $?
 
-  print -rn -- "$body" > "$body_path" || return 1
-  {
-    print -- "key=$cache_key"
-    print -- "timestamp=$timestamp"
-    print -- "source=remote"
-    print -- "endpoint=$endpoint"
-    print -- "ttl_seconds=86400"
-  } > "$meta_path" || return 1
-
-  log_debug "network cache write key=$cache_key path=$body_path"
+  log_debug "network cache write key=$safe_key path=$REINA_STORE_LAST_PATH"
 }
 
 function reina_network_classify_curl_error() {
@@ -439,7 +420,7 @@ function reina_network_context_json() {
   print -rn -- "\"debug\":$(reina_json_bool "${REINA_DEBUG:-0}"),"
   print -rn -- "\"client\":\"$(reina_json_escape "${REINA_NETWORK_CLIENT:-curl}")\","
   print -rn -- "\"client_available\":$(reina_json_bool "${REINA_NETWORK_CLIENT_AVAILABLE:-0}"),"
-  print -rn -- "\"cache_dir\":\"$(reina_json_escape "${REINA_NETWORK_CACHE_DIR:-$(reina_storage_cache_dir)/network}")\""
+  print -rn -- "\"cache_dir\":\"$(reina_json_escape "${REINA_NETWORK_CACHE_DIR:-$(reina_storage_network_cache_dir)}")\""
   print -rn -- "}"
 }
 

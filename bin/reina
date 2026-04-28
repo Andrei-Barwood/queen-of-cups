@@ -38,7 +38,7 @@ Flags globales:
   --offline  fuerza contexto de red offline
   --quiet    reduce logs no esenciales
   --json     imprime salida estructurada cuando el comando lo soporta
-  --dry-run  prepara el flujo sin escribir runtime
+  --dry-run  prepara el flujo sin escribir historial ni snapshots
 
 Ejemplos:
   reina list
@@ -118,7 +118,7 @@ function reina_cmd_info() {
 function reina_cmd_run() {
   emulate -L zsh
   local identifier="${1:-}"
-  local status_code runtime_ready=0
+  local status_code runtime_ready=0 history_recorded=0
 
   if [[ -z "$identifier" ]]; then
     reina_fail ERR_ARGUMENT_MISSING "uso: reina run <preset>"
@@ -146,10 +146,17 @@ function reina_cmd_run() {
 
   if (( ! REINA_DRY_RUN )); then
     if ! reina_storage_ensure_runtime; then
-      reina_fail ERR_STORAGE_FAILURE "no se pudo preparar el runtime"
+      reina_fail ERR_STORE_INIT "no se pudo preparar el runtime"
       return $?
     fi
     runtime_ready=1
+    reina_storage_config_get "profile" "$REINA_PRESET_SLUG" "" >/dev/null 2>&1 || true
+
+    if reina_storage_record_history "$REINA_PRESET_SLUG" "placeholder" "0" "$(reina_flags_human_summary)" "$(reina_network_mode)" "false" >/dev/null 2>&1; then
+      history_recorded=1
+    else
+      log_warn "no se pudo registrar historial para $REINA_PRESET_SLUG"
+    fi
   fi
 
   if (( REINA_JSON )); then
@@ -158,6 +165,7 @@ function reina_cmd_run() {
     print -rn -- "\"command\":\"run\","
     print -rn -- "\"dry_run\":$(reina_json_bool "$REINA_DRY_RUN"),"
     print -rn -- "\"implementation\":\"placeholder\","
+    print -rn -- "\"history_recorded\":$(reina_json_bool "$history_recorded"),"
     print -rn -- "\"preset\":$(reina_preset_json),"
     print -rn -- "\"context\":$(reina_context_json "$runtime_ready"),"
     print -rn -- "\"message\":\"$(reina_json_escape "flujo base preparado; logica especifica pendiente")\""
@@ -178,6 +186,7 @@ function reina_cmd_run() {
   print -- "  status:  $REINA_PRESET_STATUS"
   print -- ""
   reina_context_print_human "$runtime_ready"
+  print -- "  history_recorded: $(reina_json_bool "$history_recorded")"
   print -- ""
   print -- "Estado: flujo base preparado; logica especifica pendiente."
 }
@@ -226,6 +235,7 @@ function reina_main() {
 
   reina_bootstrap || return $?
   reina_parse_global_flags "$@" || return $?
+  reina_storage_init || return $?
   reina_network_init
 
   local -a args rest

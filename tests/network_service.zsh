@@ -71,6 +71,9 @@ chmod +x "$STUB_CURL"
 
 typeset -gx REINA_PROJECT_ROOT="$PROJECT_ROOT"
 typeset -gx REINA_RUNTIME_MODE=local
+typeset -gx REINA_CONFIG_ROOT="${TMP_DIR}/config-root"
+typeset -gx REINA_CACHE_ROOT="${TMP_DIR}/cache-root"
+typeset -gx REINA_STATE_ROOT="${TMP_DIR}/state-root"
 typeset -gx REINA_NETWORK_CURL_BIN="$STUB_CURL"
 typeset -gx REINA_NETWORK_TIMEOUT=1
 typeset -gx REINA_NETWORK_RETRIES=0

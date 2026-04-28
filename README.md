@@ -20,6 +20,7 @@ El cierre del Dia 1 deja lista la base del sistema:
 ./bin/reina net-check --offline
 zsh tests/smoke_reina.zsh
 zsh tests/network_service.zsh
+zsh tests/storage_service.zsh
 ```
 
 ## Decisiones cerradas en Dia 1
@@ -30,7 +31,8 @@ zsh tests/network_service.zsh
 - el runner resuelve presets por `slug`, alias explicito o nombre visible normalizado
 - `network`, `storage` y `errors` viven en servicios compartidos; los presets no reinventan esas capas
 - `network` usa `curl` como cliente primario y respeta `--offline` como politica real
-- runtime preferido en XDG y fallback local en `.reina/`
+- `storage` separa config, cache, state, historial, snapshots, temporales y locks
+- runtime preferido en XDG, fallback local en `.reina/` y raices configurables con `REINA_CONFIG_ROOT`, `REINA_CACHE_ROOT` y `REINA_STATE_ROOT`
 
 ## Convenciones de desarrollo
 
@@ -54,4 +56,4 @@ tests/
 
 ## Estado actual
 
-El Dia 3 deja `network` como servicio compartido con healthcheck, GET, POST minimo, timeout, reintentos, cache preparado y errores tipificados. `run` todavia ejecuta un placeholder, pero ya prepara contexto de red real para los presets futuros.
+El Dia 4 deja `storage` como servicio compartido con config, cache, historial, snapshots, locks, atomic writes y pruning basico. `network` ya usa storage para cache/fallback offline, y `run` todavia ejecuta un placeholder mientras prepara contexto real para presets futuros.

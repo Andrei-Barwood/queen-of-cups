@@ -4,6 +4,17 @@ setopt NO_UNSET PIPE_FAIL
 
 typeset -r PROJECT_ROOT="${0:A:h:h}"
 typeset -r REINA_BIN="${PROJECT_ROOT}/bin/reina"
+typeset -r TMP_DIR="$(mktemp -d)"
+
+function cleanup() {
+  rm -rf "$TMP_DIR"
+}
+
+trap cleanup EXIT
+
+typeset -gx REINA_CONFIG_ROOT="${TMP_DIR}/config-root"
+typeset -gx REINA_CACHE_ROOT="${TMP_DIR}/cache-root"
+typeset -gx REINA_STATE_ROOT="${TMP_DIR}/state-root"
 
 function assert_contains() {
   emulate -L zsh

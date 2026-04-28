@@ -14,7 +14,7 @@ function reina_error_code() {
     ERR_VERSION_UNSUPPORTED|ERR_NETWORK_UNAVAILABLE|ERR_DEPENDENCY_MISSING|ERR_NETWORK_OFFLINE|ERR_NETWORK_TIMEOUT|ERR_NETWORK_UNREACHABLE|ERR_NETWORK_HTTP|ERR_NETWORK_EMPTY|ERR_NETWORK_INVALID_RESPONSE|ERR_NETWORK_DEPENDENCY_MISSING)
       print -- 5
       ;;
-    ERR_STORAGE_FAILURE)
+    ERR_STORAGE_FAILURE|ERR_STORE_INIT|ERR_STORE_NOT_FOUND|ERR_STORE_CORRUPT|ERR_STORE_WRITE|ERR_STORE_READ|ERR_STORE_PRUNE|ERR_STORE_LOCKED|ERR_STORE_RUNTIME_INVALID)
       print -- 6
       ;;
     *)
@@ -83,6 +83,30 @@ function reina_error_message() {
       ;;
     ERR_STORAGE_FAILURE)
       print -- "fallo de almacenamiento"
+      ;;
+    ERR_STORE_INIT)
+      print -- "no se pudo inicializar storage"
+      ;;
+    ERR_STORE_NOT_FOUND)
+      print -- "entrada de storage no encontrada"
+      ;;
+    ERR_STORE_CORRUPT)
+      print -- "entrada de storage corrupta"
+      ;;
+    ERR_STORE_WRITE)
+      print -- "no se pudo escribir storage"
+      ;;
+    ERR_STORE_READ)
+      print -- "no se pudo leer storage"
+      ;;
+    ERR_STORE_PRUNE)
+      print -- "no se pudo limpiar storage"
+      ;;
+    ERR_STORE_LOCKED)
+      print -- "storage bloqueado"
+      ;;
+    ERR_STORE_RUNTIME_INVALID)
+      print -- "runtime de storage invalido"
       ;;
     *)
       print -- "fallo interno inesperado"

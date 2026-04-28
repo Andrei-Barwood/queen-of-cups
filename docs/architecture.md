@@ -44,6 +44,8 @@ presets/
   aliases.tsv
   manifest.tsv
 tests/
+  network_service.zsh
+  storage_service.zsh
   smoke_reina.zsh
 ```
 
@@ -52,6 +54,7 @@ tests/
 ### Modo preferido: XDG
 
 - cache: `${XDG_CACHE_HOME:-$HOME/.cache}/reina-de-copas`
+- config: `${XDG_CONFIG_HOME:-$HOME/.config}/reina-de-copas`
 - state: `${XDG_STATE_HOME:-$HOME/.local/state}/reina-de-copas`
 - logs: `${state}/logs`
 - history: `${state}/history`
@@ -60,6 +63,7 @@ tests/
 ### Modo alternativo: local e ignorado
 
 - cache: `.reina/cache`
+- config: `.reina/config`
 - state: `.reina/state`
 - logs: `.reina/state/logs`
 - history: `.reina/state/history`
@@ -69,9 +73,11 @@ tests/
 
 - El runtime por defecto es XDG.
 - `REINA_RUNTIME_MODE=local` fuerza el modo local dentro del repo.
+- `REINA_CONFIG_ROOT`, `REINA_CACHE_ROOT` y `REINA_STATE_ROOT` permiten redirigir raices de runtime, especialmente en tests o integraciones.
 - Ningun dato temporal debe escribirse dentro de `bin/`, `lib/`, `docs/` o `presets/`.
 - Cache es descartable; state, history y snapshots son persistentes.
 - Los logs viven bajo `state`, no mezclados con cache.
+- El directorio `runtime/` dentro de state contiene temporales y locks.
 
 ## Contrato inicial de servicios
 
@@ -146,21 +152,69 @@ Resultados de red:
 
 ### Storage
 
-Interfaz compartida prevista:
+Interfaz compartida:
 
+- `reina_storage_init`
+- `reina_storage_get`
+- `reina_storage_put`
+- `reina_storage_exists`
+- `reina_storage_delete`
+- `reina_storage_list`
+- `reina_storage_prune`
+- `reina_storage_snapshot`
+- `reina_storage_lock`
+- `reina_storage_unlock`
 - `reina_storage_cache_dir`
+- `reina_storage_config_dir`
 - `reina_storage_state_dir`
 - `reina_storage_logs_dir`
 - `reina_storage_history_dir`
 - `reina_storage_snapshots_dir`
 - `reina_storage_ensure_runtime`
 
+Aliases cortos disponibles para roadmap y presets futuros:
+
+- `store_init`
+- `store_get`
+- `store_put`
+- `store_exists`
+- `store_delete`
+- `store_list`
+- `store_prune`
+- `store_snapshot`
+- `store_lock`
+- `store_unlock`
+
+Estructura de runtime:
+
+- config global: `${config}/global`
+- config por preset: `${config}/presets/<preset>/`
+- cache de red: `${cache}/network`
+- cache de presets: `${cache}/presets`
+- history: `${state}/history/<preset>/`
+- snapshots: `${state}/snapshots/<preset>/`
+- temporales: `${state}/runtime/tmp`
+- locks: `${state}/runtime/locks`
+
+Formatos:
+
+- entradas simples: cuerpo en `.txt` y metadata en `.meta`
+- metadata: `KEY=VALUE` legible a mano
+- historial: texto plano con claves por linea
+- snapshots: texto plano con metadata paralela
+- estructuras mas ricas podran usar JSON cuando el preset lo justifique
+
 Reglas:
 
 - Toda persistencia pasa por la capa de storage.
 - Los presets no inventan subdirectorios propios fuera de la jerarquia de runtime.
-- Historial y snapshots viven en `state`.
-- Cache remota y artefactos temporales viven en `cache`.
+- Config, cache y state se mantienen separados.
+- Historial, snapshots, temporales y locks viven en `state`.
+- Cache remota y datos derivados descartables viven en `cache`.
+- Las escrituras usan archivo temporal + `mv` para reducir corrupcion por escrituras parciales.
+- Los locks son directorios atomicos bajo `runtime/locks` y tienen TTL para retirar bloqueos obsoletos.
+- `store_prune` elimina entradas vencidas por TTL sin tocar datos vigentes.
+- Network usa storage para cache y fallback offline; ningun preset cachea respuestas remotas por su cuenta.
 
 ### Errors
 
@@ -204,7 +258,7 @@ Precedencia:
 - `--debug` sigue mostrando logs de debug en `stderr` aunque `--quiet` este activo.
 - `--json` afecta la salida principal del comando, no los errores controlados.
 - `--offline` modifica el contexto compartido de `network`.
-- `--dry-run` prepara el flujo de ejecucion sin crear runtime.
+- `--dry-run` prepara el flujo de ejecucion sin escribir historial ni snapshots.
 
 ## Resolucion de presets
 
@@ -221,12 +275,12 @@ Si un identificador coincide con mas de una entrada, el runner responde con `ERR
 `reina run <preset>` ya construye el contexto comun que recibiran los presets reales:
 
 - `network`: modo, estado, cliente HTTP, timeout, reintentos y cache de red
-- `storage`: rutas oficiales de cache, state, logs, history y snapshots
+- `storage`: rutas oficiales de config, cache, state, history, snapshots, runtime, locks y cache por servicio
 - `flags`: valores globales parseados
 - `errors`: contrato compartido
 - `preset`: metadata resuelta desde `presets/manifest.tsv`
 
-En el Dia 3, `run` sigue ejecutando un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada y contexto de red completo.
+En el Dia 4, `run` sigue ejecutando un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada, contexto de red completo y storage inicializado. Cuando no se usa `--dry-run`, el runner registra una entrada simple de historial.
 
 ## Politica base de exit codes
 
@@ -259,3 +313,7 @@ reina net-check --json
 ## Nota de implementacion del Dia 3
 
 `bin/reina` ya responde a `help`, `list`, `info`, `run` y `net-check`. La ejecucion real de cada preset sigue pendiente, pero el runner ya carga el manifiesto, resuelve aliases y prepara contexto compartido con red inicializada.
+
+## Nota de implementacion del Dia 4
+
+Storage queda como memoria compartida del sistema: crea runtime, lee/escribe config, cache, historial y snapshots, y ofrece locks, atomic writes y pruning basico. Network ya persiste cache a traves de storage, por lo que `--offline` puede usar respuestas locales cuando existe una clave de cache.
