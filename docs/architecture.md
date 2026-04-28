@@ -79,10 +79,23 @@ tests/
 
 Interfaz compartida prevista:
 
+- `reina_network_init`
 - `reina_network_check`
 - `reina_network_get`
 - `reina_network_post`
-- `reina_network_fetch_profile`
+- `reina_network_fetch_to_cache`
+- `reina_network_retry`
+- `reina_network_fail`
+
+Aliases cortos disponibles para roadmap y presets futuros:
+
+- `net_init`
+- `net_check`
+- `net_get`
+- `net_post`
+- `net_fetch_to_cache`
+- `net_retry`
+- `net_fail`
 
 Reglas:
 
@@ -90,6 +103,46 @@ Reglas:
 - La red siempre debe poder degradar a cache o defaults locales.
 - `--offline` debe cortar trafico remoto desde la capa comun.
 - La ausencia de red no puede bloquear el caso de uso basico de un preset.
+
+Alcance del Dia 3:
+
+- healthcheck de conectividad o reachability
+- fetch de recursos remotos por GET
+- POST minimo para completar contrato
+- descarga de metadata o perfiles remotos
+- enriquecimiento opcional de contexto de ejecucion
+
+Queda fuera por ahora:
+
+- autenticacion compleja
+- sesiones persistentes
+- flujos remotos multipaso
+- sincronizacion automatica agresiva
+
+Cliente HTTP:
+
+- dependencia primaria: `curl`
+- deteccion: `command -v ${REINA_NETWORK_CURL_BIN:-curl}`
+- error controlado si falta: `ERR_NETWORK_DEPENDENCY_MISSING`
+
+Politica por defecto:
+
+- timeout: `5` segundos
+- reintentos: `2`
+- backoff: `150ms * intento`
+- healthcheck default: `https://example.com/`
+- cache preparada en `${cache}/network`
+
+Resultados de red:
+
+- `status`: `ok`, `available`, `degraded`, `offline` o `error`
+- `source`: `remote`, `cache` u `offline`
+- `body`: respuesta remota o cacheada
+- `headers`: headers remotos o metadata de cache
+- `elapsed_ms`: duracion aproximada reportada por `curl`
+- `error`: clave `ERR_NETWORK_*` si aplica
+
+`--offline` es una politica de primera clase. Si una operacion pide red en modo offline, el servicio intenta leer cache cuando se entrega `cache_key`; si no existe fallback, responde con `ERR_NETWORK_OFFLINE`. `reina run` no hace fetch remoto todavia, pero ya recibe contexto de red completo.
 
 ### Storage
 
@@ -134,6 +187,7 @@ Comandos disponibles:
 - `reina list`
 - `reina info <preset>`
 - `reina run <preset>`
+- `reina net-check [url]`
 - `reina <preset>` como forma corta de `reina run <preset>`
 
 Flags globales:
@@ -166,13 +220,13 @@ Si un identificador coincide con mas de una entrada, el runner responde con `ERR
 
 `reina run <preset>` ya construye el contexto comun que recibiran los presets reales:
 
-- `network`: modo `online` u `offline`
+- `network`: modo, estado, cliente HTTP, timeout, reintentos y cache de red
 - `storage`: rutas oficiales de cache, state, logs, history y snapshots
 - `flags`: valores globales parseados
 - `errors`: contrato compartido
 - `preset`: metadata resuelta desde `presets/manifest.tsv`
 
-En el Dia 2, `run` ejecuta un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada.
+En el Dia 3, `run` sigue ejecutando un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada y contexto de red completo.
 
 ## Politica base de exit codes
 
@@ -197,8 +251,11 @@ reina info bass-in-the-desert
 reina info ac-gtr
 reina run bass-in-the-desert --dry-run
 reina ac-gtr --offline --dry-run
+reina net-check
+reina net-check --offline
+reina net-check --json
 ```
 
-## Nota de implementacion del Dia 2
+## Nota de implementacion del Dia 3
 
-`bin/reina` ya responde a `help`, `list`, `info` y `run`. La ejecucion real de cada preset sigue pendiente, pero el runner ya carga el manifiesto, resuelve aliases y prepara contexto compartido.
+`bin/reina` ya responde a `help`, `list`, `info`, `run` y `net-check`. La ejecucion real de cada preset sigue pendiente, pero el runner ya carga el manifiesto, resuelve aliases y prepara contexto compartido con red inicializada.

@@ -17,7 +17,9 @@ El cierre del Dia 1 deja lista la base del sistema:
 ./bin/reina list
 ./bin/reina info bass-in-the-desert
 ./bin/reina run bass-in-the-desert --dry-run
+./bin/reina net-check --offline
 zsh tests/smoke_reina.zsh
+zsh tests/network_service.zsh
 ```
 
 ## Decisiones cerradas en Dia 1
@@ -27,6 +29,7 @@ zsh tests/smoke_reina.zsh
 - `presets/manifest.tsv` es la fuente de verdad del catalogo
 - el runner resuelve presets por `slug`, alias explicito o nombre visible normalizado
 - `network`, `storage` y `errors` viven en servicios compartidos; los presets no reinventan esas capas
+- `network` usa `curl` como cliente primario y respeta `--offline` como politica real
 - runtime preferido en XDG y fallback local en `.reina/`
 
 ## Convenciones de desarrollo
@@ -51,4 +54,4 @@ tests/
 
 ## Estado actual
 
-El Dia 2 ya deja `help`, `list`, `info` y `run` funcionando. `run` todavia ejecuta un placeholder, pero ya prepara el contexto compartido que usaran los presets reales.
+El Dia 3 deja `network` como servicio compartido con healthcheck, GET, POST minimo, timeout, reintentos, cache preparado y errores tipificados. `run` todavia ejecuta un placeholder, pero ya prepara contexto de red real para los presets futuros.

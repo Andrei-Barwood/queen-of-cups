@@ -44,6 +44,13 @@ assert_contains "$short_run_output" "network: offline" "forma corta respeta --of
 run_json_output="$("$REINA_BIN" --json --offline --dry-run run bass-in-the-desert)"
 assert_contains "$run_json_output" "\"command\":\"run\"" "run --json describe el comando" || exit 1
 assert_contains "$run_json_output" "\"mode\":\"offline\"" "run --json incluye contexto offline" || exit 1
+assert_contains "$run_json_output" "\"client_available\":" "run --json incluye cliente de red" || exit 1
+
+net_check_offline_output="$("$REINA_BIN" net-check --offline)"
+assert_contains "$net_check_offline_output" "status:  offline" "net-check respeta --offline" || exit 1
+
+net_check_json_output="$("$REINA_BIN" --json net-check --offline)"
+assert_contains "$net_check_json_output" "\"status\":\"offline\"" "net-check --json reporta offline" || exit 1
 
 stderr_file="$(mktemp)"
 "$REINA_BIN" preset-inexistente >/dev/null 2>"$stderr_file"

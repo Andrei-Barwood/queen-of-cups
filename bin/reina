@@ -23,6 +23,7 @@ Uso:
   reina list
   reina info <preset>
   reina run <preset>
+  reina net-check [url]
   reina <preset>
 
 Comandos:
@@ -30,6 +31,7 @@ Comandos:
   list    lista los presets registrados en presets/manifest.tsv
   info    muestra metadata de un preset resolviendo slug, alias o nombre
   run     ejecuta el flujo base de un preset
+  net-check valida reachability de un endpoint sin depender de presets
 
 Flags globales:
   --debug    muestra logs de debug en stderr
@@ -42,6 +44,7 @@ Ejemplos:
   reina list
   reina info bass-in-the-desert
   reina run bass-in-the-desert --dry-run
+  reina net-check --offline
   reina ac-gtr --offline
 EOF
 }
@@ -179,11 +182,51 @@ function reina_cmd_run() {
   print -- "Estado: flujo base preparado; logica especifica pendiente."
 }
 
+function reina_cmd_net_check() {
+  emulate -L zsh
+  local endpoint="${1:-${REINA_NETWORK_HEALTHCHECK_URL:-https://example.com/}}"
+  local status_code=0
+
+  if (( $# > 1 )); then
+    reina_fail ERR_USAGE "reina net-check acepta cero o un endpoint"
+    return $?
+  fi
+
+  reina_network_check "$endpoint"
+  status_code=$?
+
+  if (( REINA_JSON )); then
+    reina_network_result_json
+    print -- ""
+
+    if [[ "$REINA_NETWORK_LAST_STATUS" == "offline" ]]; then
+      return 0
+    fi
+
+    return "$status_code"
+  fi
+
+  print -- "Network:"
+  print -- "  status:  $REINA_NETWORK_LAST_STATUS"
+  print -- "  source:  $REINA_NETWORK_LAST_SOURCE"
+  print -- "  endpoint: $REINA_NETWORK_LAST_ENDPOINT"
+  print -- "  client:  ${REINA_NETWORK_CLIENT:-curl}"
+  print -- "  elapsed_ms: ${REINA_NETWORK_LAST_ELAPSED_MS:-0}"
+  print -- "  error:   ${REINA_NETWORK_LAST_ERROR:-}"
+
+  if [[ "$REINA_NETWORK_LAST_STATUS" == "offline" ]]; then
+    return 0
+  fi
+
+  return "$status_code"
+}
+
 function reina_main() {
   emulate -L zsh
 
   reina_bootstrap || return $?
   reina_parse_global_flags "$@" || return $?
+  reina_network_init
 
   local -a args rest
   args=("${REINA_POSITIONAL_ARGS[@]}")
@@ -210,6 +253,10 @@ function reina_main() {
       ;;
     run)
       reina_cmd_run "${rest[@]}"
+      return $?
+      ;;
+    net-check)
+      reina_cmd_net_check "${rest[@]}"
       return $?
       ;;
     *)

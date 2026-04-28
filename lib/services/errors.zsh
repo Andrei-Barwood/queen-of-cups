@@ -11,7 +11,7 @@ function reina_error_code() {
     ERR_MANIFEST_MISSING|ERR_MANIFEST_INVALID)
       print -- 4
       ;;
-    ERR_VERSION_UNSUPPORTED|ERR_NETWORK_UNAVAILABLE|ERR_DEPENDENCY_MISSING)
+    ERR_VERSION_UNSUPPORTED|ERR_NETWORK_UNAVAILABLE|ERR_DEPENDENCY_MISSING|ERR_NETWORK_OFFLINE|ERR_NETWORK_TIMEOUT|ERR_NETWORK_UNREACHABLE|ERR_NETWORK_HTTP|ERR_NETWORK_EMPTY|ERR_NETWORK_INVALID_RESPONSE|ERR_NETWORK_DEPENDENCY_MISSING)
       print -- 5
       ;;
     ERR_STORAGE_FAILURE)
@@ -56,6 +56,27 @@ function reina_error_message() {
       ;;
     ERR_NETWORK_UNAVAILABLE)
       print -- "servicio de red no disponible"
+      ;;
+    ERR_NETWORK_OFFLINE)
+      print -- "network desactivado por modo offline"
+      ;;
+    ERR_NETWORK_TIMEOUT)
+      print -- "timeout de red"
+      ;;
+    ERR_NETWORK_UNREACHABLE)
+      print -- "endpoint de red inaccesible"
+      ;;
+    ERR_NETWORK_HTTP)
+      print -- "respuesta HTTP no exitosa"
+      ;;
+    ERR_NETWORK_EMPTY)
+      print -- "respuesta de red vacia"
+      ;;
+    ERR_NETWORK_INVALID_RESPONSE)
+      print -- "respuesta de red invalida"
+      ;;
+    ERR_NETWORK_DEPENDENCY_MISSING)
+      print -- "dependencia de red faltante"
       ;;
     ERR_DEPENDENCY_MISSING)
       print -- "dependencia faltante"
