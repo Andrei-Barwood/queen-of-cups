@@ -31,6 +31,9 @@ function reina_parse_global_flags() {
       --dry-run)
         REINA_DRY_RUN=1
         ;;
+      --version)
+        REINA_POSITIONAL_ARGS+=("version")
+        ;;
       --)
         shift
         REINA_POSITIONAL_ARGS+=("$@")

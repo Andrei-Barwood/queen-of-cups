@@ -26,10 +26,13 @@ Regla base: un preset puede apoyarse en helpers comunes, pero nunca debe saltars
 ## Estructura oficial del repo
 
 ```text
+Makefile
+VERSION
 bin/
   reina
 docs/
   architecture.md
+  distribution.md
   presets.md
 lib/
   core/
@@ -43,7 +46,11 @@ lib/
 presets/
   aliases.tsv
   manifest.tsv
+scripts/
+  install.zsh
+  uninstall.zsh
 tests/
+  distribution_install.zsh
   network_service.zsh
   storage_service.zsh
   smoke_reina.zsh
@@ -238,6 +245,7 @@ Desde el Dia 2, `bin/reina` es el entrypoint oficial del sistema. El script carg
 Comandos disponibles:
 
 - `reina help`
+- `reina version`
 - `reina list`
 - `reina info <preset>`
 - `reina run <preset>`
@@ -247,6 +255,7 @@ Comandos disponibles:
 Flags globales:
 
 - `--debug`
+- `--version`
 - `--offline`
 - `--quiet`
 - `--json`
@@ -256,6 +265,7 @@ Precedencia:
 
 - `--quiet` reduce logs no esenciales.
 - `--debug` sigue mostrando logs de debug en `stderr` aunque `--quiet` este activo.
+- `--version` se normaliza al comando `version`.
 - `--json` afecta la salida principal del comando, no los errores controlados.
 - `--offline` modifica el contexto compartido de `network`.
 - `--dry-run` prepara el flujo de ejecucion sin escribir historial ni snapshots.
@@ -299,6 +309,8 @@ En el Dia 4, `run` sigue ejecutando un placeholder estable. La logica especifica
 
 ```sh
 reina help
+reina version
+reina --version
 reina list
 reina list --json
 reina info bass-in-the-desert
@@ -317,3 +329,16 @@ reina net-check --json
 ## Nota de implementacion del Dia 4
 
 Storage queda como memoria compartida del sistema: crea runtime, lee/escribe config, cache, historial y snapshots, y ofrece locks, atomic writes y pruning basico. Network ya persiste cache a traves de storage, por lo que `--offline` puede usar respuestas locales cuando existe una clave de cache.
+
+## Distribucion
+
+El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.
+
+- version del paquete: `VERSION`
+- instalador: `scripts/install.zsh`
+- desinstalador: `scripts/uninstall.zsh`
+- comando instalado: `$PREFIX/bin/reina`
+- arbol instalado: `$PREFIX/lib/reina-de-copas`
+- tarball local: `make dist`
+
+La politica de licencia queda pendiente de decision explicita antes de una distribucion publica estable. Ver `docs/distribution.md`.

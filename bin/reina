@@ -20,6 +20,7 @@ Reina de Copas
 
 Uso:
   reina help
+  reina version
   reina list
   reina info <preset>
   reina run <preset>
@@ -28,6 +29,7 @@ Uso:
 
 Comandos:
   help    muestra esta ayuda
+  version muestra la version instalada
   list    lista los presets registrados en presets/manifest.tsv
   info    muestra metadata de un preset resolviendo slug, alias o nombre
   run     ejecuta el flujo base de un preset
@@ -42,11 +44,42 @@ Flags globales:
 
 Ejemplos:
   reina list
+  reina version
   reina info bass-in-the-desert
   reina run bass-in-the-desert --dry-run
   reina net-check --offline
   reina ac-gtr --offline
 EOF
+}
+
+function reina_version() {
+  emulate -L zsh
+  local version_file="${REINA_PROJECT_ROOT}/VERSION"
+  local version="${REINA_VERSION:-}"
+
+  if [[ -z "$version" && -r "$version_file" ]]; then
+    IFS= read -r version < "$version_file" || version=""
+  fi
+
+  print -- "${version:-0.0.0-dev}"
+}
+
+function reina_cmd_version() {
+  emulate -L zsh
+  local version
+
+  if (( $# != 0 )); then
+    reina_fail ERR_USAGE "reina version no acepta argumentos posicionales"
+    return $?
+  fi
+
+  version="$(reina_version)"
+
+  if (( REINA_JSON )); then
+    print -- "{\"name\":\"reina-de-copas\",\"version\":\"$(reina_json_escape "$version")\"}"
+  else
+    print -- "reina-de-copas $version"
+  fi
 }
 
 function reina_cmd_list() {
@@ -255,6 +288,10 @@ function reina_main() {
       ;;
     list)
       reina_cmd_list "${rest[@]}"
+      return $?
+      ;;
+    version|-v|--version)
+      reina_cmd_version "${rest[@]}"
       return $?
       ;;
     info)

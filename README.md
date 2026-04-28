@@ -14,13 +14,29 @@ El cierre del Dia 1 deja lista la base del sistema:
 
 ```sh
 ./bin/reina help
+./bin/reina version
 ./bin/reina list
 ./bin/reina info bass-in-the-desert
 ./bin/reina run bass-in-the-desert --dry-run
 ./bin/reina net-check --offline
+make test
 zsh tests/smoke_reina.zsh
 zsh tests/network_service.zsh
 zsh tests/storage_service.zsh
+zsh tests/distribution_install.zsh
+```
+
+## Instalacion local
+
+```sh
+make install PREFIX="$HOME/.local"
+reina version
+```
+
+La instalacion copia el arbol del proyecto a `$PREFIX/lib/reina-de-copas` y crea el comando `$PREFIX/bin/reina`. Para desinstalar:
+
+```sh
+make uninstall PREFIX="$HOME/.local"
 ```
 
 ## Decisiones cerradas en Dia 1
@@ -33,6 +49,7 @@ zsh tests/storage_service.zsh
 - `network` usa `curl` como cliente primario y respeta `--offline` como politica real
 - `storage` separa config, cache, state, historial, snapshots, temporales y locks
 - runtime preferido en XDG, fallback local en `.reina/` y raices configurables con `REINA_CONFIG_ROOT`, `REINA_CACHE_ROOT` y `REINA_STATE_ROOT`
+- distribucion local mediante `scripts/install.zsh`, `scripts/uninstall.zsh`, `make install` y `make dist`
 
 ## Convenciones de desarrollo
 
@@ -56,4 +73,6 @@ tests/
 
 ## Estado actual
 
-El Dia 4 deja `storage` como servicio compartido con config, cache, historial, snapshots, locks, atomic writes y pruning basico. `network` ya usa storage para cache/fallback offline, y `run` todavia ejecuta un placeholder mientras prepara contexto real para presets futuros.
+El Dia 4 deja `storage` como servicio compartido con config, cache, historial, snapshots, locks, atomic writes y pruning basico. El repo tambien queda preparado para distribucion local con version, instalador, desinstalador, tarball y prueba de instalacion. `network` ya usa storage para cache/fallback offline, y `run` todavia ejecuta un placeholder mientras prepara contexto real para presets futuros.
+
+Mas detalles en `docs/distribution.md`.

@@ -32,6 +32,13 @@ function assert_contains() {
 help_output="$("$REINA_BIN" help)"
 assert_contains "$help_output" "reina list" "help expone el subcomando list" || exit 1
 assert_contains "$help_output" "reina info <preset>" "help expone el subcomando info" || exit 1
+assert_contains "$help_output" "reina version" "help expone el subcomando version" || exit 1
+
+version_output="$("$REINA_BIN" version)"
+assert_contains "$version_output" "$(<"$PROJECT_ROOT/VERSION")" "version lee archivo VERSION" || exit 1
+
+version_flag_output="$("$REINA_BIN" --version)"
+assert_contains "$version_flag_output" "$(<"$PROJECT_ROOT/VERSION")" "--version funciona como alias global" || exit 1
 
 list_output="$("$REINA_BIN" list)"
 assert_contains "$list_output" "bass-in-the-desert" "list incluye el preset fundacional" || exit 1
