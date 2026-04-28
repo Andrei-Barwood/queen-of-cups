@@ -7,8 +7,12 @@ typeset -gx REINA_PROJECT_ROOT="${0:A:h:h}"
 source "$REINA_PROJECT_ROOT/lib/services/errors.zsh"
 source "$REINA_PROJECT_ROOT/lib/services/storage.zsh"
 source "$REINA_PROJECT_ROOT/lib/services/network.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/json.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/logging.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/flags.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/bootstrap.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/manifest.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/context.zsh"
 
 function reina_cmd_help() {
   cat <<EOF
@@ -17,17 +21,28 @@ Reina de Copas
 Uso:
   reina help
   reina list
+  reina info <preset>
+  reina run <preset>
   reina <preset>
 
-Comandos disponibles hoy:
+Comandos:
   help    muestra esta ayuda
   list    lista los presets registrados en presets/manifest.tsv
+  info    muestra metadata de un preset resolviendo slug, alias o nombre
+  run     ejecuta el flujo base de un preset
 
-Notas de fundacion:
-  - El runner de presets reales llega en el Dia 2.
-  - Cache: $(reina_storage_cache_dir)
-  - State: $(reina_storage_state_dir)
-  - Logs:  $(reina_storage_logs_dir)
+Flags globales:
+  --debug    muestra logs de debug en stderr
+  --offline  fuerza contexto de red offline
+  --quiet    reduce logs no esenciales
+  --json     imprime salida estructurada cuando el comando lo soporta
+  --dry-run  prepara el flujo sin escribir runtime
+
+Ejemplos:
+  reina list
+  reina info bass-in-the-desert
+  reina run bass-in-the-desert --dry-run
+  reina ac-gtr --offline
 EOF
 }
 
@@ -40,43 +55,173 @@ function reina_cmd_list() {
   fi
 
   reina_manifest_validate || return $?
+  log_debug "manifest=$REINA_MANIFEST_PATH"
 
-  print -- "Preset                         Slug                           Family                         Status       Priority"
-  print -- "------------------------------ ------------------------------ ------------------------------ ----------- --------"
-  reina_manifest_print_table
+  if (( REINA_JSON )); then
+    reina_manifest_print_json
+  else
+    print -- "Preset                         Slug                           Family                         Status       Priority"
+    print -- "------------------------------ ------------------------------ ------------------------------ ----------- --------"
+    reina_manifest_print_table
+  fi
+}
+
+function reina_cmd_info() {
+  emulate -L zsh
+  local identifier="${1:-}"
+  local status_code
+
+  if [[ -z "$identifier" ]]; then
+    reina_fail ERR_ARGUMENT_MISSING "uso: reina info <preset>"
+    return $?
+  fi
+
+  if (( $# > 1 )); then
+    reina_fail ERR_USAGE "reina info acepta un solo preset"
+    return $?
+  fi
+
+  reina_resolve_preset_to_global "$identifier"
+  status_code=$?
+  if (( status_code != 0 )); then
+    if (( status_code == 1 )); then
+      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier"
+      return $?
+    fi
+
+    return "$status_code"
+  fi
+
+  reina_manifest_record_to_preset "$REINA_RESOLVED_PRESET_RECORD" || return $?
+  log_debug "resolved $identifier -> $REINA_PRESET_SLUG"
+
+  if (( REINA_JSON )); then
+    reina_preset_json
+    print -- ""
+    return 0
+  fi
+
+  print -- "Preset:"
+  print -- "  display_name: $REINA_PRESET_DISPLAY_NAME"
+  print -- "  slug:         $REINA_PRESET_SLUG"
+  print -- "  family:       $REINA_PRESET_FAMILY"
+  print -- "  variant:      $REINA_PRESET_VARIANT"
+  print -- "  status:       $REINA_PRESET_STATUS"
+  print -- "  priority:     $REINA_PRESET_PRIORITY"
+  print -- "  aliases:      $REINA_PRESET_ALIASES"
+  print -- "  notes:        $REINA_PRESET_NOTES"
+}
+
+function reina_cmd_run() {
+  emulate -L zsh
+  local identifier="${1:-}"
+  local status_code runtime_ready=0
+
+  if [[ -z "$identifier" ]]; then
+    reina_fail ERR_ARGUMENT_MISSING "uso: reina run <preset>"
+    return $?
+  fi
+
+  if (( $# > 1 )); then
+    reina_fail ERR_USAGE "reina run acepta un solo preset en el Dia 2"
+    return $?
+  fi
+
+  reina_resolve_preset_to_global "$identifier"
+  status_code=$?
+  if (( status_code != 0 )); then
+    if (( status_code == 1 )); then
+      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier"
+      return $?
+    fi
+
+    return "$status_code"
+  fi
+
+  reina_manifest_record_to_preset "$REINA_RESOLVED_PRESET_RECORD" || return $?
+  log_debug "resolved $identifier -> $REINA_PRESET_SLUG"
+
+  if (( ! REINA_DRY_RUN )); then
+    if ! reina_storage_ensure_runtime; then
+      reina_fail ERR_STORAGE_FAILURE "no se pudo preparar el runtime"
+      return $?
+    fi
+    runtime_ready=1
+  fi
+
+  if (( REINA_JSON )); then
+    print -rn -- "{"
+    print -rn -- "\"ok\":true,"
+    print -rn -- "\"command\":\"run\","
+    print -rn -- "\"dry_run\":$(reina_json_bool "$REINA_DRY_RUN"),"
+    print -rn -- "\"implementation\":\"placeholder\","
+    print -rn -- "\"preset\":$(reina_preset_json),"
+    print -rn -- "\"context\":$(reina_context_json "$runtime_ready"),"
+    print -rn -- "\"message\":\"$(reina_json_escape "flujo base preparado; logica especifica pendiente")\""
+    print -- "}"
+    return 0
+  fi
+
+  if (( REINA_QUIET )); then
+    print -- "$REINA_PRESET_SLUG $REINA_PRESET_STATUS"
+    return 0
+  fi
+
+  print -- "Run:"
+  print -- "  preset:  $REINA_PRESET_DISPLAY_NAME"
+  print -- "  slug:    $REINA_PRESET_SLUG"
+  print -- "  family:  $REINA_PRESET_FAMILY"
+  print -- "  variant: $REINA_PRESET_VARIANT"
+  print -- "  status:  $REINA_PRESET_STATUS"
+  print -- ""
+  reina_context_print_human "$runtime_ready"
+  print -- ""
+  print -- "Estado: flujo base preparado; logica especifica pendiente."
 }
 
 function reina_main() {
   emulate -L zsh
 
   reina_bootstrap || return $?
+  reina_parse_global_flags "$@" || return $?
 
-  local command="${1:-help}"
-  local resolved_record
+  local -a args rest
+  args=("${REINA_POSITIONAL_ARGS[@]}")
 
-  if (( $# > 0 )); then
-    shift
-  fi
+  local command="${args[1]:-help}"
+  rest=("${args[@]:1}")
 
   case "$command" in
     help|-h|--help)
+      if (( ${#rest[@]} > 0 )); then
+        reina_fail ERR_USAGE "reina help no acepta argumentos posicionales"
+        return $?
+      fi
       reina_cmd_help
+      return $?
       ;;
     list)
-      reina_cmd_list "$@"
+      reina_cmd_list "${rest[@]}"
+      return $?
+      ;;
+    info)
+      reina_cmd_info "${rest[@]}"
+      return $?
+      ;;
+    run)
+      reina_cmd_run "${rest[@]}"
+      return $?
       ;;
     *)
-      if resolved_record="$(reina_manifest_find_by_identifier "$command")"; then
-        reina_fail ERR_COMMAND_NOT_IMPLEMENTED "la ejecucion de presets queda reservada para el Dia 2; usa 'reina list' por ahora"
+      if (( ${#rest[@]} > 0 )); then
+        reina_fail ERR_COMMAND_INVALID "comando invalido o argumentos extra: $command"
         return $?
       fi
 
-      reina_fail ERR_PRESET_NOT_FOUND "preset o comando no encontrado: $command"
+      reina_cmd_run "$command"
       return $?
       ;;
   esac
-
-  return 0
 }
 
 reina_main "$@"

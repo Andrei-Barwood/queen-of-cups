@@ -124,6 +124,56 @@ Reglas:
 - El detalle fino queda reservado para niveles futuros de debug.
 - Los exit codes expresan categoria; la clave `ERR_*` expresa semantica.
 
+## Runner CLI
+
+Desde el Dia 2, `bin/reina` es el entrypoint oficial del sistema. El script carga utilidades desde `lib/`, parsea flags globales, valida el manifiesto y despacha subcomandos sin contener la logica profunda de cada preset.
+
+Comandos disponibles:
+
+- `reina help`
+- `reina list`
+- `reina info <preset>`
+- `reina run <preset>`
+- `reina <preset>` como forma corta de `reina run <preset>`
+
+Flags globales:
+
+- `--debug`
+- `--offline`
+- `--quiet`
+- `--json`
+- `--dry-run`
+
+Precedencia:
+
+- `--quiet` reduce logs no esenciales.
+- `--debug` sigue mostrando logs de debug en `stderr` aunque `--quiet` este activo.
+- `--json` afecta la salida principal del comando, no los errores controlados.
+- `--offline` modifica el contexto compartido de `network`.
+- `--dry-run` prepara el flujo de ejecucion sin crear runtime.
+
+## Resolucion de presets
+
+El runner resuelve presets mediante `reina_resolve_preset`, usando este orden conceptual:
+
+- `slug`
+- alias explicito registrado en el manifiesto
+- `display_name` normalizado cuando no introduce ambiguedad
+
+Si un identificador coincide con mas de una entrada, el runner responde con `ERR_ALIAS_AMBIGUOUS`. Si no coincide con ninguna, responde con `ERR_PRESET_NOT_FOUND`.
+
+## Contexto de ejecucion
+
+`reina run <preset>` ya construye el contexto comun que recibiran los presets reales:
+
+- `network`: modo `online` u `offline`
+- `storage`: rutas oficiales de cache, state, logs, history y snapshots
+- `flags`: valores globales parseados
+- `errors`: contrato compartido
+- `preset`: metadata resuelta desde `presets/manifest.tsv`
+
+En el Dia 2, `run` ejecuta un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada.
+
 ## Politica base de exit codes
 
 | Codigo | Categoria |
@@ -137,6 +187,18 @@ Reglas:
 | `6` | fallo de storage o filesystem |
 | `10-19` | reservado para errores controlados especificos de presets |
 
-## Nota de implementacion del Dia 1
+## Ejemplos minimos
 
-`bin/reina` existe y ya responde a `help` y `list`. La ejecucion real de presets queda intencionalmente reservada para el Dia 2 para no mezclar fundaciones con el runner.
+```sh
+reina help
+reina list
+reina list --json
+reina info bass-in-the-desert
+reina info ac-gtr
+reina run bass-in-the-desert --dry-run
+reina ac-gtr --offline --dry-run
+```
+
+## Nota de implementacion del Dia 2
+
+`bin/reina` ya responde a `help`, `list`, `info` y `run`. La ejecucion real de cada preset sigue pendiente, pero el runner ya carga el manifiesto, resuelve aliases y prepara contexto compartido.

@@ -15,6 +15,8 @@ El cierre del Dia 1 deja lista la base del sistema:
 ```sh
 ./bin/reina help
 ./bin/reina list
+./bin/reina info bass-in-the-desert
+./bin/reina run bass-in-the-desert --dry-run
 zsh tests/smoke_reina.zsh
 ```
 
@@ -23,6 +25,7 @@ zsh tests/smoke_reina.zsh
 - `zsh >= 5.4`
 - enfoque shell-first con helpers externos pequenos y ubicuos cuando simplifican el core
 - `presets/manifest.tsv` es la fuente de verdad del catalogo
+- el runner resuelve presets por `slug`, alias explicito o nombre visible normalizado
 - `network`, `storage` y `errors` viven en servicios compartidos; los presets no reinventan esas capas
 - runtime preferido en XDG y fallback local en `.reina/`
 
@@ -48,4 +51,4 @@ tests/
 
 ## Estado actual
 
-El Dia 1 no ejecuta presets todavia. La invocacion `reina <preset>` queda reservada para el runner del Dia 2; hoy la prioridad es dejar un suelo estable y verificable.
+El Dia 2 ya deja `help`, `list`, `info` y `run` funcionando. `run` todavia ejecuta un placeholder, pero ya prepara el contexto compartido que usaran los presets reales.

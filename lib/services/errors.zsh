@@ -74,6 +74,11 @@ function reina_fail() {
   local key="${1:-ERR_INTERNAL}"
   local message="${2:-$(reina_error_message "$key")}"
 
-  print -u2 -- "reina: ${message} (${key})"
+  if whence -w log_error >/dev/null 2>&1; then
+    log_error "${message} (${key})"
+  else
+    print -u2 -- "reina: error: ${message} (${key})"
+  fi
+
   return "$(reina_error_code "$key")"
 }

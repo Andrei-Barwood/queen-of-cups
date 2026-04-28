@@ -60,7 +60,18 @@
 
 - Los aliases excepcionales se registran en `presets/aliases.tsv`.
 - El manifiesto mantiene una vista compacta de aliases por preset.
-- El runner del Dia 2 debe poder resolver:
-  - `slug`
-  - alias explicito
-  - `display_name` normalizado cuando no introduzca ambiguedad
+- El runner del Dia 2 resuelve `slug`, alias explicito y `display_name` normalizado cuando no introduzca ambiguedad.
+- Si un alias o nombre normalizado apunta a mas de una entrada, el runner debe fallar con `ERR_ALIAS_AMBIGUOUS`.
+- Si no hay coincidencia, el runner debe fallar con `ERR_PRESET_NOT_FOUND`.
+
+## Comandos de inspeccion
+
+```sh
+reina list
+reina list --json
+reina info bass-in-the-desert
+reina info ac-gtr
+reina run bass-in-the-desert --dry-run
+```
+
+`reina info <preset>` muestra la ficha del manifiesto. `reina run <preset>` usa esa misma resolucion y prepara el contexto compartido para `network`, `storage`, `errors`, flags y metadata del preset.

@@ -20,10 +20,30 @@ function assert_contains() {
 
 help_output="$("$REINA_BIN" help)"
 assert_contains "$help_output" "reina list" "help expone el subcomando list" || exit 1
+assert_contains "$help_output" "reina info <preset>" "help expone el subcomando info" || exit 1
 
 list_output="$("$REINA_BIN" list)"
 assert_contains "$list_output" "bass-in-the-desert" "list incluye el preset fundacional" || exit 1
 assert_contains "$list_output" "master-smiley-face" "list recorre el catalogo completo" || exit 1
+
+list_json_output="$("$REINA_BIN" --json list)"
+assert_contains "$list_json_output" "\"slug\":\"bass-in-the-desert\"" "list --json incluye slugs" || exit 1
+
+info_output="$("$REINA_BIN" info bass-in-the-desert)"
+assert_contains "$info_output" "display_name: Bass in the Desert" "info resuelve por slug" || exit 1
+
+alias_info_output="$("$REINA_BIN" info ac-gtr)"
+assert_contains "$alias_info_output" "slug:         acoustic-gtr" "info resuelve por alias" || exit 1
+
+run_output="$("$REINA_BIN" run bass-in-the-desert --dry-run)"
+assert_contains "$run_output" "flujo base preparado" "run entra al flujo base" || exit 1
+
+short_run_output="$("$REINA_BIN" ac-gtr --dry-run --offline)"
+assert_contains "$short_run_output" "network: offline" "forma corta respeta --offline" || exit 1
+
+run_json_output="$("$REINA_BIN" --json --offline --dry-run run bass-in-the-desert)"
+assert_contains "$run_json_output" "\"command\":\"run\"" "run --json describe el comando" || exit 1
+assert_contains "$run_json_output" "\"mode\":\"offline\"" "run --json incluye contexto offline" || exit 1
 
 stderr_file="$(mktemp)"
 "$REINA_BIN" preset-inexistente >/dev/null 2>"$stderr_file"
@@ -43,5 +63,18 @@ if [[ "$exit_code" -ne 3 ]]; then
 fi
 
 assert_contains "$stderr_output" "ERR_PRESET_NOT_FOUND" "error controlado para preset inexistente" || exit 1
+
+stderr_file="$(mktemp)"
+"$REINA_BIN" info preset-inexistente >/dev/null 2>"$stderr_file"
+exit_code=$?
+stderr_output="$(<"$stderr_file")"
+rm -f "$stderr_file"
+
+if [[ "$exit_code" -ne 3 ]]; then
+  print -u2 -- "FAIL: se esperaba exit code 3 para info inexistente y llego $exit_code"
+  exit 1
+fi
+
+assert_contains "$stderr_output" "ERR_PRESET_NOT_FOUND" "info falla bien con preset inexistente" || exit 1
 
 print -- "smoke tests passed"
