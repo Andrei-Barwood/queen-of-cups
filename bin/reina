@@ -69,7 +69,7 @@ function reina_cmd_version() {
   local version
 
   if (( $# != 0 )); then
-    reina_fail ERR_USAGE "reina version no acepta argumentos posicionales"
+    reina_fail ERR_CLI_USAGE "reina version no acepta argumentos posicionales" "cli" "command=version"
     return $?
   fi
 
@@ -86,7 +86,7 @@ function reina_cmd_list() {
   emulate -L zsh
 
   if (( $# != 0 )); then
-    reina_fail ERR_USAGE "reina list no acepta argumentos posicionales todavia"
+    reina_fail ERR_CLI_USAGE "reina list no acepta argumentos posicionales todavia" "cli" "command=list"
     return $?
   fi
 
@@ -108,12 +108,12 @@ function reina_cmd_info() {
   local status_code
 
   if [[ -z "$identifier" ]]; then
-    reina_fail ERR_ARGUMENT_MISSING "uso: reina info <preset>"
+    reina_fail ERR_INPUT_ARGUMENT_MISSING "uso: reina info <preset>" "cli" "command=info"
     return $?
   fi
 
   if (( $# > 1 )); then
-    reina_fail ERR_USAGE "reina info acepta un solo preset"
+    reina_fail ERR_CLI_USAGE "reina info acepta un solo preset" "cli" "command=info args=$*"
     return $?
   fi
 
@@ -121,7 +121,7 @@ function reina_cmd_info() {
   status_code=$?
   if (( status_code != 0 )); then
     if (( status_code == 1 )); then
-      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier"
+      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier" "preset" "identifier=$identifier"
       return $?
     fi
 
@@ -154,12 +154,12 @@ function reina_cmd_run() {
   local status_code runtime_ready=0 history_recorded=0
 
   if [[ -z "$identifier" ]]; then
-    reina_fail ERR_ARGUMENT_MISSING "uso: reina run <preset>"
+    reina_fail ERR_INPUT_ARGUMENT_MISSING "uso: reina run <preset>" "cli" "command=run"
     return $?
   fi
 
   if (( $# > 1 )); then
-    reina_fail ERR_USAGE "reina run acepta un solo preset en el Dia 2"
+    reina_fail ERR_CLI_USAGE "reina run acepta un solo preset en el Dia 2" "cli" "command=run args=$*"
     return $?
   fi
 
@@ -167,7 +167,7 @@ function reina_cmd_run() {
   status_code=$?
   if (( status_code != 0 )); then
     if (( status_code == 1 )); then
-      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier"
+      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier" "preset" "identifier=$identifier"
       return $?
     fi
 
@@ -179,7 +179,7 @@ function reina_cmd_run() {
 
   if (( ! REINA_DRY_RUN )); then
     if ! reina_storage_ensure_runtime; then
-      reina_fail ERR_STORE_INIT "no se pudo preparar el runtime"
+      reina_fail ERR_STORE_INIT "no se pudo preparar el runtime" "storage" "command=run preset=$REINA_PRESET_SLUG"
       return $?
     fi
     runtime_ready=1
@@ -188,19 +188,23 @@ function reina_cmd_run() {
     if reina_storage_record_history "$REINA_PRESET_SLUG" "placeholder" "0" "$(reina_flags_human_summary)" "$(reina_network_mode)" "false" >/dev/null 2>&1; then
       history_recorded=1
     else
-      log_warn "no se pudo registrar historial para $REINA_PRESET_SLUG"
+      reina_recover_last_error_as_degradation "history_skipped"
     fi
   fi
 
   if (( REINA_JSON )); then
     print -rn -- "{"
     print -rn -- "\"ok\":true,"
+    print -rn -- "\"degraded\":$(reina_error_json_bool "$([[ "${REINA_RESULT_STATUS:-ok}" == "degraded" ]] && print 1 || print 0)"),"
+    print -rn -- "\"status\":\"$(reina_error_json_escape "${REINA_RESULT_STATUS:-ok}")\","
     print -rn -- "\"command\":\"run\","
     print -rn -- "\"dry_run\":$(reina_json_bool "$REINA_DRY_RUN"),"
     print -rn -- "\"implementation\":\"placeholder\","
     print -rn -- "\"history_recorded\":$(reina_json_bool "$history_recorded"),"
     print -rn -- "\"preset\":$(reina_preset_json),"
     print -rn -- "\"context\":$(reina_context_json "$runtime_ready"),"
+    print -rn -- "\"warnings\":$(reina_error_records_json warnings),"
+    print -rn -- "\"degradations\":$(reina_error_records_json degradations),"
     print -rn -- "\"message\":\"$(reina_json_escape "flujo base preparado; logica especifica pendiente")\""
     print -- "}"
     return 0
@@ -220,6 +224,7 @@ function reina_cmd_run() {
   print -- ""
   reina_context_print_human "$runtime_ready"
   print -- "  history_recorded: $(reina_json_bool "$history_recorded")"
+  print -- "  status: ${REINA_RESULT_STATUS:-ok}"
   print -- ""
   print -- "Estado: flujo base preparado; logica especifica pendiente."
 }
@@ -230,16 +235,26 @@ function reina_cmd_net_check() {
   local status_code=0
 
   if (( $# > 1 )); then
-    reina_fail ERR_USAGE "reina net-check acepta cero o un endpoint"
+    reina_fail ERR_CLI_USAGE "reina net-check acepta cero o un endpoint" "cli" "command=net-check args=$*"
     return $?
   fi
 
   reina_network_check "$endpoint"
   status_code=$?
 
+  if [[ "${REINA_RESULT_STATUS:-ok}" == "failed" ]]; then
+    return "$status_code"
+  fi
+
   if (( REINA_JSON )); then
-    reina_network_result_json
-    print -- ""
+    print -rn -- "{"
+    print -rn -- "\"ok\":$(reina_error_json_bool "$([[ "$REINA_NETWORK_LAST_STATUS" == "available" || "$REINA_NETWORK_LAST_STATUS" == "offline" ]] && print 1 || print 0)"),"
+    print -rn -- "\"degraded\":$(reina_error_json_bool "$([[ "$REINA_NETWORK_LAST_STATUS" == "degraded" ]] && print 1 || print 0)"),"
+    print -rn -- "\"status\":\"$(reina_error_json_escape "$REINA_NETWORK_LAST_STATUS")\","
+    print -rn -- "\"network\":$(reina_network_result_json),"
+    print -rn -- "\"warnings\":$(reina_error_records_json warnings),"
+    print -rn -- "\"degradations\":$(reina_error_records_json degradations)"
+    print -- "}"
 
     if [[ "$REINA_NETWORK_LAST_STATUS" == "offline" ]]; then
       return 0
@@ -280,7 +295,7 @@ function reina_main() {
   case "$command" in
     help|-h|--help)
       if (( ${#rest[@]} > 0 )); then
-        reina_fail ERR_USAGE "reina help no acepta argumentos posicionales"
+        reina_fail ERR_CLI_USAGE "reina help no acepta argumentos posicionales" "cli" "command=help args=$*"
         return $?
       fi
       reina_cmd_help
@@ -308,7 +323,7 @@ function reina_main() {
       ;;
     *)
       if (( ${#rest[@]} > 0 )); then
-        reina_fail ERR_COMMAND_INVALID "comando invalido o argumentos extra: $command"
+        reina_fail ERR_CLI_INVALID_COMMAND "comando invalido o argumentos extra: $command" "cli" "command=$command args=${rest[*]}"
         return $?
       fi
 

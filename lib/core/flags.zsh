@@ -1,6 +1,10 @@
 function reina_flags_reset() {
   emulate -L zsh
 
+  if whence -w reina_error_reset >/dev/null 2>&1; then
+    reina_error_reset
+  fi
+
   typeset -gx REINA_DEBUG=0
   typeset -gx REINA_OFFLINE=0
   typeset -gx REINA_QUIET=0
@@ -40,7 +44,7 @@ function reina_parse_global_flags() {
         break
         ;;
       --*)
-        reina_fail ERR_USAGE "flag global no soportada: $1"
+        reina_fail ERR_INPUT_INVALID_FLAG "flag global no soportada: $1" "cli" "flag=$1"
         return $?
         ;;
       *)

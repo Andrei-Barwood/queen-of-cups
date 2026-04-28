@@ -21,6 +21,7 @@ El cierre del Dia 1 deja lista la base del sistema:
 ./bin/reina net-check --offline
 make test
 zsh tests/smoke_reina.zsh
+zsh tests/errors_service.zsh
 zsh tests/network_service.zsh
 zsh tests/storage_service.zsh
 zsh tests/distribution_install.zsh
@@ -48,6 +49,7 @@ make uninstall PREFIX="$HOME/.local"
 - `network`, `storage` y `errors` viven en servicios compartidos; los presets no reinventan esas capas
 - `network` usa `curl` como cliente primario y respeta `--offline` como politica real
 - `storage` separa config, cache, state, historial, snapshots, temporales y locks
+- `errors` formaliza estados `ok`, `degraded` y `failed` con JSON estable y exit codes consistentes
 - runtime preferido en XDG, fallback local en `.reina/` y raices configurables con `REINA_CONFIG_ROOT`, `REINA_CACHE_ROOT` y `REINA_STATE_ROOT`
 - distribucion local mediante `scripts/install.zsh`, `scripts/uninstall.zsh`, `make install` y `make dist`
 
@@ -73,6 +75,6 @@ tests/
 
 ## Estado actual
 
-El Dia 4 deja `storage` como servicio compartido con config, cache, historial, snapshots, locks, atomic writes y pruning basico. El repo tambien queda preparado para distribucion local con version, instalador, desinstalador, tarball y prueba de instalacion. `network` ya usa storage para cache/fallback offline, y `run` todavia ejecuta un placeholder mientras prepara contexto real para presets futuros.
+El Dia 5 deja `errors` como contrato formal para runner, network y storage: fallos fatales, warnings recuperables, degradaciones por fallback, JSON estructurado y exit codes estables. `run` todavia ejecuta un placeholder mientras prepara contexto real para presets futuros.
 
 Mas detalles en `docs/distribution.md`.

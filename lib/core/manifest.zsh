@@ -17,7 +17,7 @@ function reina_manifest_record_to_preset() {
     REINA_PRESET_NOTES <<< "$record"
 
   if [[ -z "${REINA_PRESET_SLUG:-}" ]]; then
-    reina_fail ERR_MANIFEST_INVALID "no se pudo cargar el preset desde el manifiesto"
+    reina_fail ERR_RUNTIME_MANIFEST_INVALID "no se pudo cargar el preset desde el manifiesto" "manifest" "path=$REINA_MANIFEST_PATH"
     return $?
   fi
 
@@ -59,7 +59,7 @@ function reina_manifest_validate() {
   emulate -L zsh
 
   if [[ ! -f "$REINA_MANIFEST_PATH" ]]; then
-    reina_fail ERR_MANIFEST_MISSING "manifest no encontrado en $REINA_MANIFEST_PATH"
+    reina_fail ERR_RUNTIME_MANIFEST_MISSING "manifest no encontrado en $REINA_MANIFEST_PATH" "manifest" "path=$REINA_MANIFEST_PATH"
     return $?
   fi
 
@@ -68,7 +68,7 @@ function reina_manifest_validate() {
   expected="$(reina_manifest_expected_header)"
 
   if [[ "$header" != "$expected" ]]; then
-    reina_fail ERR_MANIFEST_INVALID "header invalido en presets/manifest.tsv"
+    reina_fail ERR_RUNTIME_MANIFEST_INVALID "header invalido en presets/manifest.tsv" "manifest" "path=$REINA_MANIFEST_PATH" "expected=$expected got=$header"
     return $?
   fi
 
@@ -89,7 +89,7 @@ function reina_manifest_validate() {
       }
     ' "$REINA_MANIFEST_PATH" 2>&1 >/dev/null
   )"; then
-    reina_fail ERR_MANIFEST_INVALID "${reason}"
+    reina_fail ERR_RUNTIME_MANIFEST_INVALID "${reason}" "manifest" "path=$REINA_MANIFEST_PATH"
     return $?
   fi
 
@@ -152,7 +152,7 @@ function reina_resolve_preset_to_global() {
 
   match_count="$(print -r -- "$matches" | awk 'END { print NR }')"
   if (( match_count > 1 )); then
-    reina_fail ERR_ALIAS_AMBIGUOUS "identificador ambiguo: $needle"
+    reina_fail ERR_PRESET_ALIAS_AMBIGUOUS "identificador ambiguo: $needle" "preset" "identifier=$needle"
     return $?
   fi
 

@@ -61,7 +61,7 @@
 - Los aliases excepcionales se registran en `presets/aliases.tsv`.
 - El manifiesto mantiene una vista compacta de aliases por preset.
 - El runner del Dia 2 resuelve `slug`, alias explicito y `display_name` normalizado cuando no introduzca ambiguedad.
-- Si un alias o nombre normalizado apunta a mas de una entrada, el runner debe fallar con `ERR_ALIAS_AMBIGUOUS`.
+- Si un alias o nombre normalizado apunta a mas de una entrada, el runner debe fallar con `ERR_PRESET_ALIAS_AMBIGUOUS`.
 - Si no hay coincidencia, el runner debe fallar con `ERR_PRESET_NOT_FOUND`.
 
 ## Comandos de inspeccion

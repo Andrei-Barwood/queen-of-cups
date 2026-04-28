@@ -51,6 +51,7 @@ scripts/
   uninstall.zsh
 tests/
   distribution_install.zsh
+  errors_service.zsh
   network_service.zsh
   storage_service.zsh
   smoke_reina.zsh
@@ -225,18 +226,82 @@ Reglas:
 
 ### Errors
 
-Interfaz compartida prevista:
+Filosofia:
+
+- Reina de Copas no debe colapsar ruidosamente salvo en fallos realmente fatales.
+- Todo resultado se expresa como `ok`, `degraded` o `failed`.
+- Un fallback exitoso no se esconde: termina con exit code `0`, pero marca `degraded=true`.
+- Warnings y degradaciones van por `stderr` en modo humano; en `--json` se serializan y no contaminan la salida principal.
+- `--quiet` oculta warnings/degradaciones no fatales; los errores fatales siguen saliendo.
+- `--debug` agrega `source`, `context`, `details`, fallback y exit code.
+
+Interfaz compartida:
 
 - `reina_error_code`
+- `reina_error_kind`
 - `reina_error_message`
+- `reina_error_record`
+- `reina_error_json`
+- `reina_error_result_json`
+- `reina_warn`
+- `reina_degrade`
+- `reina_recover_last_error_as_degradation`
 - `reina_fail`
+
+Contrato de error:
+
+- `code`: clave estable `ERR_*`
+- `kind`: `CLI`, `PRESET`, `NETWORK`, `STORAGE`, `INPUT`, `RUNTIME` o `INTERNAL`
+- `message`: texto humano corto
+- `details`: detalle tecnico opcional, visible con `--debug` o JSON
+- `source`: componente que reporta el fallo
+- `context`: identificador util para depurar
+- `fatal`: `true|false`
+- `fallback_applied`: `true|false`
+- `exit_code`: codigo numerico estable
+
+Taxonomia:
+
+- CLI: `ERR_CLI_USAGE`, `ERR_CLI_INVALID_COMMAND`, `ERR_CLI_NOT_IMPLEMENTED`
+- PRESET: `ERR_PRESET_NOT_FOUND`, `ERR_PRESET_ALIAS_AMBIGUOUS`
+- NETWORK: `ERR_NETWORK_OFFLINE`, `ERR_NETWORK_TIMEOUT`, `ERR_NETWORK_UNREACHABLE`, `ERR_NETWORK_HTTP`, `ERR_NETWORK_EMPTY`, `ERR_NETWORK_INVALID_RESPONSE`, `ERR_NETWORK_DEPENDENCY_MISSING`
+- STORAGE: `ERR_STORE_INIT`, `ERR_STORE_NOT_FOUND`, `ERR_STORE_CORRUPT`, `ERR_STORE_WRITE`, `ERR_STORE_READ`, `ERR_STORE_PRUNE`, `ERR_STORE_LOCKED`, `ERR_STORE_RUNTIME_INVALID`
+- INPUT: `ERR_INPUT_ARGUMENT_MISSING`, `ERR_INPUT_INVALID_FLAG`
+- RUNTIME: `ERR_RUNTIME_VERSION_UNSUPPORTED`, `ERR_RUNTIME_DEPENDENCY_MISSING`, `ERR_RUNTIME_MANIFEST_MISSING`, `ERR_RUNTIME_MANIFEST_INVALID`
+- INTERNAL: `ERR_INTERNAL`
+
+Formato JSON fatal minimo:
+
+```json
+{
+  "ok": false,
+  "degraded": false,
+  "status": "failed",
+  "code": "ERR_PRESET_NOT_FOUND",
+  "message": "preset no encontrado: ejemplo",
+  "source": "preset",
+  "context": "identifier=ejemplo",
+  "exit_code": 3,
+  "error": {}
+}
+```
+
+Politica de fallback:
+
+- Si falla network y existe `cache_key`, se intenta cache antes de fallar.
+- Si `--offline` encuentra cache local, la operacion termina degradada con `source=cache`.
+- Si falta config opcional, se usan defaults sin marcar fallo fatal.
+- Si una config opcional esta corrupta, se ignora esa entrada y se registra degradacion.
+- Si falla un historial o snapshot no critico, el runner puede continuar y recuperar el fallo como degradacion.
+- Ningun fallback debe ocultar fallos graves ni cambiar un `failed` fatal por `ok` sin registrar degradacion.
 
 Reglas:
 
 - Todo error controlado usa una clave `ERR_*`.
 - El mensaje por defecto es corto y humano.
-- El detalle fino queda reservado para niveles futuros de debug.
+- El detalle fino queda reservado para `--debug` y JSON.
 - Los exit codes expresan categoria; la clave `ERR_*` expresa semantica.
+- Runner, network, storage y futuros presets deben usar este modulo como unica salida de errores controlados.
 
 ## Runner CLI
 
@@ -266,7 +331,7 @@ Precedencia:
 - `--quiet` reduce logs no esenciales.
 - `--debug` sigue mostrando logs de debug en `stderr` aunque `--quiet` este activo.
 - `--version` se normaliza al comando `version`.
-- `--json` afecta la salida principal del comando, no los errores controlados.
+- `--json` afecta la salida principal del comando y serializa errores controlados como JSON.
 - `--offline` modifica el contexto compartido de `network`.
 - `--dry-run` prepara el flujo de ejecucion sin escribir historial ni snapshots.
 
@@ -278,7 +343,7 @@ El runner resuelve presets mediante `reina_resolve_preset`, usando este orden co
 - alias explicito registrado en el manifiesto
 - `display_name` normalizado cuando no introduce ambiguedad
 
-Si un identificador coincide con mas de una entrada, el runner responde con `ERR_ALIAS_AMBIGUOUS`. Si no coincide con ninguna, responde con `ERR_PRESET_NOT_FOUND`.
+Si un identificador coincide con mas de una entrada, el runner responde con `ERR_PRESET_ALIAS_AMBIGUOUS`. Si no coincide con ninguna, responde con `ERR_PRESET_NOT_FOUND`.
 
 ## Contexto de ejecucion
 
@@ -290,20 +355,20 @@ Si un identificador coincide con mas de una entrada, el runner responde con `ERR
 - `errors`: contrato compartido
 - `preset`: metadata resuelta desde `presets/manifest.tsv`
 
-En el Dia 4, `run` sigue ejecutando un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada, contexto de red completo y storage inicializado. Cuando no se usa `--dry-run`, el runner registra una entrada simple de historial.
+En el Dia 5, `run` sigue ejecutando un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada, contexto de red completo, storage inicializado y estado `ok|degraded|failed`. Cuando no se usa `--dry-run`, el runner registra una entrada simple de historial.
 
 ## Politica base de exit codes
 
 | Codigo | Categoria |
 | --- | --- |
 | `0` | exito |
-| `1` | fallo interno no clasificado |
-| `2` | uso invalido, comando invalido o comando aun no habilitado |
-| `3` | preset no encontrado o alias ambiguo |
-| `4` | manifiesto o dato estructurado invalido |
-| `5` | version, dependencia o red no disponible |
-| `6` | fallo de storage o filesystem |
-| `10-19` | reservado para errores controlados especificos de presets |
+| `1` | fallo generico controlado |
+| `2` | uso invalido, input invalido o argumentos incorrectos |
+| `3` | preset o recurso no encontrado |
+| `4` | fallo de red |
+| `5` | fallo de almacenamiento |
+| `6` | dependencia faltante o entorno invalido |
+| `7` | estado interno inconsistente |
 
 ## Ejemplos minimos
 
@@ -329,6 +394,10 @@ reina net-check --json
 ## Nota de implementacion del Dia 4
 
 Storage queda como memoria compartida del sistema: crea runtime, lee/escribe config, cache, historial y snapshots, y ofrece locks, atomic writes y pruning basico. Network ya persiste cache a traves de storage, por lo que `--offline` puede usar respuestas locales cuando existe una clave de cache.
+
+## Nota de implementacion del Dia 5
+
+Errors queda como contrato formal para runner, network y storage. `reina_fail` emite fallos fatales con exit codes estables, `reina_warn` registra advertencias recuperables y `reina_degrade` marca fallbacks visibles. Network degrada a cache cuando corresponde, storage diferencia config opcional de fallo fatal, y `--json`, `--quiet` y `--debug` tienen comportamiento definido frente a errores.
 
 ## Distribucion
 

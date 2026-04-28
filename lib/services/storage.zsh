@@ -108,12 +108,14 @@ function reina_storage_preset_config_dir() {
 
 function reina_storage_set_error() {
   emulate -L zsh
-  local key="${1:-ERR_STORAGE_FAILURE}"
+  local key="${1:-ERR_STORE_FAILURE}"
   local message="${2:-$(reina_error_message "$key")}"
+  local context="${3:-category=${REINA_STORE_LAST_CATEGORY:-} key=${REINA_STORE_LAST_KEY:-} scope=${REINA_STORE_LAST_SCOPE:-}}"
+  local details="${4:-path=${REINA_STORE_LAST_PATH:-}}"
 
   typeset -gx REINA_STORE_LAST_STATUS="error"
   typeset -gx REINA_STORE_LAST_ERROR="$key"
-  reina_fail "$key" "$message"
+  reina_fail "$key" "$message" "storage" "$context" "$details"
 }
 
 function reina_storage_reset_result() {
@@ -156,7 +158,7 @@ function reina_storage_init() {
   typeset -gx REINA_STORE_RUNTIME_DIR="$(reina_storage_runtime_dir)"
 
   if ! mkdir -p "${dirs[@]}"; then
-    reina_storage_set_error ERR_STORE_INIT "no se pudo inicializar el runtime de storage"
+    reina_storage_set_error ERR_STORE_INIT "no se pudo inicializar el runtime de storage" "runtime=init" "config=$(reina_storage_config_dir) cache=$(reina_storage_cache_dir) state=$(reina_storage_state_dir)"
     return $?
   fi
 
@@ -301,19 +303,19 @@ function reina_storage_put() {
   reina_storage_reset_result
 
   body_path="$(reina_storage_body_path "$category" "$key" "$scope")" || {
-    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category"
+    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category" "category=$category key=$key scope=$scope"
     return $?
   }
   meta_path="$(reina_storage_meta_path "$category" "$key" "$scope")" || return $?
   meta_text="$(reina_storage_meta_text "$category" "$key" "$scope" "$ttl" "$origin")"
 
   if ! reina_storage_atomic_write "$body_path" "$value"; then
-    reina_storage_set_error ERR_STORE_WRITE "no se pudo escribir $body_path"
+    reina_storage_set_error ERR_STORE_WRITE "no se pudo escribir $body_path" "category=$category key=$key scope=$scope" "path=$body_path"
     return $?
   fi
 
   if ! reina_storage_atomic_write "$meta_path" "$meta_text"; then
-    reina_storage_set_error ERR_STORE_WRITE "no se pudo escribir metadata de $body_path"
+    reina_storage_set_error ERR_STORE_WRITE "no se pudo escribir metadata de $body_path" "category=$category key=$key scope=$scope" "path=$meta_path"
     return $?
   fi
 
@@ -337,23 +339,23 @@ function reina_storage_get() {
   reina_storage_reset_result
 
   body_path="$(reina_storage_body_path "$category" "$key" "$scope")" || {
-    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category"
+    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category" "category=$category key=$key scope=$scope"
     return $?
   }
   meta_path="$(reina_storage_meta_path "$category" "$key" "$scope")" || return $?
 
   if [[ -d "$body_path" || -d "$meta_path" ]]; then
-    reina_storage_set_error ERR_STORE_CORRUPT "entrada corrupta en storage: $category/$key"
+    reina_storage_set_error ERR_STORE_CORRUPT "entrada corrupta en storage: $category/$key" "category=$category key=$key scope=$scope" "path=$body_path meta=$meta_path"
     return $?
   fi
 
   if [[ ! -f "$body_path" ]]; then
-    reina_storage_set_error ERR_STORE_NOT_FOUND "entrada no encontrada: $category/$key"
+    reina_storage_set_error ERR_STORE_NOT_FOUND "entrada no encontrada: $category/$key" "category=$category key=$key scope=$scope" "path=$body_path"
     return $?
   fi
 
   if ! REINA_STORE_LAST_VALUE="$(<"$body_path")"; then
-    reina_storage_set_error ERR_STORE_READ "no se pudo leer $body_path"
+    reina_storage_set_error ERR_STORE_READ "no se pudo leer $body_path" "category=$category key=$key scope=$scope" "path=$body_path"
     return $?
   fi
 
@@ -389,7 +391,7 @@ function reina_storage_delete() {
   meta_path="$(reina_storage_meta_path "$category" "$key" "$scope")" || return $?
 
   rm -f "$body_path" "$meta_path" || {
-    reina_storage_set_error ERR_STORE_WRITE "no se pudo borrar $category/$key"
+    reina_storage_set_error ERR_STORE_WRITE "no se pudo borrar $category/$key" "category=$category key=$key scope=$scope" "path=$body_path"
     return $?
   }
 }
@@ -402,7 +404,7 @@ function reina_storage_list() {
   local -a body_paths
 
   dir="$(reina_storage_category_dir "$category" "$scope")" || {
-    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category"
+    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category" "category=$category scope=$scope"
     return $?
   }
 
@@ -433,7 +435,7 @@ function reina_storage_prune() {
 
   reina_storage_init || return $?
   dir="$(reina_storage_category_dir "$category" "$scope")" || {
-    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category"
+    reina_storage_set_error ERR_STORE_RUNTIME_INVALID "categoria de storage invalida: $category" "category=$category scope=$scope"
     return $?
   }
   [[ -d "$dir" ]] || return 0
@@ -450,7 +452,7 @@ function reina_storage_prune() {
     age=$(( now - created ))
     if (( age > ttl )); then
       rm -f "$body_path" "$meta_path" || {
-        reina_storage_set_error ERR_STORE_PRUNE "no se pudo limpiar $body_path"
+        reina_storage_set_error ERR_STORE_PRUNE "no se pudo limpiar $body_path" "category=$category scope=$scope" "path=$body_path"
         return $?
       }
     fi
@@ -478,6 +480,8 @@ function reina_storage_record_history() {
   local flags="${4:-}"
   local network_mode="${5:-unknown}"
   local degraded="${6:-false}"
+  local error_code="${7:-}"
+  local fallback="${8:-}"
   local timestamp key value
 
   timestamp="$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
@@ -489,6 +493,8 @@ function reina_storage_record_history() {
   value+=$'result='"$result"$'\n'
   value+=$'exit_code='"$exit_code"$'\n'
   value+=$'degraded='"$degraded"$'\n'
+  value+=$'error_code='"$error_code"$'\n'
+  value+=$'fallback='"$fallback"$'\n'
 
   reina_storage_put history "$key" "$value" "$preset" 0 "runner"
 }
@@ -523,7 +529,7 @@ function reina_storage_lock() {
   fi
 
   if ! mkdir "$lock_dir" 2>/dev/null; then
-    reina_storage_set_error ERR_STORE_LOCKED "storage bloqueado: $key"
+    reina_storage_set_error ERR_STORE_LOCKED "storage bloqueado: $key" "lock=$key" "path=$lock_dir"
     return $?
   fi
 
@@ -534,7 +540,7 @@ function reina_storage_lock() {
     print -- "ttl_seconds=$ttl"
   } > "$lock_dir/meta" || {
     rm -rf "$lock_dir"
-    reina_storage_set_error ERR_STORE_WRITE "no se pudo escribir lock $key"
+    reina_storage_set_error ERR_STORE_WRITE "no se pudo escribir lock $key" "lock=$key" "path=$lock_dir/meta"
     return $?
   }
 
@@ -556,14 +562,38 @@ function reina_storage_config_get() {
   local key="${1:-}"
   local preset="${2:-}"
   local default="${3:-}"
+  local scope body_path meta_path
 
-  if [[ -n "$preset" ]] && reina_storage_get config "$key" "$preset" >/dev/null 2>&1; then
-    return 0
-  fi
+  reina_storage_init || return $?
+  reina_storage_reset_result
 
-  if reina_storage_get config "$key" global >/dev/null 2>&1; then
+  for scope in "$preset" global; do
+    [[ -n "$scope" ]] || continue
+
+    body_path="$(reina_storage_body_path config "$key" "$scope")" || continue
+    meta_path="$(reina_storage_meta_path config "$key" "$scope")" || continue
+
+    if [[ -d "$body_path" || -d "$meta_path" ]]; then
+      reina_degrade ERR_STORE_CORRUPT "config corrupta ignorada; usando fallback" "storage" "key=$key scope=$scope" "config_fallback" "path=$body_path"
+      continue
+    fi
+
+    [[ -f "$body_path" ]] || continue
+
+    if ! REINA_STORE_LAST_VALUE="$(<"$body_path")"; then
+      reina_degrade ERR_STORE_READ "config ilegible ignorada; usando fallback" "storage" "key=$key scope=$scope" "config_fallback" "path=$body_path"
+      continue
+    fi
+
+    REINA_STORE_LAST_STATUS="ok"
+    REINA_STORE_LAST_PATH="$body_path"
+    REINA_STORE_LAST_META_PATH="$meta_path"
+    REINA_STORE_LAST_CATEGORY="config"
+    REINA_STORE_LAST_KEY="$key"
+    REINA_STORE_LAST_SCOPE="$scope"
+    REINA_STORE_LAST_SOURCE="storage"
     return 0
-  fi
+  done
 
   REINA_STORE_LAST_STATUS="default"
   REINA_STORE_LAST_KEY="$key"

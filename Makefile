@@ -21,6 +21,7 @@ syntax:
 
 test: syntax
 	@zsh tests/smoke_reina.zsh
+	@zsh tests/errors_service.zsh
 	@zsh tests/network_service.zsh
 	@zsh tests/storage_service.zsh
 	@zsh tests/distribution_install.zsh

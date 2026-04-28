@@ -4,7 +4,7 @@ function reina_bootstrap() {
 
   autoload -Uz is-at-least
   if ! is-at-least 5.4; then
-    reina_fail ERR_VERSION_UNSUPPORTED "Reina de Copas requiere zsh 5.4 o superior"
+    reina_fail ERR_RUNTIME_VERSION_UNSUPPORTED "Reina de Copas requiere zsh 5.4 o superior" "runtime" "zsh=$ZSH_VERSION"
     return $?
   fi
 

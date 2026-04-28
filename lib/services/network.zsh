@@ -85,10 +85,12 @@ function reina_network_set_error() {
   emulate -L zsh
   local key="${1:-ERR_NETWORK_UNREACHABLE}"
   local message="${2:-$(reina_error_message "$key")}"
+  local context="${3:-endpoint=${REINA_NETWORK_LAST_ENDPOINT:-}}"
+  local details="${4:-attempts=${REINA_NETWORK_LAST_ATTEMPTS:-0} http_status=${REINA_NETWORK_LAST_HTTP_STATUS:-}}"
 
   REINA_NETWORK_LAST_STATUS="error"
   REINA_NETWORK_LAST_ERROR="$key"
-  reina_fail "$key" "$message"
+  reina_fail "$key" "$message" "network" "$context" "$details"
 }
 
 function reina_network_elapsed_ms() {
@@ -136,7 +138,11 @@ function reina_network_read_cache() {
   reina_storage_exists cache "$safe_key" network || return 1
   reina_storage_get cache "$safe_key" network >/dev/null 2>&1 || return 1
 
-  REINA_NETWORK_LAST_STATUS="ok"
+  if [[ "${REINA_OFFLINE:-0}" == "1" ]]; then
+    REINA_NETWORK_LAST_STATUS="degraded"
+  else
+    REINA_NETWORK_LAST_STATUS="ok"
+  fi
   REINA_NETWORK_LAST_SOURCE="cache"
   REINA_NETWORK_LAST_BODY="$REINA_STORE_LAST_VALUE"
   if [[ -f "$REINA_STORE_LAST_META_PATH" ]]; then
@@ -149,6 +155,9 @@ function reina_network_read_cache() {
   REINA_NETWORK_LAST_ERROR=""
 
   log_debug "network cache hit key=$safe_key"
+  if [[ "${REINA_OFFLINE:-0}" == "1" ]]; then
+    reina_degrade ERR_NETWORK_OFFLINE "network offline; usando cache local" "network" "cache_key=$safe_key" "cache" "source=cache"
+  fi
   return 0
 }
 
@@ -250,14 +259,14 @@ function reina_network_request() {
   local timeout="${4:-$REINA_NETWORK_TIMEOUT}"
   local retries="${5:-$REINA_NETWORK_RETRIES}"
   local cache_key="${6:-}"
-  local attempt=0 max_attempts error_key message
+  local attempt=0 max_attempts error_key message fallback_error
 
   reina_network_init
   reina_network_reset_result
   REINA_NETWORK_LAST_ENDPOINT="$endpoint"
 
   if [[ -z "$endpoint" ]]; then
-    reina_network_set_error ERR_USAGE "falta endpoint para operacion de red"
+    reina_network_set_error ERR_CLI_USAGE "falta endpoint para operacion de red" "method=$method"
     return $?
   fi
 
@@ -268,7 +277,7 @@ function reina_network_request() {
 
     REINA_NETWORK_LAST_STATUS="offline"
     REINA_NETWORK_LAST_SOURCE="offline"
-    reina_network_set_error ERR_NETWORK_OFFLINE "network bloqueado por --offline y no hay cache disponible"
+    reina_network_set_error ERR_NETWORK_OFFLINE "network bloqueado por --offline y no hay cache disponible" "endpoint=$endpoint cache_key=$cache_key" "fallback=cache_miss"
     return $?
   fi
 
@@ -313,6 +322,14 @@ function reina_network_request() {
       message="endpoint inaccesible: $endpoint"
       ;;
   esac
+
+  fallback_error="$REINA_NETWORK_LAST_ERROR"
+  if [[ -n "$cache_key" ]] && reina_network_read_cache "$cache_key"; then
+    REINA_NETWORK_LAST_STATUS="degraded"
+    REINA_NETWORK_LAST_SOURCE="cache"
+    reina_degrade "$fallback_error" "network fallo; usando cache local" "network" "endpoint=$endpoint cache_key=$cache_key" "cache" "attempts=$REINA_NETWORK_LAST_ATTEMPTS"
+    return 0
+  fi
 
   reina_network_set_error "$REINA_NETWORK_LAST_ERROR" "$message"
 }
@@ -388,6 +405,7 @@ function reina_network_check() {
   REINA_NETWORK_LAST_STATUS="degraded"
   REINA_NETWORK_LAST_SOURCE="remote"
   REINA_NETWORK_LAST_ERROR="$error_key"
+  reina_degrade "$error_key" "healthcheck de red degradado" "network" "endpoint=$endpoint" "diagnostic_only" "http_status=${REINA_NETWORK_LAST_HTTP_STATUS:-}"
   log_debug "network check degraded endpoint=$endpoint error=$error_key"
   return 1
 }
