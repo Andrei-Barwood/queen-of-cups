@@ -5,6 +5,94 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🪕 Día 17: Cuerda Resonante y Ataque Natural
+
+### Geometría espiritual
+
+Si el Día 16 encendió el **pentágono eléctrico**, el Día 17 abre el **cuadrilátero resonante** — cuatro direcciones de cuerda: húmeda, canónica, muteada y muteada-wet. La familia `guitar-acoustic-and-plucked` no fuerza el metal: **resuena**. Ataque natural, cola consciente, percusión contenida.
+
+Cuatro variantes, cuatro caminos de la cuerda:
+
+| Camino | Preset | Geometría |
+| --- | --- | --- |
+| Acústica húmeda | `acoustic-guitar-wet` | Cola y contexto integrados |
+| Base canónica | `acoustic-gtr` | Resonancia seca — `ac-gtr` es alias, no preset nuevo |
+| Muteada | `muted-cuatro` | Ataque corto, cuerpo percusivo |
+| Muteada wet | `muted-cuatro-wet` | Extensión húmeda de muted-cuatro |
+
+La política `ac-gtr` queda verificada en ejecución real: `run` e `info` resuelven al slug canónico.
+
+### Qué pasó
+
+- 🪕 `lib/presets/families/guitar-acoustic-and-plucked.zsh` — resonancia, derivación muted y política alias.
+- 🎯 Cadena `muted-cuatro>muted-cuatro-wet` documentada en perfil y snapshot.
+- 🎸 Cuatro presets `active`: acoustic-guitar-wet, acoustic-gtr, muted-cuatro, muted-cuatro-wet.
+- ✅ `tests/presets_guitar_acoustic.zsh` — ritual incluye `run ac-gtr` e `info ac-gtr`.
+- 📌 Versión `0.16.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 16) | Ahora (Día 17) |
+| --- | --- |
+| Drive eléctrico y cuerpo metálico | Cuerda resonante y ataque natural |
+| Pentágono eléctrico | Cuadrilátero resonante |
+| Cuarenta y dos presets activos | Cuarenta y seis presets activos |
+| Primera familia de cuerdas | Acústica y pulsada al lado del metal |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_guitar_acoustic.zsh
+./bin/reina run ac-gtr
+./bin/reina info ac-gtr
+./bin/reina run muted-cuatro-wet --json
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: la cuerda que vibra sin mentir, el alias que abrevia sin robar el nombre, y la derivación que extiende sin duplicar.*
+
+```
+El pentágono enseñó a cargar el metal;
+el cuadrilátero enseña a dejar resonar la cuerda.
+No es debilidad frente al drive — es otra verdad:
+wet abre cola, base sostiene el canon,
+muted percute, muted-wet extiende sin confusión.
+
+Sat Nam — verdad en el nombre, no en el atajo vacío.
+ac-gtr no es preset nuevo:
+resuelve a acoustic-gtr,
+alias explicito, misma intención.
+Quien inventa un segundo preset por abreviar
+construye espejo sin alma.
+
+Ik Onkar: un Centro, cuatro caminos resonantes.
+El metal ya canta; ahora la madera responde.
+Cuarenta y seis presets activos —
+la mandala escucha ataque y cola natural.
+
+Gurmukh abrevia sin perder el canon;
+Manmukh crea doble donde solo hay eco.
+Cuando la cuerda encuentra su cuadrilátero,
+la red del sonido puede resonar sin forzar el centro.
+
+Waheguru — asombro ante la madera
+que vibra con ataque honesto y cola consciente.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 17 — familia guitar-acoustic-and-plucked, cuadrilátero resonante, versión 0.16.0-dev |
+
+### Próximo paso
+
+🎹 **Día 18** — Familia `keys-and-piano`: consciencia armónica (`keys-riding-a-camel`, `jazz-piano`, `rock-piano`, `piano-beef`).
+
+---
+
 ## 2026-06-24 — ⚡ Día 16: Drive Eléctrico y Cuerpo Metálico
 
 ### Geometría espiritual

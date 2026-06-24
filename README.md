@@ -34,9 +34,10 @@ Día 13     🎛️ Octágono experimental — capas paralelas con degradación 
 Día 14     🥾 Punto cardinal — la familia drum-pieces-core ancla kick y snare
 Día 15     🌬️ Hexágono del aire — la familia drum-detail-and-space abre overheads, room y fills
 Día 16     ⚡ Pentágono eléctrico — la familia guitar-heavy-and-electric carga drive y cuerpo metálico
+Día 17     🪕 Cuadrilátero resonante — la familia guitar-acoustic-and-plucked abre ataque y cola natural
 ```
 
-**Versión actual:** `0.15.0-dev` · **Día 16** · **42 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.16.0-dev` · **Día 17** · **46 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -54,10 +55,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | `drum-pieces-core` | `kick`, `kick-2`, `snare`, `urban-snare`, `urban-snare-tighter` | Punto cardinal — anchor, accent, variantes semánticas |
 | `drum-detail-and-space` | `hats`, `drums-overheads`, `ohs`, `trash-drum-room`, `drum-room-smash`, `fill-kollin` | Hexágono del aire — detail, overheads, room, fill |
 | `guitar-heavy-and-electric` | `heavy-bright-guitar`, `heavy-guitar-with-reverb`, `wildin-camel-guitar`, `el-gtr-driver`, `gtr` | Pentágono eléctrico — bright, reverb, wild, driver, base |
+| `guitar-acoustic-and-plucked` | `acoustic-guitar-wet`, `acoustic-gtr`, `muted-cuatro`, `muted-cuatro-wet` | Cuadrilátero resonante — wet, base, muted, muted-wet |
 
-Las familias de batería van del **cuadrado** al **octágono** al **punto cardinal** al **hexágono del aire**. La primera familia de cuerdas enciende el **pentágono eléctrico** — `gtr` y `el-gtr-driver` son presets distintos.
+Las cuerdas van del **pentágono eléctrico** al **cuadrilátero resonante**. `ac-gtr` es alias de `acoustic-gtr` — no un preset nuevo.
 
-Los **11 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **7 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -182,10 +184,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `drum-pieces-core` (Día 14) | ✅ 5 presets `active` |
 | Familia `drum-detail-and-space` (Día 15) | ✅ 6 presets `active` |
 | Familia `guitar-heavy-and-electric` (Día 16) | ✅ 5 presets `active` |
-| Resto del catálogo | 🪕 En `planned` — Días 17–19 por delante |
+| Familia `guitar-acoustic-and-plucked` (Día 17) | ✅ 4 presets `active` |
+| Resto del catálogo | 🎹 En `planned` — Días 18–19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal, hexágono del aire y pentágono eléctrico. Lo que sigue es la cuerda resonante.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal, hexágono del aire, pentágono eléctrico y cuadrilátero resonante. Lo que sigue es la consciencia armónica.*
 
-🪕 **Próximo paso:** Día 17 — familia `guitar-acoustic-and-plucked`
+🎹 **Próximo paso:** Día 18 — familia `keys-and-piano`

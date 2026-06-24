@@ -56,20 +56,11 @@ assert_contains "$alias_info_output" "slug:         acoustic-gtr" "info resuelve
 run_output="$("$REINA_BIN" run bass-in-the-desert --dry-run 2>/dev/null)"
 assert_contains "$run_output" "result_status: ok" "run bass-in-the-desert ejecuta preset fundacional" || exit 1
 
-stderr_file="$(mktemp)"
-"$REINA_BIN" ac-gtr --dry-run --offline >/dev/null 2>"$stderr_file"
-exit_code=$?
-stderr_output="$(<"$stderr_file")"
-rm -f "$stderr_file"
+acgtr_output="$("$REINA_BIN" ac-gtr --dry-run --offline 2>/dev/null)"
+assert_contains "$acgtr_output" "result_status: ok" "forma corta ac-gtr ejecuta acoustic-gtr" || exit 1
+assert_contains "$acgtr_output" "slug:    acoustic-gtr" "forma corta resuelve slug canonico" || exit 1
 
-if [[ "$exit_code" -ne 3 ]]; then
-  print -u2 -- "FAIL: forma corta deberia fallar con preset no implementado y llego $exit_code"
-  exit 1
-fi
-
-assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "forma corta declara preset no implementado" || exit 1
-
-run_json_output="$("$REINA_BIN" --json run acoustic-guitar-wet 2>/dev/null)"
+run_json_output="$("$REINA_BIN" --json run keys-riding-a-camel 2>/dev/null)"
 assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa preset no implementado" || exit 1
 
 net_check_offline_output="$("$REINA_BIN" net-check --offline)"

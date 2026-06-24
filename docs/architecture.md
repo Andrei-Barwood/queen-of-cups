@@ -496,6 +496,14 @@ La familia `guitar-heavy-and-electric` purifica drive electrico y cuerpo metalic
 - `gtr` (base) y `el-gtr-driver` (driver) mantienen perfiles y transforms distintos
 - cinco presets pasan a `active`; cuarenta y dos presets activos en total
 
+## Nota de implementacion del Dia 17
+
+La familia `guitar-acoustic-and-plucked` purifica cuerda resonante y ataque natural:
+
+- `lib/presets/families/guitar-acoustic-and-plucked.zsh` define matriz de resonancia y derivacion muted-wet
+- alias `ac-gtr` resuelve a `acoustic-gtr` en `run` e `info` sin crear preset nuevo
+- cuatro presets pasan a `active`; cuarenta y seis presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

@@ -491,3 +491,45 @@ zsh tests/presets_guitar_heavy_and_electric.zsh
 ./bin/reina run el-gtr-driver
 ./bin/reina run gtr
 ```
+
+## Familia `guitar-acoustic-and-plucked` (Dia 17)
+
+Undecima familia implementada. Purifica la cuerda resonante: ataque natural, cola consciente, muteo percusivo.
+
+- core compartido en `lib/presets/families/guitar-acoustic-and-plucked.zsh`
+- variantes via `reina_family_guitar_acoustic_and_plucked_run`
+- matriz de resonancia via `reina_guitar_acoustic_and_plucked_resonance_matrix`
+
+### Politica de alias ac-gtr
+
+`ac-gtr` NO es preset nuevo. Resuelve a `acoustic-gtr` en runtime:
+
+```sh
+./bin/reina run ac-gtr
+./bin/reina info ac-gtr
+```
+
+### Cadena de derivacion muted
+
+| Origen | Extension | Cadena |
+| --- | --- | --- |
+| `muted-cuatro` | `muted-cuatro-wet` | `muted-cuatro>muted-cuatro-wet` |
+
+### Semantica de transformacion
+
+| Variante | Preset | Intencion |
+| --- | --- | --- |
+| `wet` | `acoustic-guitar-wet` | Acustica con cola y contexto |
+| `base` | `acoustic-gtr` | Preset acustico canonico (`ac-gtr` alias) |
+| `muted` | `muted-cuatro` | Cuatro muteada, percusiva y contenida |
+| `muted-wet` | `muted-cuatro-wet` | Extension humeda de muted-cuatro |
+
+### Validacion
+
+```sh
+zsh tests/presets_guitar_acoustic.zsh
+./bin/reina run acoustic-guitar-wet
+./bin/reina run ac-gtr
+./bin/reina run muted-cuatro --json
+./bin/reina run muted-cuatro-wet
+```

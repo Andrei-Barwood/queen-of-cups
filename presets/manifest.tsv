@@ -41,10 +41,10 @@ heavy guitar with reverb	heavy-guitar-with-reverb	guitar-heavy-and-electric	reve
 wildin camel guitar	wildin-camel-guitar	guitar-heavy-and-electric	wild	active	400	-	Variante electrica mas salvaje y desbordada.
 el gtr driver	el-gtr-driver	guitar-heavy-and-electric	driver	active	410	-	Preset de drive y empuje electrico.
 gtr	gtr	guitar-heavy-and-electric	base	active	420	-	Preset general de guitarra electrica hasta que la familia se refine mas.
-acoustic guitar wet	acoustic-guitar-wet	guitar-acoustic-and-plucked	wet	planned	430	-	Cuerda acustica con cola y contexto.
-acoustic gtr	acoustic-gtr	guitar-acoustic-and-plucked	base	planned	440	ac-gtr	Preset acustico canonico; ac-gtr queda como alias corto.
-muted cuatro	muted-cuatro	guitar-acoustic-and-plucked	muted	planned	450	-	Variante muteada y percusiva.
-muted cuatro wet	muted-cuatro-wet	guitar-acoustic-and-plucked	muted-wet	planned	460	-	Variante muteada con espacio adicional.
+acoustic guitar wet	acoustic-guitar-wet	guitar-acoustic-and-plucked	wet	active	430	-	Cuerda acustica con cola y contexto.
+acoustic gtr	acoustic-gtr	guitar-acoustic-and-plucked	base	active	440	ac-gtr	Preset acustico canonico; ac-gtr queda como alias corto.
+muted cuatro	muted-cuatro	guitar-acoustic-and-plucked	muted	active	450	-	Variante muteada y percusiva.
+muted cuatro wet	muted-cuatro-wet	guitar-acoustic-and-plucked	muted-wet	active	460	-	Variante muteada con espacio adicional.
 keys riding a camel	keys-riding-a-camel	keys-and-piano	base	planned	470	-	Preset general de teclas y lectura armonica.
 jazz piano	jazz-piano	keys-and-piano	jazz	planned	480	-	Piano con color jazz y lectura mas flexible.
 rock piano	rock-piano	keys-and-piano	rock	planned	490	-	Piano con empuje y ataque rock.

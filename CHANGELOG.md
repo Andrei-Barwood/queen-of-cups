@@ -9,8 +9,26 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 17–19).
+- Implementación de los presets restantes (Días 18–19).
 - Licencia pública explícita.
+
+## [0.16.0-dev] — 2026-06-24 — 🪕 Día 17: Cuerda Resonante y Ataque Natural
+
+> *La familia `guitar-acoustic-and-plucked` purifica la cuerda resonante: acústica húmeda, base canónica, cuatro muteada y derivación wet — con alias `ac-gtr` funcional en runtime.*
+
+### Añadido
+
+- Familia `guitar-acoustic-and-plucked`: `lib/presets/families/guitar-acoustic-and-plucked.zsh`.
+- Cuatro presets `active`: `acoustic-guitar-wet`, `acoustic-gtr`, `muted-cuatro`, `muted-cuatro-wet`.
+- Cadena de derivación `muted-cuatro` → `muted-cuatro-wet`.
+- Alias `ac-gtr` → `acoustic-gtr` verificado en `run` e `info`.
+- Tests: `tests/presets_guitar_acoustic.zsh`.
+
+### Cambiado
+
+- Smoke test valida ejecución real de `ac-gtr` en lugar de `ERR_PRESET_NOT_IMPLEMENTED`.
+- Tests de dispatcher e instalación usan `keys-riding-a-camel` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Cuarenta y seis presets activos en total.
 
 ## [0.15.0-dev] — 2026-06-24 — ⚡ Día 16: Drive Eléctrico y Cuerpo Metálico
 
