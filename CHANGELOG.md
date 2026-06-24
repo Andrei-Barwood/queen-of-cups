@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 15–19).
+- Implementación de los presets restantes (Días 16–19).
 - Licencia pública explícita.
+
+## [0.14.0-dev] — 2026-06-24 — 🌬️ Día 15: Aire y Espacio alrededor del Kit
+
+> *La familia `drum-detail-and-space` eleva la consciencia del aire: detalle superficial, overheads, room y fills — con `ohs` como preset propio, no alias.*
+
+### Añadido
+
+- Familia `drum-detail-and-space`: `lib/presets/families/drum-detail-and-space.zsh`.
+- Seis presets `active`: `hats`, `drums-overheads`, `ohs`, `trash-drum-room`, `drum-room-smash`, `fill-kollin`.
+- Política de independencia `ohs` vs `drums-overheads` verificada en perfiles y snapshots.
+- Tests: `tests/presets_drum_detail_and_space.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `heavy-bright-guitar` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Treinta y siete presets activos en total.
 
 ## [0.13.0-dev] — 2026-06-24 — 🥾 Día 14: Anclas del Pulso Primario
 

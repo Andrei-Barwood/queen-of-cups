@@ -423,3 +423,41 @@ zsh tests/presets_drum_pieces_core.zsh
 ./bin/reina run snare --json
 ./bin/reina run urban-snare-tighter
 ```
+
+## Familia `drum-detail-and-space` (Dia 15)
+
+Novena familia implementada. Eleva el aire alrededor del kit: microdetalle, overheads, room y fills.
+
+- core compartido en `lib/presets/families/drum-detail-and-space.zsh`
+- variantes via `reina_family_drum_detail_and_space_run`
+- matriz de espacio y detalle via `reina_drum_detail_and_space_space_matrix`
+
+### Politica de independencia ohs
+
+`ohs` NO es alias de `drums-overheads`. Comparten familia pero mantienen slug, variant, perfil y transform propios:
+
+| Preset | Variante | Relacion |
+| --- | --- | --- |
+| `drums-overheads` | `overheads-wide` | Perspectiva amplia; par compacto = `ohs` |
+| `ohs` | `overheads-compact` | Perspectiva compacta; `independence=not-alias-of-drums-overheads` |
+
+### Semantica de transformacion
+
+| Variante | Preset | Intencion |
+| --- | --- | --- |
+| `detail` | `hats` | Microdetalle, brillo y actividad superficial |
+| `overheads-wide` | `drums-overheads` | Perspectiva amplia y panoramica del kit |
+| `overheads-compact` | `ohs` | Overheads compactos con identidad propia |
+| `room-trash` | `trash-drum-room` | Room roto, sucio y agresivo |
+| `room-smash` | `drum-room-smash` | Room aplastado y dominante |
+| `fill` | `fill-kollin` | Transicion, adorno y movimiento interno |
+
+### Validacion
+
+```sh
+zsh tests/presets_drum_detail_and_space.zsh
+./bin/reina run hats
+./bin/reina run ohs --json
+./bin/reina run drums-overheads
+./bin/reina run fill-kollin
+```

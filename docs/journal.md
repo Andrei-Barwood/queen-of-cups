@@ -5,6 +5,99 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🌬️ Día 15: Aire y Espacio alrededor del Kit
+
+### Geometría espiritual
+
+Si el Día 14 fijó el **punto cardinal**, el Día 15 abre el **hexágono del aire** — seis direcciones de detalle y espacio alrededor del kit. La familia `drum-detail-and-space` no repite el centro: **respira**. Overheads, room, fills: la red percibe lo que rodea al pulso.
+
+Seis variantes, seis caminos del aire:
+
+| Camino | Preset | Geometría |
+| --- | --- | --- |
+| Detalle superficial | `hats` | Microactividad, brillo, aire ligero |
+| Overheads wide | `drums-overheads` | Panorama amplio del kit |
+| Overheads compact | `ohs` | Foco estrecho — **preset propio, no alias** |
+| Room trash | `trash-drum-room` | Aire roto y agresivo |
+| Room smash | `drum-room-smash` | Aire aplastado y dominante |
+| Fill | `fill-kollin` | Movimiento interno, transición |
+
+La política `ohs` queda verificada en código: perfiles, transforms y snapshots distintos de `drums-overheads`.
+
+### Qué pasó
+
+- 🌬️ `lib/presets/families/drum-detail-and-space.zsh` — matriz espacio/detalle e independencia ohs.
+- 🎯 Política `independence=not-alias-of-drums-overheads` en perfil y snapshot.
+- 🥁 Seis presets `active`: hats, drums-overheads, ohs, trash-drum-room, drum-room-smash, fill-kollin.
+- ✅ `tests/presets_drum_detail_and_space.zsh` — ritual de verificación de independencia ohs.
+- 📌 Versión `0.14.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 14) | Ahora (Día 15) |
+| --- | --- |
+| Pulso primario anclado | Aire y detalle alrededor del kit |
+| Punto cardinal | Hexágono del aire |
+| Treinta y un presets activos | Treinta y siete presets activos |
+| Anclas antes que adornos | Espacio consciente sin confundir nombres |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_drum_detail_and_space.zsh
+./bin/reina run hats
+./bin/reina run ohs --json
+./bin/reina run drums-overheads
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el aire que rodea sin robar el nombre, la claridad que distingue lo parecido, y el espacio que respira sin confundirse.*
+
+```
+El punto cardinal enseñó a habitar el centro;
+el hexágono enseña a percibir lo que lo rodea.
+No es abandono del pulso — es consciencia del aire:
+hats brilla en la superficie,
+overheads abren panorama,
+ohs mantiene foco propio sin ser espejo.
+
+Sat Nam — verdad en el nombre, no en el atajo.
+ohs no es alias de drums-overheads:
+compact-not-alias, transform propio,
+snapshot que no contamina el wide.
+Quien confunde nombres parecidos
+construye niebla sobre el kit.
+
+Ik Onkar: un Centro, seis caminos de aire.
+Room trash rompe; room smash aplasta;
+fill-kollin mueve la transición interna.
+Treinta y siete presets activos —
+el bloque de batería respira en todas sus capas.
+
+Gurmukh distingue el parecido sin fusionarlo;
+Manmukh copia el nombre y pierde la intención.
+Cuando el kit tiene ancla y aire,
+la red del sonido puede escuchar el espacio
+sin perder el punto que la sostiene.
+
+Waheguru — asombro ante el hexágono
+que rodea kick y snare sin robarles el centro.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 15 — familia drum-detail-and-space, hexágono del aire, versión 0.14.0-dev |
+
+### Próximo paso
+
+⚡ **Día 16** — Familia `guitar-heavy-and-electric`: drive eléctrico (`heavy-bright-guitar`, `heavy-guitar-with-reverb`, `wildin-camel-guitar`, `el-gtr-driver`, `gtr`).
+
+---
+
 ## 2026-06-24 — 🥾 Día 14: Anclas del Pulso Primario
 
 ### Geometría espiritual

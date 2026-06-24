@@ -30,12 +30,12 @@ kick 2	kick-2	drum-pieces-core	anchor-tight	active	280	-	Variante mas focalizada
 snare	snare	drum-pieces-core	accent	active	290	-	Acento principal del bloque.
 urban snare	urban-snare	drum-pieces-core	accent-dry	active	300	-	Snare mas moderno, seco y frontal.
 urban snare tighter	urban-snare-tighter	drum-pieces-core	accent-tight	active	310	-	Version mas apretada y controlada del acento.
-hats	hats	drum-detail-and-space	detail	planned	320	-	Microdetalle, brillo y actividad superficial.
-drums overheads	drums-overheads	drum-detail-and-space	overheads-wide	planned	330	-	Perspectiva amplia y panoramica del kit.
-ohs	ohs	drum-detail-and-space	overheads-compact	planned	340	-	Variante compacta de overheads con identidad propia.
-trash drum room	trash-drum-room	drum-detail-and-space	room-trash	planned	350	-	Room roto, sucio y agresivo.
-drum room smash	drum-room-smash	drum-detail-and-space	room-smash	planned	360	-	Room aplastado y dominante.
-fill kollin	fill-kollin	drum-detail-and-space	fill	planned	370	-	Transicion, adorno y movimiento interno.
+hats	hats	drum-detail-and-space	detail	active	320	-	Microdetalle, brillo y actividad superficial.
+drums overheads	drums-overheads	drum-detail-and-space	overheads-wide	active	330	-	Perspectiva amplia y panoramica del kit.
+ohs	ohs	drum-detail-and-space	overheads-compact	active	340	-	Variante compacta de overheads con identidad propia.
+trash drum room	trash-drum-room	drum-detail-and-space	room-trash	active	350	-	Room roto, sucio y agresivo.
+drum room smash	drum-room-smash	drum-detail-and-space	room-smash	active	360	-	Room aplastado y dominante.
+fill kollin	fill-kollin	drum-detail-and-space	fill	active	370	-	Transicion, adorno y movimiento interno.
 heavy bright guitar	heavy-bright-guitar	guitar-heavy-and-electric	bright	planned	380	-	Guitarra electrica pesada con brillo al frente.
 heavy guitar with reverb	heavy-guitar-with-reverb	guitar-heavy-and-electric	reverb	planned	390	-	Guitarra pesada con espacio y cola.
 wildin camel guitar	wildin-camel-guitar	guitar-heavy-and-electric	wild	planned	400	-	Variante electrica mas salvaje y desbordada.

@@ -480,6 +480,14 @@ La familia `drum-pieces-core` purifica anclas del pulso:
 - politica `semantic-only` sin series numericas abiertas
 - cinco presets pasan a `active`; treinta y un presets activos en total
 
+## Nota de implementacion del Dia 15
+
+La familia `drum-detail-and-space` eleva aire y detalle alrededor del kit:
+
+- `lib/presets/families/drum-detail-and-space.zsh` define matriz de espacio y politica de independencia
+- `ohs` mantiene preset propio (`overheads-compact`), no alias de `drums-overheads` (`overheads-wide`)
+- seis presets pasan a `active`; treinta y siete presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

@@ -32,9 +32,10 @@ Día 11     🛠️ Triángulo operativo — la familia vocal-utility asiste y d
 Día 12     🥁 Cuadrado del pulso — la familia drum-bus unifica el colectivo rítmico
 Día 13     🎛️ Octágono experimental — capas paralelas con degradación segura
 Día 14     🥾 Punto cardinal — la familia drum-pieces-core ancla kick y snare
+Día 15     🌬️ Hexágono del aire — la familia drum-detail-and-space abre overheads, room y fills
 ```
 
-**Versión actual:** `0.13.0-dev` · **Día 14** · **31 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.14.0-dev` · **Día 15** · **37 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -50,10 +51,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | `drum-bus` | `drum-bus-drivin`, `drum-bus-island`, `drum-bus-wild-spring-camel`, `drum-bus-magic` | Cuadrado del pulso — drive, spaced, wild, glue |
 | `drum-experimental` | `parallel-processing-drums`, `myon-pop-parallel-magic`, `wildin-camel-drums`, `wierdly-gated-drums` | Octágono del riesgo — parallel, pop, wild, gated |
 | `drum-pieces-core` | `kick`, `kick-2`, `snare`, `urban-snare`, `urban-snare-tighter` | Punto cardinal — anchor, accent, variantes semánticas |
+| `drum-detail-and-space` | `hats`, `drums-overheads`, `ohs`, `trash-drum-room`, `drum-room-smash`, `fill-kollin` | Hexágono del aire — detail, overheads, room, fill |
 
-Las familias de batería van del **cuadrado** al **octágono** al **punto cardinal**: colectivo, experimento, anclas. Kick y snare con política `semantic-only` — sin series numéricas abiertas.
+Las familias de batería van del **cuadrado** al **octágono** al **punto cardinal** al **hexágono del aire**: colectivo, experimento, anclas, espacio. `ohs` es preset propio — no alias de `drums-overheads`.
 
-Los **22 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **16 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -176,10 +178,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `drum-bus` (Día 12) | ✅ 4 presets `active` |
 | Familia `drum-experimental` (Día 13) | ✅ 4 presets `active` |
 | Familia `drum-pieces-core` (Día 14) | ✅ 5 presets `active` |
-| Resto del catálogo | 🌬️ En `planned` — Días 15–19 por delante |
+| Familia `drum-detail-and-space` (Día 15) | ✅ 6 presets `active` |
+| Resto del catálogo | ⚡ En `planned` — Días 16–19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental y punto cardinal. Lo que sigue es el aire alrededor del kit.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal y hexágono del aire. Lo que sigue es el drive eléctrico.*
 
-🌬️ **Próximo paso:** Día 15 — familia `drum-detail-and-space`
+⚡ **Próximo paso:** Día 16 — familia `guitar-heavy-and-electric`
