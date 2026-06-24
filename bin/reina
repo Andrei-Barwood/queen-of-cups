@@ -13,6 +13,7 @@ source "$REINA_PROJECT_ROOT/lib/core/flags.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/bootstrap.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/manifest.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/context.zsh"
+source "$REINA_PROJECT_ROOT/lib/presets/dispatcher.zsh"
 
 function reina_cmd_help() {
   cat <<EOF
@@ -55,30 +56,27 @@ EOF
 function reina_version() {
   emulate -L zsh
   local version_file="${REINA_PROJECT_ROOT}/VERSION"
-  local version="${REINA_VERSION:-}"
+  local pkg_version="${REINA_VERSION:-}"
 
-  if [[ -z "$version" && -r "$version_file" ]]; then
-    IFS= read -r version < "$version_file" || version=""
+  if [[ -z "$pkg_version" && -r "$version_file" ]]; then
+    IFS= read -r pkg_version < "$version_file"
   fi
 
-  print -- "${version:-0.0.0-dev}"
+  print -- "${pkg_version:-0.0.0-dev}"
 }
 
 function reina_cmd_version() {
   emulate -L zsh
-  local version
 
   if (( $# != 0 )); then
     reina_fail ERR_CLI_USAGE "reina version no acepta argumentos posicionales" "cli" "command=version"
     return $?
   fi
 
-  version="$(reina_version)"
-
   if (( REINA_JSON )); then
-    print -- "{\"name\":\"reina-de-copas\",\"version\":\"$(reina_json_escape "$version")\"}"
+    print -- "{\"name\":\"reina-de-copas\",\"version\":\"$(reina_json_escape "$(reina_version)")\"}"
   else
-    print -- "reina-de-copas $version"
+    print -- "reina-de-copas $(reina_version)"
   fi
 }
 
@@ -159,7 +157,7 @@ function reina_cmd_run() {
   fi
 
   if (( $# > 1 )); then
-    reina_fail ERR_CLI_USAGE "reina run acepta un solo preset en el Dia 2" "cli" "command=run args=$*"
+    reina_fail ERR_CLI_USAGE "reina run acepta un solo preset" "cli" "command=run args=$*"
     return $?
   fi
 
@@ -183,50 +181,27 @@ function reina_cmd_run() {
       return $?
     fi
     runtime_ready=1
-    reina_storage_config_get "profile" "$REINA_PRESET_SLUG" "" >/dev/null 2>&1 || true
+    reina_preset_profile_get "profile" "" >/dev/null 2>&1 || true
+  fi
 
-    if reina_storage_record_history "$REINA_PRESET_SLUG" "placeholder" "0" "$(reina_flags_human_summary)" "$(reina_network_mode)" "false" >/dev/null 2>&1; then
+  reina_preset_dispatch "$runtime_ready"
+  status_code=$?
+  if (( status_code != 0 )); then
+    return "$status_code"
+  fi
+
+  if (( ! REINA_DRY_RUN )); then
+    if reina_preset_history_record "${REINA_PRESET_RESULT_STATUS:-ok}" "$status_code"; then
       history_recorded=1
-    else
-      reina_recover_last_error_as_degradation "history_skipped"
     fi
   fi
 
   if (( REINA_JSON )); then
-    print -rn -- "{"
-    print -rn -- "\"ok\":true,"
-    print -rn -- "\"degraded\":$(reina_error_json_bool "$([[ "${REINA_RESULT_STATUS:-ok}" == "degraded" ]] && print 1 || print 0)"),"
-    print -rn -- "\"status\":\"$(reina_error_json_escape "${REINA_RESULT_STATUS:-ok}")\","
-    print -rn -- "\"command\":\"run\","
-    print -rn -- "\"dry_run\":$(reina_json_bool "$REINA_DRY_RUN"),"
-    print -rn -- "\"implementation\":\"placeholder\","
-    print -rn -- "\"history_recorded\":$(reina_json_bool "$history_recorded"),"
-    print -rn -- "\"preset\":$(reina_preset_json),"
-    print -rn -- "\"context\":$(reina_context_json "$runtime_ready"),"
-    print -rn -- "\"warnings\":$(reina_error_records_json warnings),"
-    print -rn -- "\"degradations\":$(reina_error_records_json degradations),"
-    print -rn -- "\"message\":\"$(reina_json_escape "flujo base preparado; logica especifica pendiente")\""
-    print -- "}"
+    reina_preset_run_json "$runtime_ready" "$history_recorded"
     return 0
   fi
 
-  if (( REINA_QUIET )); then
-    print -- "$REINA_PRESET_SLUG $REINA_PRESET_STATUS"
-    return 0
-  fi
-
-  print -- "Run:"
-  print -- "  preset:  $REINA_PRESET_DISPLAY_NAME"
-  print -- "  slug:    $REINA_PRESET_SLUG"
-  print -- "  family:  $REINA_PRESET_FAMILY"
-  print -- "  variant: $REINA_PRESET_VARIANT"
-  print -- "  status:  $REINA_PRESET_STATUS"
-  print -- ""
-  reina_context_print_human "$runtime_ready"
-  print -- "  history_recorded: $(reina_json_bool "$history_recorded")"
-  print -- "  status: ${REINA_RESULT_STATUS:-ok}"
-  print -- ""
-  print -- "Estado: flujo base preparado; logica especifica pendiente."
+  reina_preset_run_print_human "$runtime_ready" "$history_recorded"
 }
 
 function reina_cmd_net_check() {

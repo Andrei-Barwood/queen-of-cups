@@ -77,13 +77,21 @@ list_output="$(
 )"
 assert_contains "$list_output" "bass-in-the-desert" "instalacion lista presets" || exit 1
 
-run_output="$(
-  REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
-  REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
-  REINA_STATE_ROOT="${TMP_DIR}/state-root" \
-  "$PREFIX/bin/reina" run bass-in-the-desert --dry-run
-)"
-assert_contains "$run_output" "flujo base preparado" "instalacion ejecuta runner" || exit 1
+stderr_file="$(mktemp)"
+REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
+REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
+REINA_STATE_ROOT="${TMP_DIR}/state-root" \
+"$PREFIX/bin/reina" run bass-in-the-desert --dry-run >/dev/null 2>"$stderr_file"
+run_exit_code=$?
+run_stderr="$(<"$stderr_file")"
+rm -f "$stderr_file"
+
+if [[ "$run_exit_code" -ne 3 ]]; then
+  print -u2 -- "FAIL: instalacion ejecuta runner con exit code 3 y llego $run_exit_code"
+  exit 1
+fi
+
+assert_contains "$run_stderr" "ERR_PRESET_NOT_IMPLEMENTED" "instalacion ejecuta dispatcher honesto" || exit 1
 
 zsh "$PROJECT_ROOT/scripts/uninstall.zsh" --prefix "$PREFIX" >/dev/null || exit 1
 assert_not_exists "$PREFIX/bin/reina" "uninstall remueve symlink" || exit 1

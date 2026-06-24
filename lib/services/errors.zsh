@@ -112,7 +112,7 @@ function reina_error_code() {
     ERR_CLI_*|ERR_INPUT_*)
       print -- 2
       ;;
-    ERR_PRESET_NOT_FOUND|ERR_PRESET_ALIAS_AMBIGUOUS|ERR_STORE_NOT_FOUND|ERR_RUNTIME_MANIFEST_MISSING)
+    ERR_PRESET_NOT_FOUND|ERR_PRESET_ALIAS_AMBIGUOUS|ERR_PRESET_NOT_IMPLEMENTED|ERR_STORE_NOT_FOUND|ERR_RUNTIME_MANIFEST_MISSING)
       print -- 3
       ;;
     ERR_RUNTIME_*|ERR_NETWORK_DEPENDENCY_MISSING)
@@ -159,6 +159,9 @@ function reina_error_message() {
       ;;
     ERR_PRESET_ALIAS_AMBIGUOUS)
       print -- "alias ambiguo"
+      ;;
+    ERR_PRESET_NOT_IMPLEMENTED)
+      print -- "preset aun no implementado"
       ;;
     ERR_RUNTIME_MANIFEST_MISSING)
       print -- "manifest no encontrado"

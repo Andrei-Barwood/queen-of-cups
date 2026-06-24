@@ -99,16 +99,16 @@ Purificar el punto de entrada: `reina run` deja de ser promesa y se convierte en
 
 ### Tareas
 
-- [ ] Crear `lib/presets/dispatcher.zsh` con `reina_preset_dispatch`.
-- [ ] Definir contrato mínimo de preset:
+- [x] Crear `lib/presets/dispatcher.zsh` con `reina_preset_dispatch`.
+- [x] Definir contrato mínimo de preset:
   - `reina_preset_<slug>_run` o convención por familia `reina_family_<family>_run`.
   - Entrada: contexto compartido (`network`, `storage`, `flags`, `errors`, metadata del preset).
   - Salida: `ok`, `degraded` o `failed` con mensaje humano y JSON opcional.
-- [ ] Crear `lib/presets/family-core.zsh` con helpers comunes (lectura de perfil, snapshot, validación de entrada).
-- [ ] Reemplazar el placeholder en `reina_cmd_run` por despacho real vía dispatcher.
-- [ ] Si el preset está en `planned` sin implementación, responder con `ERR_PRESET_NOT_IMPLEMENTED` (nueva clave) en lugar de fingir éxito.
-- [ ] Documentar el contrato en `docs/presets.md`.
-- [ ] Añadir `tests/preset_dispatcher.zsh`.
+- [x] Crear `lib/presets/family-core.zsh` con helpers comunes (lectura de perfil, snapshot, validación de entrada).
+- [x] Reemplazar el placeholder en `reina_cmd_run` por despacho real vía dispatcher.
+- [x] Si el preset está en `planned` sin implementación, responder con `ERR_PRESET_NOT_IMPLEMENTED` (nueva clave) en lugar de fingir éxito.
+- [x] Documentar el contrato en `docs/presets.md`.
+- [x] Añadir `tests/preset_dispatcher.zsh`.
 
 ### Entregables
 

@@ -10,7 +10,7 @@
 | `slug` | identificador publico, unico, estable, ASCII y `kebab-case` |
 | `family` | familia tecnica que comparte core o heuristicas |
 | `variant` | rol semantico dentro de la familia |
-| `status` | estado de lifecycle; en Dia 1 todos nacen como `planned` |
+| `status` | estado de lifecycle: `planned`, `beta`, `active`, `deprecated` |
 | `priority` | orden numerico de construccion; menor numero = antes |
 | `aliases` | aliases explicitos separados por `|`; `-` significa ninguno |
 | `notes` | contexto corto y util para roadmap o decisiones de diseno |
@@ -74,4 +74,77 @@ reina info ac-gtr
 reina run bass-in-the-desert --dry-run
 ```
 
-`reina info <preset>` muestra la ficha del manifiesto. `reina run <preset>` usa esa misma resolucion y prepara el contexto compartido para `network`, `storage`, `errors`, flags y metadata del preset.
+`reina info <preset>` muestra la ficha del manifiesto. `reina run <preset>` usa esa misma resolucion, prepara el contexto compartido y despacha la implementacion real del preset.
+
+## Ciclo de vida
+
+| Status | Significado |
+| --- | --- |
+| `planned` | catalogado en el manifiesto; sin implementacion |
+| `beta` | implementacion experimental disponible |
+| `active` | implementacion estable y soportada |
+| `deprecated` | aun ejecutable, pero en retiro |
+
+Regla del Dia 6: si no existe runner para el preset, `reina run` falla con `ERR_PRESET_NOT_IMPLEMENTED` aunque el manifiesto lo conozca. No se finge exito.
+
+## Contrato de implementacion
+
+### Despacho
+
+`lib/presets/dispatcher.zsh` resuelve el runner en este orden:
+
+1. funcion `reina_preset_<slug>_run` ya cargada
+2. archivo `lib/presets/implementations/<slug>.zsh`
+3. funcion `reina_family_<family>_run` ya cargada
+4. archivo `lib/presets/families/<family>.zsh`
+
+`<slug>` y `<family>` usan guiones en rutas de archivo. Las funciones convierten guiones a guiones bajos.
+
+Ejemplos:
+
+- slug `bass-in-the-desert` -> `reina_preset_bass_in_the_desert_run`
+- familia `vocals-atmospheric` -> `reina_family_vocals_atmospheric_run`
+
+### Entrada del runner
+
+Todo preset recibe el contexto ya preparado por el runner:
+
+- metadata del manifiesto en `REINA_PRESET_*`
+- servicios compartidos `network`, `storage`, `errors`
+- flags globales (`REINA_DEBUG`, `REINA_OFFLINE`, `REINA_QUIET`, `REINA_JSON`, `REINA_DRY_RUN`)
+
+Los presets no deben invocar `curl`, escribir fuera de `storage` ni emitir errores fuera de `errors`.
+
+### Salida del runner
+
+El runner debe terminar con:
+
+- `reina_preset_set_result <ok|degraded|failed> <message> <implementation>`
+- exit code `0` para `ok` o `degraded`
+- exit code distinto de `0` para `failed`
+
+Helpers compartidos en `lib/presets/family-core.zsh`:
+
+- `reina_preset_profile_get` / `reina_preset_profile_put`
+- `reina_preset_snapshot_record`
+- `reina_preset_history_record` (el runner principal ya registra historial tras un despacho exitoso)
+
+### Estructura recomendada
+
+```text
+lib/presets/
+  dispatcher.zsh
+  family-core.zsh
+  implementations/
+    <slug>.zsh
+  families/
+    <family>.zsh
+```
+
+### Validacion minima
+
+```sh
+zsh tests/preset_dispatcher.zsh
+./bin/reina run bass-in-the-desert
+./bin/reina run bass-in-the-desert --json
+```

@@ -39,6 +39,10 @@ lib/
     bootstrap.zsh
     manifest.zsh
   presets/
+    dispatcher.zsh
+    family-core.zsh
+    implementations/
+    families/
   services/
     errors.zsh
     network.zsh
@@ -53,6 +57,7 @@ tests/
   distribution_install.zsh
   errors_service.zsh
   network_service.zsh
+  preset_dispatcher.zsh
   storage_service.zsh
   smoke_reina.zsh
 ```
@@ -263,7 +268,7 @@ Contrato de error:
 Taxonomia:
 
 - CLI: `ERR_CLI_USAGE`, `ERR_CLI_INVALID_COMMAND`, `ERR_CLI_NOT_IMPLEMENTED`
-- PRESET: `ERR_PRESET_NOT_FOUND`, `ERR_PRESET_ALIAS_AMBIGUOUS`
+- PRESET: `ERR_PRESET_NOT_FOUND`, `ERR_PRESET_ALIAS_AMBIGUOUS`, `ERR_PRESET_NOT_IMPLEMENTED`
 - NETWORK: `ERR_NETWORK_OFFLINE`, `ERR_NETWORK_TIMEOUT`, `ERR_NETWORK_UNREACHABLE`, `ERR_NETWORK_HTTP`, `ERR_NETWORK_EMPTY`, `ERR_NETWORK_INVALID_RESPONSE`, `ERR_NETWORK_DEPENDENCY_MISSING`
 - STORAGE: `ERR_STORE_INIT`, `ERR_STORE_NOT_FOUND`, `ERR_STORE_CORRUPT`, `ERR_STORE_WRITE`, `ERR_STORE_READ`, `ERR_STORE_PRUNE`, `ERR_STORE_LOCKED`, `ERR_STORE_RUNTIME_INVALID`
 - INPUT: `ERR_INPUT_ARGUMENT_MISSING`, `ERR_INPUT_INVALID_FLAG`
@@ -355,7 +360,7 @@ Si un identificador coincide con mas de una entrada, el runner responde con `ERR
 - `errors`: contrato compartido
 - `preset`: metadata resuelta desde `presets/manifest.tsv`
 
-En el Dia 5, `run` sigue ejecutando un placeholder estable. La logica especifica de presets empieza despues, pero ya tiene un punto oficial de entrada, contexto de red completo, storage inicializado y estado `ok|degraded|failed`. Cuando no se usa `--dry-run`, el runner registra una entrada simple de historial.
+Desde el Dia 6, `run` despacha presets reales via `lib/presets/dispatcher.zsh`. Si no existe implementacion, responde con `ERR_PRESET_NOT_IMPLEMENTED`. Cuando un preset corre con exito y no se usa `--dry-run`, el runner registra historial mediante `reina_preset_history_record`.
 
 ## Politica base de exit codes
 
@@ -398,6 +403,15 @@ Storage queda como memoria compartida del sistema: crea runtime, lee/escribe con
 ## Nota de implementacion del Dia 5
 
 Errors queda como contrato formal para runner, network y storage. `reina_fail` emite fallos fatales con exit codes estables, `reina_warn` registra advertencias recuperables y `reina_degrade` marca fallbacks visibles. Network degrada a cache cuando corresponde, storage diferencia config opcional de fallo fatal, y `--json`, `--quiet` y `--debug` tienen comportamiento definido frente a errores.
+
+## Nota de implementacion del Dia 6
+
+Preset dispatch queda como puerta unica de ejecucion:
+
+- `reina_preset_resolve_runner` carga implementaciones por slug o familia sin usar subshells
+- `reina_preset_dispatch` ejecuta el runner resuelto
+- `family-core.zsh` concentra helpers de perfil, snapshot y resultado
+- `reina run` ya no usa placeholder: o ejecuta o declara `ERR_PRESET_NOT_IMPLEMENTED`
 
 ## Distribucion
 

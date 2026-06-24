@@ -5,6 +5,28 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — Día 6: dispatcher de presets
+
+### Qué pasó
+
+- Implementado `lib/presets/dispatcher.zsh` y `lib/presets/family-core.zsh`.
+- `reina run` despacha runners por slug o familia; sin implementación responde `ERR_PRESET_NOT_IMPLEMENTED`.
+- Añadidos tests `preset_dispatcher.zsh`; actualizados smoke y distribution.
+- Versión `0.5.0-dev`.
+
+### Validación
+
+```sh
+make test
+./bin/reina run bass-in-the-desert
+```
+
+### Próximo paso
+
+Día 7 del roadmap: familia `bass` y preset fundacional `bass-in-the-desert`.
+
+---
+
 ## 2026-06-24 — Integración a `main` y documentación del roadmap
 
 ### Qué pasó

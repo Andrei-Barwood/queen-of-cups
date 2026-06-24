@@ -23,6 +23,7 @@ El cierre del Dia 1 deja lista la base del sistema:
 ./bin/reina net-check --offline
 make test
 zsh tests/smoke_reina.zsh
+zsh tests/preset_dispatcher.zsh
 zsh tests/errors_service.zsh
 zsh tests/network_service.zsh
 zsh tests/storage_service.zsh
@@ -82,7 +83,7 @@ La infraestructura de los Dias 1–5 esta integrada en `main`:
 - runner CLI con flags globales y resolucion de presets
 - servicios compartidos `network`, `storage` y `errors`
 - distribucion local (`make install`, `make dist`)
-- 53 presets catalogados en `planned`; `run` aun usa placeholder
+- dispatcher de presets operativo (Dia 6); 53 presets en `planned` pendientes de implementacion
 
 ## Documentacion
 

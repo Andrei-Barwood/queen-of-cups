@@ -53,16 +53,34 @@ assert_contains "$info_output" "display_name: Bass in the Desert" "info resuelve
 alias_info_output="$("$REINA_BIN" info ac-gtr)"
 assert_contains "$alias_info_output" "slug:         acoustic-gtr" "info resuelve por alias" || exit 1
 
-run_output="$("$REINA_BIN" run bass-in-the-desert --dry-run)"
-assert_contains "$run_output" "flujo base preparado" "run entra al flujo base" || exit 1
+stderr_file="$(mktemp)"
+"$REINA_BIN" run bass-in-the-desert --dry-run >/dev/null 2>"$stderr_file"
+exit_code=$?
+stderr_output="$(<"$stderr_file")"
+rm -f "$stderr_file"
 
-short_run_output="$("$REINA_BIN" ac-gtr --dry-run --offline)"
-assert_contains "$short_run_output" "network: offline" "forma corta respeta --offline" || exit 1
+if [[ "$exit_code" -ne 3 ]]; then
+  print -u2 -- "FAIL: se esperaba exit code 3 para preset no implementado y llego $exit_code"
+  exit 1
+fi
 
-run_json_output="$("$REINA_BIN" --json --offline --dry-run run bass-in-the-desert)"
-assert_contains "$run_json_output" "\"command\":\"run\"" "run --json describe el comando" || exit 1
-assert_contains "$run_json_output" "\"mode\":\"offline\"" "run --json incluye contexto offline" || exit 1
-assert_contains "$run_json_output" "\"client_available\":" "run --json incluye cliente de red" || exit 1
+assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "run declara preset no implementado" || exit 1
+
+stderr_file="$(mktemp)"
+"$REINA_BIN" ac-gtr --dry-run --offline >/dev/null 2>"$stderr_file"
+exit_code=$?
+stderr_output="$(<"$stderr_file")"
+rm -f "$stderr_file"
+
+if [[ "$exit_code" -ne 3 ]]; then
+  print -u2 -- "FAIL: forma corta deberia fallar con preset no implementado y llego $exit_code"
+  exit 1
+fi
+
+assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "forma corta declara preset no implementado" || exit 1
+
+run_json_output="$("$REINA_BIN" --json run bass-in-the-desert 2>/dev/null)"
+assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa preset no implementado" || exit 1
 
 net_check_offline_output="$("$REINA_BIN" net-check --offline)"
 assert_contains "$net_check_offline_output" "status:  offline" "net-check respeta --offline" || exit 1

@@ -17,10 +17,11 @@ help:
 	@print -- "  make clean       limpia artefactos locales"
 
 syntax:
-	@zsh -n bin/reina lib/core/*.zsh lib/services/*.zsh scripts/*.zsh tests/*.zsh
+	@zsh -c 'setopt nullglob; files=(bin/reina lib/core/*.zsh lib/services/*.zsh lib/presets/*.zsh lib/presets/*/*.zsh scripts/*.zsh tests/*.zsh); zsh -n "$$files[@]"'
 
 test: syntax
 	@zsh tests/smoke_reina.zsh
+	@zsh tests/preset_dispatcher.zsh
 	@zsh tests/errors_service.zsh
 	@zsh tests/network_service.zsh
 	@zsh tests/storage_service.zsh

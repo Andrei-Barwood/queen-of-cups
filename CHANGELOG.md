@@ -7,17 +7,33 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ## [Unreleased]
 
+### Pendiente
+
+- Implementación de los 53 presets catalogados (Días 7–19).
+- Licencia pública explícita.
+
+## [0.5.0-dev] — 2026-06-24
+
+### Añadido
+
+- Dispatcher de presets: `lib/presets/dispatcher.zsh`, `lib/presets/family-core.zsh`.
+- Error `ERR_PRESET_NOT_IMPLEMENTED` con exit code `3`.
+- Tests: `tests/preset_dispatcher.zsh`.
+- Documentación del contrato de preset y ciclo de vida en `docs/presets.md`.
+
+### Cambiado
+
+- `reina run` despacha implementaciones reales; deja de usar placeholder.
+- Presets no implementados fallan con honestidad, incluso con `--dry-run`.
+- `Makefile` valida sintaxis de `lib/presets/`.
+
+## [0.4.1-dev] — 2026-06-24
+
 ### Añadido
 
 - `docs/roadmap.md` — roadmap Días 0–22 con propósito, tareas y criterios de cierre.
 - `docs/journal.md` — bitácora viva de lo que ocurre en el repositorio.
 - Integración del stack completo (Días 1–5) en `main`.
-
-### Pendiente
-
-- Dispatcher real de presets (Día 6).
-- Implementación de los 53 presets catalogados (Días 7–19).
-- Licencia pública explícita.
 
 ## [0.4.0-dev] — 2026-04-28
 
