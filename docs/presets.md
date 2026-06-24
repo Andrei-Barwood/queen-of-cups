@@ -461,3 +461,33 @@ zsh tests/presets_drum_detail_and_space.zsh
 ./bin/reina run drums-overheads
 ./bin/reina run fill-kollin
 ```
+
+## Familia `guitar-heavy-and-electric` (Dia 16)
+
+Decima familia implementada. Purifica el drive electrico: cuerpo metalico, brillo, espacio, salvajismo y empuje.
+
+- core compartido en `lib/presets/families/guitar-heavy-and-electric.zsh`
+- variantes via `reina_family_guitar_heavy_and_electric_run`
+- matriz de drive via `reina_guitar_heavy_and_electric_drive_matrix`
+
+### Semantica de transformacion
+
+| Variante | Preset | Intencion |
+| --- | --- | --- |
+| `bright` | `heavy-bright-guitar` | Guitarra pesada con brillo al frente |
+| `reverb` | `heavy-guitar-with-reverb` | Peso con espacio y cola |
+| `wild` | `wildin-camel-guitar` | Salvaje y desbordada en la linea camel |
+| `driver` | `el-gtr-driver` | Drive y empuje electrico focalizado |
+| `base` | `gtr` | Preset general hasta refinamiento futuro |
+
+`gtr` y `el-gtr-driver` mantienen perfiles distintos: generalista vs empuje forward.
+
+### Validacion
+
+```sh
+zsh tests/presets_guitar_heavy_and_electric.zsh
+./bin/reina run heavy-bright-guitar
+./bin/reina run wildin-camel-guitar --json
+./bin/reina run el-gtr-driver
+./bin/reina run gtr
+```

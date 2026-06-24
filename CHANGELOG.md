@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 16–19).
+- Implementación de los presets restantes (Días 17–19).
 - Licencia pública explícita.
+
+## [0.15.0-dev] — 2026-06-24 — ⚡ Día 16: Drive Eléctrico y Cuerpo Metálico
+
+> *La familia `guitar-heavy-and-electric` purifica el drive eléctrico: brillo, reverb, salvajismo camel, empuje y base generalista.*
+
+### Añadido
+
+- Familia `guitar-heavy-and-electric`: `lib/presets/families/guitar-heavy-and-electric.zsh`.
+- Cinco presets `active`: `heavy-bright-guitar`, `heavy-guitar-with-reverb`, `wildin-camel-guitar`, `el-gtr-driver`, `gtr`.
+- Matriz de drive eléctrico con línea camel en variante `wild`.
+- Tests: `tests/presets_guitar_heavy_and_electric.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `acoustic-guitar-wet` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Cuarenta y dos presets activos en total.
 
 ## [0.14.0-dev] — 2026-06-24 — 🌬️ Día 15: Aire y Espacio alrededor del Kit
 

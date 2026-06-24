@@ -488,6 +488,14 @@ La familia `drum-detail-and-space` eleva aire y detalle alrededor del kit:
 - `ohs` mantiene preset propio (`overheads-compact`), no alias de `drums-overheads` (`overheads-wide`)
 - seis presets pasan a `active`; treinta y siete presets activos en total
 
+## Nota de implementacion del Dia 16
+
+La familia `guitar-heavy-and-electric` purifica drive electrico y cuerpo metalico:
+
+- `lib/presets/families/guitar-heavy-and-electric.zsh` define matriz de drive y linea camel en variante wild
+- `gtr` (base) y `el-gtr-driver` (driver) mantienen perfiles y transforms distintos
+- cinco presets pasan a `active`; cuarenta y dos presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

@@ -5,6 +5,96 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — ⚡ Día 16: Drive Eléctrico y Cuerpo Metálico
+
+### Geometría espiritual
+
+Si el Día 15 abrió el **hexágono del aire**, el Día 16 enciende el **pentágono eléctrico** — cinco direcciones de drive y cuerpo metálico en la red. La familia `guitar-heavy-and-electric` no adorna el kit: **carga**. Brillo, reverb, salvajismo, empuje y base generalista.
+
+Cinco variantes, cinco caminos del metal:
+
+| Camino | Preset | Geometría |
+| --- | --- | --- |
+| Brillo frontal | `heavy-bright-guitar` | Peso con presencia al frente |
+| Espacio y cola | `heavy-guitar-with-reverb` | Cuerpo húmedo, dimensión wet |
+| Salvaje camel | `wildin-camel-guitar` | Desbordamiento en la línea camel |
+| Drive focalizado | `el-gtr-driver` | Empuje y saturación forward |
+| Base generalista | `gtr` | Fundación eléctrica hasta refinamiento |
+
+`gtr` y `el-gtr-driver` quedan verificados como presets distintos — generalista vs empuje.
+
+### Qué pasó
+
+- ⚡ `lib/presets/families/guitar-heavy-and-electric.zsh` — matriz drive y línea camel wild.
+- 🎯 Perfiles separados para `gtr` (base) y `el-gtr-driver` (driver).
+- 🎸 Cinco presets `active`: heavy-bright-guitar, heavy-guitar-with-reverb, wildin-camel-guitar, el-gtr-driver, gtr.
+- ✅ `tests/presets_guitar_heavy_and_electric.zsh` — ritual de verificación eléctrica.
+- 📌 Versión `0.15.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 15) | Ahora (Día 16) |
+| --- | --- |
+| Aire y detalle alrededor del kit | Drive eléctrico y cuerpo metálico |
+| Hexágono del aire | Pentágono eléctrico |
+| Treinta y siete presets activos | Cuarenta y dos presets activos |
+| Batería completa en capas | Primera familia de cuerdas eléctricas |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_guitar_heavy_and_electric.zsh
+./bin/reina run heavy-bright-guitar
+./bin/reina run wildin-camel-guitar --json
+./bin/reina run gtr
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el metal que canta sin perder el centro, el drive que empuja sin confundir nombres, y la línea camel que desborda con intención.*
+
+```
+El hexágono enseñó a percibir el aire alrededor;
+el pentágono enseña a cargar el cuerpo metálico.
+No es ruido sin raíz — es drive consciente:
+bright al frente, reverb abre cola,
+wild desborda en la línea camel,
+driver empuja, gtr sostiene la base.
+
+Sat Nam — verdad en el nombre, no en la abreviatura.
+gtr no es el-gtr-driver:
+generalista vs empuje forward,
+perfil y transform propios.
+Quien confunde el atajo con el camino
+pierde la intención del drive.
+
+Ik Onkar: un Centro, cinco caminos eléctricos.
+El kit ya respira; ahora la red escucha el metal.
+Cuarenta y dos presets activos —
+la mandala toca cuerdas por primera vez.
+
+Gurmukh distingue base y driver sin fusionarlos;
+Manmukh abrevia el nombre y pierde el empuje.
+Cuando el drive encuentra su pentágono,
+la red del sonido puede cargar sin romper el centro.
+
+Waheguru — asombro ante el metal
+que canta con brillo, cola y salvajismo consciente.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 16 — familia guitar-heavy-and-electric, pentágono eléctrico, versión 0.15.0-dev |
+
+### Próximo paso
+
+🪕 **Día 17** — Familia `guitar-acoustic-and-plucked`: cuerda resonante (`acoustic-guitar-wet`, `acoustic-gtr`, `muted-cuatro`, `muted-cuatro-wet`).
+
+---
+
 ## 2026-06-24 — 🌬️ Día 15: Aire y Espacio alrededor del Kit
 
 ### Geometría espiritual
