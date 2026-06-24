@@ -472,6 +472,14 @@ La familia `drum-experimental` eleva capas paralelas con degradacion segura:
 - fallback local via `reina_degrade` si faltan `curl`, red o `awk`
 - cuatro presets pasan a `active`; veintiseis presets activos en total
 
+## Nota de implementacion del Dia 14
+
+La familia `drum-pieces-core` purifica anclas del pulso:
+
+- `lib/presets/families/drum-pieces-core.zsh` define kick/snare con variantes semanticas
+- politica `semantic-only` sin series numericas abiertas
+- cinco presets pasan a `active`; treinta y un presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

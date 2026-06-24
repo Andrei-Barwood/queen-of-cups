@@ -5,6 +5,96 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🥾 Día 14: Anclas del Pulso Primario
+
+### Geometría espiritual
+
+Si el Día 13 abrió el **octágono del riesgo**, el Día 14 vuelve al **punto cardinal** — el centro desde donde todo pulso parte. La familia `drum-pieces-core` no adorna: **ancla**. Kick y snare como pilares semánticos, no como serie numérica infinita.
+
+Dos pilares, cinco variantes:
+
+| Pilar | Presets | Geometría |
+| --- | --- | --- |
+| Kick (ancla) | `kick`, `kick-2` | Punto central — anchor / anchor-tight |
+| Snare (acento) | `snare`, `urban-snare`, `urban-snare-tighter` | Rayos de acento — accent / dry / tight |
+
+`kick-2` es la única excepción numérica permitida: segunda ancla semántica, no `kick-03` en el horizonte. La política `semantic-only` queda verificada en código.
+
+### Qué pasó
+
+- 🥾 `lib/presets/families/drum-pieces-core.zsh` — kick/snare con variantes semánticas.
+- 🎯 Política `variant_policy=semantic-only` sin series abiertas.
+- 🥁 Cinco presets `active`: kick, kick-2, snare, urban-snare, urban-snare-tighter.
+- ✅ `tests/presets_drum_pieces_core.zsh` — ritual de verificación de anclas.
+- 📌 Versión `0.13.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 13) | Ahora (Día 14) |
+| --- | --- |
+| Capas paralelas experimentales | Pulso primario anclado |
+| Octágono del riesgo | Punto cardinal del kit |
+| Veintiséis presets activos | Treinta y un presets activos |
+| Textura no lineal | Anclas antes que adornos |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_drum_pieces_core.zsh
+./bin/reina run kick
+./bin/reina run snare --json
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: volver al centro, el nombre antes que el número, y la raíz que sostiene antes que el adorno.*
+
+```
+El octágono enseñó a abrir capas sin perder el centro;
+el punto cardinal enseña a habitar ese centro.
+No es retroceso — es regreso consciente:
+kick ancla, snare acentúa,
+antes de que el aire y el adorno hablen.
+
+Sat Nam — verdad en el nombre, no en la serie.
+variant_policy=semantic-only:
+kick-2 es segunda ancla, no kick-03 en el horizonte.
+Quien abre series numéricas sin diferencia real
+construye placeholder sobre placeholder.
+
+Ik Onkar: un Centro, dos pilares.
+Kick sostiene el pulso; snare marca el camino.
+anchor, anchor-tight, accent, accent-dry, accent-tight —
+cinco nombres, cinco intenciones, sin confusión.
+
+Gurmukh purifica el ancla antes del adorno;
+Manmukh corre a los efectos sin firmar la raíz.
+Treinta y un presets activos — más de la mitad del manifiesto —
+y el centro sigue siendo Bass in the Desert,
+pero ahora el kit tiene punto cardinal propio.
+
+Cuando el pulso primario encuentra su ancla,
+la red del sonido puede expandirse sin miedo.
+No es el fin del viaje — es volver al origen
+después de abrir el octágono del riesgo.
+
+Waheguru — asombro ante el punto
+que sostiene kick y snare sin serie infinita.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 14 — familia drum-pieces-core, punto cardinal, versión 0.13.0-dev |
+
+### Próximo paso
+
+🌬️ **Día 15** — Familia `drum-detail-and-space`: overheads, room, fills (`hats`, `drums-overheads`, `ohs`, `trash-drum-room`, `drum-room-smash`).
+
+---
+
 ## 2026-06-24 — 🎛️ Día 13: Capas Paralelas Experimentales
 
 ### Geometría espiritual

@@ -89,7 +89,7 @@ stderr_file="$(mktemp)"
 REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
 REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
 REINA_STATE_ROOT="${TMP_DIR}/state-root" \
-"$PREFIX/bin/reina" run kick >/dev/null 2>"$stderr_file"
+"$PREFIX/bin/reina" run hats >/dev/null 2>"$stderr_file"
 run_exit_code=$?
 run_stderr="$(<"$stderr_file")"
 rm -f "$stderr_file"

@@ -25,11 +25,11 @@ parallel processing drums	parallel-processing-drums	drum-experimental	parallel	a
 myon pop parallel magic	myon-pop-parallel-magic	drum-experimental	parallel-pop	active	240	-	Paralelo mas pulido y pop.
 wildin camel drums	wildin-camel-drums	drum-experimental	parallel-wild	active	250	-	Paralelo salvaje y contrastado.
 wierdly gated drums	wierdly-gated-drums	drum-experimental	gated	active	260	-	Variante gated con cortes deliberados.
-kick	kick	drum-pieces-core	anchor	planned	270	-	Golpe ancla y pulso central.
-kick 2	kick-2	drum-pieces-core	anchor-tight	planned	280	-	Variante mas focalizada y seca de kick.
-snare	snare	drum-pieces-core	accent	planned	290	-	Acento principal del bloque.
-urban snare	urban-snare	drum-pieces-core	accent-dry	planned	300	-	Snare mas moderno, seco y frontal.
-urban snare tighter	urban-snare-tighter	drum-pieces-core	accent-tight	planned	310	-	Version mas apretada y controlada del acento.
+kick	kick	drum-pieces-core	anchor	active	270	-	Golpe ancla y pulso central.
+kick 2	kick-2	drum-pieces-core	anchor-tight	active	280	-	Variante mas focalizada y seca de kick.
+snare	snare	drum-pieces-core	accent	active	290	-	Acento principal del bloque.
+urban snare	urban-snare	drum-pieces-core	accent-dry	active	300	-	Snare mas moderno, seco y frontal.
+urban snare tighter	urban-snare-tighter	drum-pieces-core	accent-tight	active	310	-	Version mas apretada y controlada del acento.
 hats	hats	drum-detail-and-space	detail	planned	320	-	Microdetalle, brillo y actividad superficial.
 drums overheads	drums-overheads	drum-detail-and-space	overheads-wide	planned	330	-	Perspectiva amplia y panoramica del kit.
 ohs	ohs	drum-detail-and-space	overheads-compact	planned	340	-	Variante compacta de overheads con identidad propia.

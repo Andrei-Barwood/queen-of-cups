@@ -31,9 +31,10 @@ Día 10     🎙️ Flecha frontal — la familia female-vocal purifica la prese
 Día 11     🛠️ Triángulo operativo — la familia vocal-utility asiste y diagnostica
 Día 12     🥁 Cuadrado del pulso — la familia drum-bus unifica el colectivo rítmico
 Día 13     🎛️ Octágono experimental — capas paralelas con degradación segura
+Día 14     🥾 Punto cardinal — la familia drum-pieces-core ancla kick y snare
 ```
 
-**Versión actual:** `0.12.0-dev` · **Día 13** · **26 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.13.0-dev` · **Día 14** · **31 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -48,10 +49,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | `vocal-utility` | `pop-lead-vocal`, `vocal-help`, `give-backgrounds-some-life` | Triángulo operativo — lead, assist, background |
 | `drum-bus` | `drum-bus-drivin`, `drum-bus-island`, `drum-bus-wild-spring-camel`, `drum-bus-magic` | Cuadrado del pulso — drive, spaced, wild, glue |
 | `drum-experimental` | `parallel-processing-drums`, `myon-pop-parallel-magic`, `wildin-camel-drums`, `wierdly-gated-drums` | Octágono del riesgo — parallel, pop, wild, gated |
+| `drum-pieces-core` | `kick`, `kick-2`, `snare`, `urban-snare`, `urban-snare-tighter` | Punto cardinal — anchor, accent, variantes semánticas |
 
-`bass` y `low-end` forman una **díada vertical**; las familias vocales levantan cúpula, flecha y triángulo; `drum-bus` traza el **cuadrado del pulso**; `drum-experimental` abre el **octágono del riesgo controlado** — capas paralelas que degradan con honestidad, nunca colapsan.
+Las familias de batería van del **cuadrado** al **octágono** al **punto cardinal**: colectivo, experimento, anclas. Kick y snare con política `semantic-only` — sin series numéricas abiertas.
 
-Los **27 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **22 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -86,6 +88,8 @@ Escucha el subsuelo y habita el espacio de la voz:
 ./bin/reina run drum-bus-wild-spring-camel --json
 ./bin/reina run parallel-processing-drums
 ./bin/reina --offline run parallel-processing-drums
+./bin/reina run kick
+./bin/reina run snare --json
 ./bin/reina net-check --offline
 ```
 
@@ -171,10 +175,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `vocal-utility` (Día 11) | ✅ 3 presets `active` |
 | Familia `drum-bus` (Día 12) | ✅ 4 presets `active` |
 | Familia `drum-experimental` (Día 13) | ✅ 4 presets `active` |
-| Resto del catálogo | 🥾 En `planned` — Días 14–19 por delante |
+| Familia `drum-pieces-core` (Día 14) | ✅ 5 presets `active` |
+| Resto del catálogo | 🌬️ En `planned` — Días 15–19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso y octágono experimental. Lo que sigue es el pulso primario.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental y punto cardinal. Lo que sigue es el aire alrededor del kit.*
 
-🥾 **Próximo paso:** Día 14 — familia `drum-pieces-core`
+🌬️ **Próximo paso:** Día 15 — familia `drum-detail-and-space`

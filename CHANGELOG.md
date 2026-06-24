@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 14–19).
+- Implementación de los presets restantes (Días 15–19).
 - Licencia pública explícita.
+
+## [0.13.0-dev] — 2026-06-24 — 🥾 Día 14: Anclas del Pulso Primario
+
+> *La familia `drum-pieces-core` purifica kick y snare con variantes semánticas, sin series numéricas abiertas.*
+
+### Añadido
+
+- Familia `drum-pieces-core`: `lib/presets/families/drum-pieces-core.zsh`.
+- Cinco presets `active`: `kick`, `kick-2`, `snare`, `urban-snare`, `urban-snare-tighter`.
+- Política de variantes semánticas verificada en código.
+- Tests: `tests/presets_drum_pieces_core.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `hats` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Treinta y un presets activos en total.
 
 ## [0.12.0-dev] — 2026-06-24 — 🎛️ Día 13: Capas Paralelas Experimentales
 

@@ -386,3 +386,40 @@ zsh tests/presets_drum_experimental.zsh
 ./bin/reina run wildin-camel-drums --json
 ./bin/reina --offline run parallel-processing-drums
 ```
+
+## Familia `drum-pieces-core` (Dia 14)
+
+Octava familia implementada. Vuelve al pulso primario: anclas kick y acentos snare.
+
+- core compartido en `lib/presets/families/drum-pieces-core.zsh`
+- variantes via `reina_family_drum_pieces_core_run`
+- politica semantica: sin series numericas abiertas (`kick-01`, `snare-02` prohibidas)
+
+### Politica de variantes semanticas
+
+| Rol | Variantes | Presets |
+| --- | --- | --- |
+| Kick (ancla) | `anchor`, `anchor-tight` | `kick`, `kick-2` |
+| Snare (acento) | `accent`, `accent-dry`, `accent-tight` | `snare`, `urban-snare`, `urban-snare-tighter` |
+
+`kick-2` es el unico sufijo numerico permitido: segunda ancla semantica, no placeholder de serie abierta.
+
+### Semantica de transformacion
+
+| Variante | Intencion |
+| --- | --- |
+| `anchor` | Golpe ancla, pulso central, cuerpo completo |
+| `anchor-tight` | Ancla focalizada y seca |
+| `accent` | Acento principal clasico |
+| `accent-dry` | Snare moderno, seco y frontal |
+| `accent-tight` | Acento apretado y controlado |
+
+### Validacion
+
+```sh
+zsh tests/presets_drum_pieces_core.zsh
+./bin/reina run kick
+./bin/reina run kick-2
+./bin/reina run snare --json
+./bin/reina run urban-snare-tighter
+```
