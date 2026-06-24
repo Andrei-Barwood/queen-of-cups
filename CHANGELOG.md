@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 10–19).
+- Implementación de los presets restantes (Días 11–19).
 - Licencia pública explícita.
+
+## [0.9.0-dev] — 2026-06-24 — 🎙️ Día 10: Presencia Frontal Femenina
+
+> *La familia `female-vocal` purifica la voz frontal con cadena de derivación dry → wet → wet-wide, sin duplicar lógica.*
+
+### Añadido
+
+- Familia `female-vocal`: `lib/presets/families/female-vocal.zsh` con core dry y extensiones wet.
+- Cadena documentada: `female-vox-1` → `female-vox-1-wet` → `female-vocal-wet`.
+- Tres presets `active`.
+- Tests: `tests/presets_female_vocal.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `pop-lead-vocal` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Quince presets activos en total.
 
 ## [0.8.0-dev] — 2026-06-24 — 🌫️ Día 9: Espacio Interior de la Voz
 

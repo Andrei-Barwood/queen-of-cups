@@ -27,9 +27,10 @@ Día 6      ◉  Vesica piscis — el portal entre sistema y alma sonora
 Día 7      🔺 Triángulo de fuego — la familia bass respira en el desierto
 Día 8      🌀 Espiral hacia adentro — la familia low-end abre el pozo bajo 120 Hz
 Día 9      🌫️ Cúpula atmosférica — la familia vocals-atmospheric abre el espacio de la voz
+Día 10     🎙️ Flecha frontal — la familia female-vocal purifica la presencia sin máscara
 ```
 
-**Versión actual:** `0.8.0-dev` · **Día 9** · **12 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.9.0-dev` · **Día 10** · **15 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -40,10 +41,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | `bass` | `bass-in-the-desert`, `bass`, `put-this-on-bass`, `nice-bass`, `crunchy-bass` | Triángulo de fuego — perfil, receta, snapshot |
 | `low-end` | `upright-bass`, `synth-bass`, `808-boom-control` | Espiral de tres vueltas — orgánico, sintético, impacto |
 | `vocals-atmospheric` | `dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals` | Cuadrilátero de aire — sombra, niebla, brillo, calor |
+| `female-vocal` | `female-vox-1`, `female-vox-1-wet`, `female-vocal-wet` | Flecha frontal — dry → wet → wet-wide |
 
-`bass` y `low-end` forman una **díada vertical**; `vocals-atmospheric` levanta la **cúpula** — la voz como paisaje, no como señal aislada. El eje camel es la línea de continuidad atmosférica del bloque.
+`bass` y `low-end` forman una **díada vertical**; `vocals-atmospheric` levanta la **cúpula**; `female-vocal` traza la **flecha frontal** — presencia directa con cadena de derivación sin duplicar lógica.
 
-Los **41 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **38 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -70,6 +72,8 @@ Escucha el subsuelo y habita el espacio de la voz:
 ./bin/reina run upright-bass
 ./bin/reina run dreamy-camel-vocals --json
 ./bin/reina run dark-vocals
+./bin/reina run female-vox-1
+./bin/reina run female-vocal-wet --json
 ./bin/reina net-check --offline
 ```
 
@@ -151,10 +155,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `bass` (Día 7) | ✅ 5 presets `active` |
 | Familia `low-end` (Día 8) | ✅ 3 presets `active` |
 | Familia `vocals-atmospheric` (Día 9) | ✅ 4 presets `active` |
-| Resto del catálogo | 🎙️ En `planned` — Días 10–19 por delante |
+| Familia `female-vocal` (Día 10) | ✅ 3 presets `active` |
+| Resto del catálogo | 🛠️ En `planned` — Días 11–19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo y cielo interior. Lo que sigue es purificar la voz frontal.*
+*El desierto ya tiene llama, pozo, cielo interior y flecha frontal. Lo que sigue es la consciencia operativa.*
 
-🎙️ **Próximo paso:** Día 10 — familia `female-vocal`
+🛠️ **Próximo paso:** Día 11 — familia `vocal-utility`

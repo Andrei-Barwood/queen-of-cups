@@ -251,3 +251,40 @@ zsh tests/presets_vocals_atmospheric.zsh
 ./bin/reina run dark-vocals
 ./bin/reina run sparkley-camel-vocals
 ```
+
+## Familia `female-vocal` (Dia 10)
+
+Cuarta familia implementada. Purifica la presencia frontal de la voz femenina con verdad timbral.
+
+- core compartido en `lib/presets/families/female-vocal.zsh`
+- variantes via `reina_family_female_vocal_run`
+- la variante wet **extiende** el core dry; wet-wide extiende wet — sin copiar logica
+
+### Cadena de derivacion
+
+```text
+female-vox-1 (dry)  →  female-vox-1-wet (wet)  →  female-vocal-wet (wet-wide)
+```
+
+| Preset | Variante | Extension |
+| --- | --- | --- |
+| `female-vox-1` | `dry` | Raiz: presencia frontal, mascara reducida, señal seca |
+| `female-vox-1-wet` | `wet` | `extends-dry` — cola corta, mezcla humeda enfocada |
+| `female-vocal-wet` | `wet-wide` | `extends-wet` — espacio amplio, mezcla difusa, estereo expandido |
+
+### Semantica de transformacion
+
+| Variante | Intencion de senal |
+| --- | --- |
+| `dry` | Presencia frontal clara, minima mascara, timbralmente honesta |
+| `wet` | Extension humeda de dry sin perder claridad |
+| `wet-wide` | Extension amplia de la cadena wet con mezcla difusa |
+
+### Validacion
+
+```sh
+zsh tests/presets_female_vocal.zsh
+./bin/reina run female-vox-1
+./bin/reina run female-vox-1-wet
+./bin/reina run female-vocal-wet --json
+```

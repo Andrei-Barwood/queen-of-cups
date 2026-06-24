@@ -11,9 +11,9 @@ dark vocals	dark-vocals	vocals-atmospheric	dark	active	090	-	Enfasis en sombra, 
 dreamy camel vocals	dreamy-camel-vocals	vocals-atmospheric	dreamy	active	100	-	Variante atmosferica y continua.
 sparkley camel vocals	sparkley-camel-vocals	vocals-atmospheric	sparkly	active	110	-	Variante brillante y de detalle fino.
 warm springy vocals	warm-springy-vocals	vocals-atmospheric	warm	active	120	-	Variante calida y elastica.
-female vox 1	female-vox-1	female-vocal	dry	planned	130	-	Base clara y frontal del bloque female-vocal.
-female vox 1 wet	female-vox-1-wet	female-vocal	wet	planned	140	-	Derivacion humeda de female-vox-1.
-female vocal wet	female-vocal-wet	female-vocal	wet-wide	planned	150	-	Variante mas amplia y mezclada.
+female vox 1	female-vox-1	female-vocal	dry	active	130	-	Base clara y frontal del bloque female-vocal.
+female vox 1 wet	female-vox-1-wet	female-vocal	wet	active	140	-	Derivacion humeda de female-vox-1.
+female vocal wet	female-vocal-wet	female-vocal	wet-wide	active	150	-	Variante mas amplia y mezclada.
 pop lead vocal	pop-lead-vocal	vocal-utility	lead	planned	160	-	Voz principal y foco frontal.
 vocal help	vocal-help	vocal-utility	assist	planned	170	-	Preset diagnostico y asistivo.
 give backgrounds some life	give-backgrounds-some-life	vocal-utility	background	planned	180	-	Capa de apoyo y movimiento contextual.

@@ -440,6 +440,14 @@ La familia `vocals-atmospheric` abre la voz como paisaje:
 - `dark-vocals` y `warm-springy-vocals` comparten la matriz sin activar camel
 - cuatro presets pasan a `active`; doce presets activos en total
 
+## Nota de implementacion del Dia 10
+
+La familia `female-vocal` modela derivacion sin duplicacion:
+
+- `lib/presets/families/female-vocal.zsh` concentra core dry y extensiones wet/wet-wide
+- cadena `female-vox-1` → `female-vox-1-wet` → `female-vocal-wet` documentada en perfiles y snapshots
+- tres presets pasan a `active`; quince presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

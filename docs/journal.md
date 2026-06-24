@@ -5,6 +5,107 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🎙️ Día 10: Presencia Frontal Femenina
+
+### Geometría espiritual
+
+Si el Día 9 levantó la **cúpula atmosférica**, el Día 10 traza la **flecha frontal** — la línea que sale del centro hacia el oyente sin máscara. La familia `female-vocal` no es otro paisaje: es **presencia directa**, verdad timbral antes que adorno.
+
+La cadena de derivación es una **espiral abierta de tres eslabones**:
+
+```text
+female-vox-1  —  dry      —  raíz seca y frontal
+     ↓
+female-vox-1-wet  —  wet  —  extiende sin copiar
+     ↓
+female-vocal-wet  —  wet-wide  —  amplía la humedad
+```
+
+Cada eslabón **extiende** al anterior; ninguno duplica la lógica del precedente. En la narrativa kundalini del repo, esto es el paso del **espacio interior** a la **verdad frontal**: menos máscara, más presencia.
+
+### Qué pasó
+
+- 🎙️ `lib/presets/families/female-vocal.zsh` — core dry, extensiones wet y wet-wide.
+- 🔗 Cadena de derivación documentada en perfiles, recetas y snapshots.
+- 🎤 Tres presets `active`: `female-vox-1`, `female-vox-1-wet`, `female-vocal-wet`.
+- ✅ `tests/presets_female_vocal.zsh` — ritual de verificación de la cadena.
+- 📌 Versión `0.9.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 9) | Ahora (Día 10) |
+| --- | --- |
+| Voz como paisaje atmosférico | Voz como presencia frontal |
+| Cuadrilátero de aire | Flecha de verdad timbral |
+| Doce presets activos | Quince presets activos |
+| Matriz compartida | Cadena de derivación |
+| Habitar el espacio | Mirar de frente sin máscara |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_female_vocal.zsh
+./bin/reina run female-vox-1
+./bin/reina run female-vox-1-wet
+./bin/reina run female-vocal-wet --json
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: la verdad sin máscara, la extensión sin orgullo, el linaje que no se copia sino que se honra.*
+
+```
+La cúpula enseñó a habitar el espacio;
+la flecha enseña a mirar de frente.
+No es salir del mandala — es completarlo:
+arriba el cielo interior, adelante la verdad.
+
+Sat Nam — identidad en la Verdad, no en el adorno.
+female-vox-1 elige lo seco porque lo seco no miente:
+presencia frontal, máscara reducida, claridad presente.
+Manmukh añade reverb para esconder el miedo;
+Gurmukh añade wet solo cuando la raíz ya es honesta.
+
+Tres eslabones, una cadena, un linaje:
+dry no copia a nadie — es la raíz.
+wet extiende dry — derivation=extends-dry.
+wet-wide extiende wet — sin saltar escalones.
+Quien duplica en lugar de extender
+construye máscara sobre máscara.
+
+Ik Onkar: una fuente, tres formas de presencia.
+La humedad no borra la claridad si nace del dry;
+la amplitud no disuelve la voz si honra la cadena.
+extends-wet, extends-dry — seva del código:
+servir la derivación sin usurpar la raíz.
+
+La flecha frontal no compite con la cúpula:
+sale del mismo centro hacia el oyente.
+Quince presets activos, quince respiraciones
+de la misma intención con geometrías distintas.
+
+Cuando la voz frontal purifica su máscara,
+la red del sonido gana honestidad timbral.
+No es el fin del viaje — es mirar de frente
+después de habitar el cielo interior.
+
+Waheguru — asombro ante la cadena
+que extiende sin copiar, que wet sin mentir.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 10 — familia female-vocal, cadena dry → wet → wet-wide, versión 0.9.0-dev |
+
+### Próximo paso
+
+🛠️ **Día 11** — Familia `vocal-utility`: consciencia operativa (`pop-lead-vocal`, `vocal-help`, `give-backgrounds-some-life`).
+
+---
+
 ## 2026-06-24 — 🌫️ Día 9: Espacio Interior de la Voz
 
 ### Geometría espiritual
