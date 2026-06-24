@@ -145,6 +145,32 @@ lib/presets/
 
 ```sh
 zsh tests/preset_dispatcher.zsh
+zsh tests/presets_bass.zsh
 ./bin/reina run bass-in-the-desert
-./bin/reina run bass-in-the-desert --json
+./bin/reina run crunchy-bass --json
+./bin/reina info bass-in-the-desert
 ```
+
+## Familia `bass` (Dia 7)
+
+Primera familia implementada. Demuestra el patron que el resto de familias repetira:
+
+- core compartido en `lib/presets/families/bass.zsh`
+- referencia arquitectonica por slug en `lib/presets/implementations/bass-in-the-desert.zsh`
+- variantes heredadas via `reina_family_bass_run` cuando no existe runner por slug
+
+### Semantica de transformacion
+
+| Variante | Label | Intencion de senal |
+| --- | --- | --- |
+| `foundational` | desert | Low-end seco y respirable: fundamental ancha, armonicos dispersos, transientes secos. El "desierto" es espacio, no vacio. |
+| `base` | base | Cadena neutra: contencion suave de sub, EQ equilibrada, dinamica transparente. |
+| `utility` | utility | Cadena directa y opinionada: high-pass, compresion, saturacion ligera. |
+| `smooth` | nice | Compresion amable, transientes redondeados, brillo contenido. |
+| `aggressive` | crunchy | Saturacion armonica, presencia media, mordida en el ataque. |
+
+Cada ejecucion real (sin `--dry-run`):
+
+1. asegura un perfil en `${config}/presets/<slug>/profile.txt`
+2. construye una receta de transformacion y la guarda como snapshot
+3. registra historial via el runner principal

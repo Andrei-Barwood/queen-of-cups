@@ -1,9 +1,9 @@
 display_name	slug	family	variant	status	priority	aliases	notes
-Bass in the Desert	bass-in-the-desert	bass	foundational	planned	010	-	Preset fundacional del sistema y primera referencia de arquitectura.
-bass	bass	bass	base	planned	020	-	Preset neutro y generalista de la familia bass.
-put this on bass	put-this-on-bass	bass	utility	planned	030	-	Preset utilitario, directo y opinionado.
-nice bass	nice-bass	bass	smooth	planned	040	-	Variante amable y equilibrada.
-crunchy bass	crunchy-bass	bass	aggressive	planned	050	-	Variante de contraste y textura.
+Bass in the Desert	bass-in-the-desert	bass	foundational	active	010	-	Preset fundacional del sistema y primera referencia de arquitectura.
+bass	bass	bass	base	active	020	-	Preset neutro y generalista de la familia bass.
+put this on bass	put-this-on-bass	bass	utility	active	030	-	Preset utilitario, directo y opinionado.
+nice bass	nice-bass	bass	smooth	active	040	-	Variante amable y equilibrada.
+crunchy bass	crunchy-bass	bass	aggressive	active	050	-	Variante de contraste y textura.
 upright bass	upright-bass	low-end	organic	planned	060	-	Lectura organica y resonante del low-end.
 synth bass	synth-bass	low-end	synthetic	planned	070	-	Canonico hoy; variantes numericas solo si la familia se parte de verdad.
 808 boom control	808-boom-control	low-end	impact	planned	080	-	Preset de impacto, contencion y subgrave dominante.

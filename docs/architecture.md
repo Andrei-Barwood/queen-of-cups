@@ -413,6 +413,15 @@ Preset dispatch queda como puerta unica de ejecucion:
 - `family-core.zsh` concentra helpers de perfil, snapshot y resultado
 - `reina run` ya no usa placeholder: o ejecuta o declara `ERR_PRESET_NOT_IMPLEMENTED`
 
+## Nota de implementacion del Dia 7
+
+La familia `bass` es la primera invocacion viva del portal:
+
+- `lib/presets/families/bass.zsh` concentra perfiles, recetas y `reina_family_bass_run`
+- `lib/presets/implementations/bass-in-the-desert.zsh` documenta el patron slug + core de familia
+- `reina_storage_config_put` completa el contrato de `reina_preset_profile_put`
+- cinco presets pasan a `active`; el resto del catalogo sigue en `planned`
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

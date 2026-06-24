@@ -9,8 +9,27 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los 53 presets catalogados (Días 7–19).
+- Implementación de los presets restantes (Días 8–19).
 - Licencia pública explícita.
+
+## [0.6.0-dev] — 2026-06-24 — 🌵 Día 7: Primera Respiración del Low-End
+
+> *El portal del Día 6 recibe su primera invocación viva: la familia `bass` purifica el low-end fundacional antes de expandir la red.*
+
+### Añadido
+
+- Familia `bass`: `lib/presets/families/bass.zsh` con core compartido, perfiles, recetas y snapshots.
+- Preset fundacional `bass-in-the-desert` como referencia arquitectónica en `lib/presets/implementations/`.
+- Variantes activas: `bass`, `put-this-on-bass`, `nice-bass`, `crunchy-bass` vía runner de familia.
+- `reina_storage_config_put` para persistir perfiles por preset.
+- Tests: `tests/presets_bass.zsh`.
+- Nota de diseño de transformación de señal en `docs/presets.md`.
+
+### Cambiado
+
+- Cinco presets de familia `bass` pasan de `planned` a `active` en `presets/manifest.tsv`.
+- `reina run bass-in-the-desert` ejecuta lógica real con perfil, snapshot e historial.
+- Tests de smoke, dispatcher e instalación usan `upright-bass` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ## [0.5.0-dev] — 2026-06-24 — 🔺 Día 6: El Portal del Despacho
 

@@ -601,6 +601,15 @@ function reina_storage_config_get() {
   REINA_STORE_LAST_VALUE="$default"
 }
 
+function reina_storage_config_put() {
+  emulate -L zsh
+  local key="${1:-}"
+  local preset="${2:-global}"
+  local value="${3:-}"
+
+  reina_storage_put config "$key" "$value" "$preset" 0 "local"
+}
+
 function reina_storage_context_json() {
   emulate -L zsh
 

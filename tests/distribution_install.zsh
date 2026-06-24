@@ -77,17 +77,25 @@ list_output="$(
 )"
 assert_contains "$list_output" "bass-in-the-desert" "instalacion lista presets" || exit 1
 
+run_output="$(
+  REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
+  REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
+  REINA_STATE_ROOT="${TMP_DIR}/state-root" \
+  "$PREFIX/bin/reina" run bass-in-the-desert --dry-run 2>/dev/null
+)"
+assert_contains "$run_output" "result_status: ok" "instalacion ejecuta preset fundacional" || exit 1
+
 stderr_file="$(mktemp)"
 REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
 REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
 REINA_STATE_ROOT="${TMP_DIR}/state-root" \
-"$PREFIX/bin/reina" run bass-in-the-desert --dry-run >/dev/null 2>"$stderr_file"
+"$PREFIX/bin/reina" run upright-bass >/dev/null 2>"$stderr_file"
 run_exit_code=$?
 run_stderr="$(<"$stderr_file")"
 rm -f "$stderr_file"
 
 if [[ "$run_exit_code" -ne 3 ]]; then
-  print -u2 -- "FAIL: instalacion ejecuta runner con exit code 3 y llego $run_exit_code"
+  print -u2 -- "FAIL: instalacion declara preset no implementado con exit code 3 y llego $run_exit_code"
   exit 1
 fi
 
