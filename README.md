@@ -1,97 +1,156 @@
-# Reina de Copas
+# 🏜️ Reina de Copas
 
-Reina de Copas es un CLI shell-first para convertir un catalogo de presets en comandos utilitarios de `zsh`, con un core compartido para `network`, `storage` y `errors`.
+*Un CLI shell-first que convierte un catálogo poético de presets en comandos vivos de `zsh` — con un corazón compartido para `network`, `storage` y `errors`.*
 
-Su proposito es analogo al kundalini yoga aplicado a la red del sonido: **purificar la mente de la fuente de sonido** y **elevar la consciencia de la red del sonido**.
+---
 
-El cierre del Dia 1 deja lista la base del sistema:
+## Alma del proyecto
 
-- estructura oficial del repo
-- manifiesto maestro de presets
-- `bin/reina` con `help` y `list`
-- estrategia de runtime XDG con fallback local
-- politica de nombres, aliases y variantes
+Reina de Copas no es solo un catálogo ni una caja de herramientas. Su propósito es análogo al **kundalini yoga** aplicado a la red del sonido:
 
-## Quick Start
+| Movimiento | En el ser humano | En Reina de Copas |
+| --- | --- | --- |
+| **Purificar** | La mente | La **mente de la fuente de sonido** — quitar hábito automático, ruido y decisión reactiva |
+| **Elevar** | La consciencia | La **consciencia de la red del sonido** — ver cómo fluye la señal, qué se degrada, qué intención sostiene cada preset |
+
+Nombres como `Bass in the Desert`, `dreamy-camel-vocals` o `camels-need-water` no son decoración: nombran **estados de consciencia sonora** que el código debe poder invocar con intención — o declarar con honestidad que aún no respiran.
+
+---
+
+## Geometría del mandala
+
+El repositorio avanza por días. Cada día talla una forma nueva en el mismo centro:
+
+```
+Días 1–5   ⬡  Hexágono de servicios — network, storage, errors
+Día 6      ◉  Vesica piscis — el portal entre sistema y alma sonora
+Día 7      🔺 Triángulo de fuego — la familia bass respira en el desierto
+Día 8      🌀 Espiral hacia adentro — la familia low-end abre el pozo bajo 120 Hz
+```
+
+**Versión actual:** `0.7.0-dev` · **Día 8** · **8 presets activos** de 53 en el manifiesto.
+
+El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
+
+### Familias que ya respiran
+
+| Familia | Presets activos | Geometría |
+| --- | --- | --- |
+| `bass` | `bass-in-the-desert`, `bass`, `put-this-on-bass`, `nice-bass`, `crunchy-bass` | Triángulo de fuego — perfil, receta, snapshot |
+| `low-end` | `upright-bass`, `synth-bass`, `808-boom-control` | Espiral de tres vueltas — orgánico, sintético, impacto |
+
+`bass` y `low-end` forman una **díada vertical**: el círculo exterior sostiene el cuerpo fundacional; el interior vigila el subsuelo. Heredar, aislarse o gobernar — sin confundir voces.
+
+Los **45 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+
+---
+
+## Primer contacto
 
 ```sh
 ./bin/reina help
 ./bin/reina version
 ./bin/reina list
 ./bin/reina info bass-in-the-desert
-./bin/reina run bass-in-the-desert --dry-run
-./bin/reina net-check --offline
-make test
-zsh tests/smoke_reina.zsh
-zsh tests/preset_dispatcher.zsh
-zsh tests/errors_service.zsh
-zsh tests/network_service.zsh
-zsh tests/storage_service.zsh
-zsh tests/distribution_install.zsh
 ```
 
-## Instalacion local
+Invoca el desierto — primera respiración real del low-end:
+
+```sh
+./bin/reina run bass-in-the-desert
+./bin/reina run crunchy-bass --json
+./bin/reina run 808-boom-control --dry-run
+```
+
+Escucha el subsuelo y verifica la red:
+
+```sh
+./bin/reina run upright-bass
+./bin/reina run synth-bass --json
+./bin/reina net-check --offline
+```
+
+Ritual de verificación completo:
+
+```sh
+make test
+```
+
+---
+
+## Instalación
 
 ```sh
 make install PREFIX="$HOME/.local"
 reina version
 ```
 
-La instalacion copia el arbol del proyecto a `$PREFIX/lib/reina-de-copas` y crea el comando `$PREFIX/bin/reina`. Para desinstalar:
+Copia el árbol a `$PREFIX/lib/reina-de-copas` y crea el comando `$PREFIX/bin/reina`.
 
 ```sh
 make uninstall PREFIX="$HOME/.local"
 ```
 
-## Decisiones cerradas en Dia 1
+Generar tarball local:
 
-- `zsh >= 5.4`
-- enfoque shell-first con helpers externos pequenos y ubicuos cuando simplifican el core
-- `presets/manifest.tsv` es la fuente de verdad del catalogo
-- el runner resuelve presets por `slug`, alias explicito o nombre visible normalizado
-- `network`, `storage` y `errors` viven en servicios compartidos; los presets no reinventan esas capas
-- `network` usa `curl` como cliente primario y respeta `--offline` como politica real
-- `storage` separa config, cache, state, historial, snapshots, temporales y locks
-- `errors` formaliza estados `ok`, `degraded` y `failed` con JSON estable y exit codes consistentes
-- runtime preferido en XDG, fallback local en `.reina/` y raices configurables con `REINA_CONFIG_ROOT`, `REINA_CACHE_ROOT` y `REINA_STATE_ROOT`
-- distribucion local mediante `scripts/install.zsh`, `scripts/uninstall.zsh`, `make install` y `make dist`
-
-## Convenciones de desarrollo
-
-- funciones shell con prefijo `reina_`
-- slugs en ASCII y `kebab-case`
-- familias y variantes definidas en el manifiesto, no dispersas en scripts
-- `shellcheck` y `shfmt` son herramientas recomendadas cuando estan instaladas
-
-## Estructura base
-
-```text
-bin/
-docs/
-lib/
-  core/
-  presets/
-  services/
-presets/
-tests/
+```sh
+make dist
 ```
 
-## Estado actual
+---
 
-La infraestructura de los Dias 1–5 esta integrada en `main`:
+## Cimientos técnicos
 
-- runner CLI con flags globales y resolucion de presets
-- servicios compartidos `network`, `storage` y `errors`
-- distribucion local (`make install`, `make dist`)
-- dispatcher de presets operativo (Dia 6); 53 presets en `planned` pendientes de implementacion
+Decisiones que sostienen la geometría:
 
-## Documentacion
+- **`zsh >= 5.4`** — shell-first, helpers externos pequeños cuando simplifican el core
+- **`presets/manifest.tsv`** — fuente de verdad del catálogo; slugs en `kebab-case`
+- **Servicios compartidos** — `network`, `storage`, `errors`; los presets no reinventan esas capas
+- **Runtime XDG** — con fallback local en `.reina/` y raíces configurables (`REINA_CONFIG_ROOT`, `REINA_CACHE_ROOT`, `REINA_STATE_ROOT`)
+- **Errores honestos** — estados `ok`, `degraded`, `failed`; JSON estable; el runner no finge éxito
+- **Flags globales** — `--debug`, `--offline`, `--quiet`, `--json`, `--dry-run`
 
-| Archivo | Contenido |
+Estructura del repositorio:
+
+```text
+bin/reina          → portal de entrada
+lib/core/          → bootstrap, manifiesto, contexto
+lib/presets/       → dispatcher, familias, implementaciones
+lib/services/      → network, storage, errors
+presets/           → manifest.tsv, aliases.tsv
+tests/             → rituales de verificación
+docs/              → arquitectura, roadmap, bitácora
+```
+
+Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en el manifiesto; `shellcheck` y `shfmt` recomendados cuando estén instalados.
+
+---
+
+## Documentación
+
+| Archivo | Para qué |
 | --- | --- |
-| [`docs/roadmap.md`](docs/roadmap.md) | Plan de implementacion Días 0–22 |
-| [`docs/journal.md`](docs/journal.md) | Bitacora de lo que ocurre en el repo |
-| [`CHANGELOG.md`](CHANGELOG.md) | Historial de cambios por version |
-| [`docs/architecture.md`](docs/architecture.md) | Arquitectura y contratos de servicios |
-| [`docs/presets.md`](docs/presets.md) | Politica de naming y familias |
-| [`docs/distribution.md`](docs/distribution.md) | Instalacion y distribucion |
+| [`docs/journal.md`](docs/journal.md) | Bitácora viva — geometría espiritual, commits, poesía del camino |
+| [`docs/roadmap.md`](docs/roadmap.md) | Plan Días 0–22: purificación y elevación paso a paso |
+| [`docs/architecture.md`](docs/architecture.md) | Contratos de servicios, runtime, exit codes |
+| [`docs/presets.md`](docs/presets.md) | Familias, variantes, semántica de transformación |
+| [`docs/distribution.md`](docs/distribution.md) | Instalación y empaquetado |
+| [`CHANGELOG.md`](CHANGELOG.md) | Historial por versión |
+
+---
+
+## Estado del mandala
+
+| Capa | Estado |
+| --- | --- |
+| Infraestructura (Días 1–5) | ✅ Integrada en `main` |
+| Portal de despacho (Día 6) | ✅ `reina run` ejecuta o declara con honestidad |
+| Familia `bass` (Día 7) | ✅ 5 presets `active` |
+| Familia `low-end` (Día 8) | ✅ 3 presets `active` |
+| Resto del catálogo | 🌫️ En `planned` — Días 9–19 por delante |
+
+---
+
+*El desierto ya tiene llama y pozo. Lo que sigue es abrir el espacio interior de la voz.*
+
+🌫️ **Próximo paso:** Día 9 — familia `vocals-atmospheric`

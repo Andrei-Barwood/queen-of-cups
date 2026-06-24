@@ -5,6 +5,27 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 📜 La puerta de entrada del mandala
+
+### Geometría espiritual
+
+Hasta hoy el `README.md` era un plano técnico del Día 1 — útil, pero mudo ante quien llega por el alma del proyecto. Esta entrada abre la **puerta frontal del mandala**: la primera forma que ve el visitante debe resonar con la bitácora, no contradecirla.
+
+El README ahora es **espejo horizontal** del journal: misma geometría (hexágono, vesica, triángulo, espiral), mismo propósito kundalini, mismo estado vivo (Día 8, ocho presets activos). La documentación técnica no desaparece — desciende al sótano como cimientos que sostienen, no como muro que oculta.
+
+### Qué pasó
+
+- 📜 `README.md` reescrito — alma, mandala, familias activas, quick start vivo.
+- 🔗 Enlaces a journal, roadmap y presets como mapa del camino.
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | README — puerta de entrada del mandala alineada con la narrativa del repo |
+
+---
+
 ## 2026-06-24 — 🌊 Día 8: Purificación del Subsuelo Sonoro
 
 ### Geometría espiritual
