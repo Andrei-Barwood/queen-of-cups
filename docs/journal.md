@@ -12,7 +12,15 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 - Se redactó `docs/roadmap.md` con el propósito del proyecto (purificar la mente de la fuente de sonido y elevar la consciencia de la red del sonido) y el plan de implementación Días 0–22.
 - Se creó `CHANGELOG.md` y esta bitácora.
 - Se integró en `main` el stack completo de infraestructura (Días 1–5), pendiente de merge desde abril 2026.
-- Se mergearon las pull requests #1–#6.
+- PR #1 mergeada en `main` por GitHub.
+- PRs #2–#6 cerradas: su contenido ya estaba integrado en `main` via fast-forward del stack (`574fdae`).
+
+### Commits publicados
+
+| Commit | Descripcion |
+| --- | --- |
+| `574fdae` | `docs: add roadmap, journal, changelog and update README` |
+| `main` @ `574fdae` | Fast-forward: Dias 1–5 + distribucion + documentacion |
 
 ### Estado del código
 
@@ -25,16 +33,16 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 | Tests | 5 suites pasando (`make test`) |
 | Versión | `0.4.0-dev` |
 
-### Pull requests integradas
+### Pull requests
 
-| PR | Rama | Título |
-| --- | --- | --- |
-| #1 | `day-01-foundations` | Day 01: foundations |
-| #2 | `day-02-runner-cli` | Day 02: runner CLI |
-| #3 | `day-03-network-service` | Day 03: network service |
-| #4 | `day-04-storage-service` | Day 04: storage service |
-| #5 | `codex/distribution-readiness` | Prepare repository distribution |
-| #6 | `day-05-errors-system` | Day 05: error system |
+| PR | Rama | Titulo | Resolucion |
+| --- | --- | --- | --- |
+| #1 | `day-01-foundations` | Day 01: foundations | Mergeada |
+| #2 | `day-02-runner-cli` | Day 02: runner CLI | Cerrada (integrada en `main`) |
+| #3 | `day-03-network-service` | Day 03: network service | Cerrada (integrada en `main`) |
+| #4 | `day-04-storage-service` | Day 04: storage service | Cerrada (integrada en `main`) |
+| #5 | `codex/distribution-readiness` | Prepare repository distribution | Cerrada (integrada en `main`) |
+| #6 | `day-05-errors-system` | Day 05: error system | Cerrada (integrada en `main`) |
 
 ### Próximo paso
 
