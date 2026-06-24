@@ -214,3 +214,40 @@ zsh tests/presets_low_end.zsh
 ./bin/reina run upright-bass
 ./bin/reina run synth-bass --json
 ```
+
+## Familia `vocals-atmospheric` (Dia 9)
+
+Tercera familia implementada. Abre la voz como paisaje atmosferico, no como señal aislada.
+
+- core compartido en `lib/presets/families/vocals-atmospheric.zsh`
+- matriz compartida de espacio y densidad: `space_width`, `space_depth`, `vocal_density`, `continuity`
+- variantes via `reina_family_vocals_atmospheric_run`
+
+### Eje camel
+
+El **camel** no es gimmick: nombra la **linea de continuidad atmosferica** — la voz que atraviesa un espacio en lugar de posarse sobre el.
+
+| Preset | Eje camel | Rol |
+| --- | --- | --- |
+| `dreamy-camel-vocals` | `camel_axis=active` | Paisaje continuo y difuso |
+| `sparkley-camel-vocals` | `camel_axis=active` | Brillo fino y detalle aereo |
+| `dark-vocals` | `camel_axis=latent` | Sombra intima sin forzar recorrido camel |
+| `warm-springy-vocals` | `camel_axis=latent` | Calidez elastica en la matriz compartida |
+
+### Semantica de transformacion
+
+| Variante | Label | Intencion de senal |
+| --- | --- | --- |
+| `dark` | dark | Sombra, densidad, presencia intima |
+| `dreamy` | dreamy-camel | Atmosfera continua en la linea camel |
+| `sparkly` | sparkley-camel | Brillo fino y detalle aereo en la linea camel |
+| `warm` | warm-springy | Calidez elastica y cuerpo vocal redondeado |
+
+### Validacion
+
+```sh
+zsh tests/presets_vocals_atmospheric.zsh
+./bin/reina run dreamy-camel-vocals --json
+./bin/reina run dark-vocals
+./bin/reina run sparkley-camel-vocals
+```

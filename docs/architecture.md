@@ -431,6 +431,15 @@ La familia `low-end` profundiza el subsuelo sonoro:
 - `808-boom-control` actua como gobernador de subgrave dominante con headroom reservado
 - tres presets pasan a `active`; ocho presets activos en total
 
+## Nota de implementacion del Dia 9
+
+La familia `vocals-atmospheric` abre la voz como paisaje:
+
+- `lib/presets/families/vocals-atmospheric.zsh` define matriz de espacio/densidad y `reina_family_vocals_atmospheric_run`
+- el eje camel es linea identitaria del bloque (`dreamy-camel-vocals`, `sparkley-camel-vocals`)
+- `dark-vocals` y `warm-springy-vocals` comparten la matriz sin activar camel
+- cuatro presets pasan a `active`; doce presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

@@ -24,6 +24,7 @@ test: syntax
 	@zsh tests/preset_dispatcher.zsh
 	@zsh tests/presets_bass.zsh
 	@zsh tests/presets_low_end.zsh
+	@zsh tests/presets_vocals_atmospheric.zsh
 	@zsh tests/errors_service.zsh
 	@zsh tests/network_service.zsh
 	@zsh tests/storage_service.zsh

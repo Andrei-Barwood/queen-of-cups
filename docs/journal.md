@@ -5,6 +5,109 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🌫️ Día 9: Espacio Interior de la Voz
+
+### Geometría espiritual
+
+Si el Día 8 abrió el **pozo** bajo la arena, el Día 9 levanta la **cúpula atmosférica** — el arco que envuelve la voz y la convierte en paisaje. Ya no basta oír el subsuelo; hay que sentir el espacio donde la voz habita.
+
+La familia `vocals-atmospheric` dibuja un **cuadrilátero de aire** — cuatro vértices de presencia:
+
+| Vértice | Preset | Color |
+| --- | --- | --- |
+| Sombra | `dark-vocals` | Densidad íntima, espacio contenido |
+| Niebla | `dreamy-camel-vocals` | Continuidad difusa en la línea camel |
+| Brillo | `sparkley-camel-vocals` | Detalle aéreo en la línea camel |
+| Calor | `warm-springy-vocals` | Elasticidad cálida y cuerpo redondeado |
+
+El **eje camel** no es gimmick: es la **línea horizontal del bloque** — el recorrido atmosférico que atraviesa el paisaje vocal. `dreamy` y `sparkley` caminan sobre esa línea; `dark` y `warm` comparten la matriz de espacio sin forzar el camino.
+
+En la narrativa kundalini del repo, esto es el paso del **subsuelo consciente** al **espacio interior**: la voz deja de ser señal aislada y se vuelve habitación sonora.
+
+### Qué pasó
+
+- 🌫️ `lib/presets/families/vocals-atmospheric.zsh` — matriz de espacio, densidad y eje camel.
+- 🐪 Eje camel como línea identitaria (`camel_axis=active` en dreamy y sparkley).
+- 🎤 Cuatro presets `active`: `dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals`.
+- ✅ `tests/presets_vocals_atmospheric.zsh` — ritual de verificación atmosférica.
+- 📌 Versión `0.8.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 8) | Ahora (Día 9) |
+| --- | --- |
+| Mandala con profundidad vertical | Mandala con cúpula atmosférica |
+| Oír el subsuelo | Habitar el espacio de la voz |
+| Ocho presets activos | Doce presets activos |
+| Díada bass ↔ low-end | Tres familias en diálogo |
+| El desierto tiene pozo | El desierto tiene cielo interior |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_vocals_atmospheric.zsh
+./bin/reina run dreamy-camel-vocals --json
+./bin/reina run dark-vocals
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el espacio interior, el camino como hogar, la voz que no se aísla del paisaje, y la Verdad que no necesita adorno.*
+
+```
+El pozo enseñó a escuchar lo profundo;
+la cúpula enseña a habitar lo abierto.
+No es contradicción — es mandala completo:
+raíz abajo, cielo adentro, voz en el medio.
+
+La voz aislada es ego que habla solo.
+La voz-paisaje es Gurmukh que escucha el espacio
+antes de ocuparlo. No invade — habita.
+
+Cuadrilátero de aire, cuatro colores:
+sombra que no huye de la densidad,
+niebla que no teme la difusión,
+brillo que no confunde luz con ruido,
+calor que no endurece el cuerpo.
+
+El camel no es decoración del nombre —
+es la línea horizontal del bloque,
+el recorrido atmosférico que atraviesa
+dreamy y sparkley sin forzar a dark ni warm.
+Sat Nam: cada preset su camino,
+la matriz compartida sin mezcla falsa.
+
+Ik Onkar: un Centro, muchas habitaciones.
+Doce presets activos, doce formas de respirar
+la misma intención sin repetir la misma máscara.
+
+Quien confunde gimmick con identidad
+construye sobre niebla sin raíz.
+Quien honra el eje camel como línea,
+no como chiste, abre el espacio interior
+con respeto y con seva.
+
+El desierto ya no es solo arena y pozo:
+tiene cielo adentro. La voz deja de ser señal
+y se vuelve morada sonora.
+
+Waheguru — asombro ante la cúpula
+que revela lo que la señal sola no podía nombrar.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 9 — familia vocals-atmospheric, espacio interior de la voz, versión 0.8.0-dev |
+
+### Próximo paso
+
+🎙️ **Día 10** — Familia `female-vocal`: purificar la presencia frontal (`female-vox-1`, `female-vox-1-wet`, `female-vocal-wet`).
+
+---
+
 ## 2026-06-24 — 📜 La puerta de entrada del mandala
 
 ### Geometría espiritual

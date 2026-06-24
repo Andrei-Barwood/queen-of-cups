@@ -7,10 +7,10 @@ crunchy bass	crunchy-bass	bass	aggressive	active	050	-	Variante de contraste y t
 upright bass	upright-bass	low-end	organic	active	060	-	Lectura organica y resonante del low-end.
 synth bass	synth-bass	low-end	synthetic	active	070	-	Canonico hoy; variantes numericas solo si la familia se parte de verdad.
 808 boom control	808-boom-control	low-end	impact	active	080	-	Preset de impacto, contencion y subgrave dominante.
-dark vocals	dark-vocals	vocals-atmospheric	dark	planned	090	-	Enfasis en sombra, densidad y presencia intima.
-dreamy camel vocals	dreamy-camel-vocals	vocals-atmospheric	dreamy	planned	100	-	Variante atmosferica y continua.
-sparkley camel vocals	sparkley-camel-vocals	vocals-atmospheric	sparkly	planned	110	-	Variante brillante y de detalle fino.
-warm springy vocals	warm-springy-vocals	vocals-atmospheric	warm	planned	120	-	Variante calida y elastica.
+dark vocals	dark-vocals	vocals-atmospheric	dark	active	090	-	Enfasis en sombra, densidad y presencia intima.
+dreamy camel vocals	dreamy-camel-vocals	vocals-atmospheric	dreamy	active	100	-	Variante atmosferica y continua.
+sparkley camel vocals	sparkley-camel-vocals	vocals-atmospheric	sparkly	active	110	-	Variante brillante y de detalle fino.
+warm springy vocals	warm-springy-vocals	vocals-atmospheric	warm	active	120	-	Variante calida y elastica.
 female vox 1	female-vox-1	female-vocal	dry	planned	130	-	Base clara y frontal del bloque female-vocal.
 female vox 1 wet	female-vox-1-wet	female-vocal	wet	planned	140	-	Derivacion humeda de female-vox-1.
 female vocal wet	female-vocal-wet	female-vocal	wet-wide	planned	150	-	Variante mas amplia y mezclada.

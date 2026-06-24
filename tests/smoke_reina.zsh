@@ -69,7 +69,7 @@ fi
 
 assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "forma corta declara preset no implementado" || exit 1
 
-run_json_output="$("$REINA_BIN" --json run dark-vocals 2>/dev/null)"
+run_json_output="$("$REINA_BIN" --json run female-vox-1 2>/dev/null)"
 assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa preset no implementado" || exit 1
 
 net_check_offline_output="$("$REINA_BIN" net-check --offline)"

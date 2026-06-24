@@ -26,9 +26,10 @@ Días 1–5   ⬡  Hexágono de servicios — network, storage, errors
 Día 6      ◉  Vesica piscis — el portal entre sistema y alma sonora
 Día 7      🔺 Triángulo de fuego — la familia bass respira en el desierto
 Día 8      🌀 Espiral hacia adentro — la familia low-end abre el pozo bajo 120 Hz
+Día 9      🌫️ Cúpula atmosférica — la familia vocals-atmospheric abre el espacio de la voz
 ```
 
-**Versión actual:** `0.7.0-dev` · **Día 8** · **8 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.8.0-dev` · **Día 9** · **12 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -38,10 +39,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | --- | --- | --- |
 | `bass` | `bass-in-the-desert`, `bass`, `put-this-on-bass`, `nice-bass`, `crunchy-bass` | Triángulo de fuego — perfil, receta, snapshot |
 | `low-end` | `upright-bass`, `synth-bass`, `808-boom-control` | Espiral de tres vueltas — orgánico, sintético, impacto |
+| `vocals-atmospheric` | `dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals` | Cuadrilátero de aire — sombra, niebla, brillo, calor |
 
-`bass` y `low-end` forman una **díada vertical**: el círculo exterior sostiene el cuerpo fundacional; el interior vigila el subsuelo. Heredar, aislarse o gobernar — sin confundir voces.
+`bass` y `low-end` forman una **díada vertical**; `vocals-atmospheric` levanta la **cúpula** — la voz como paisaje, no como señal aislada. El eje camel es la línea de continuidad atmosférica del bloque.
 
-Los **45 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **41 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -62,11 +64,12 @@ Invoca el desierto — primera respiración real del low-end:
 ./bin/reina run 808-boom-control --dry-run
 ```
 
-Escucha el subsuelo y verifica la red:
+Escucha el subsuelo y habita el espacio de la voz:
 
 ```sh
 ./bin/reina run upright-bass
-./bin/reina run synth-bass --json
+./bin/reina run dreamy-camel-vocals --json
+./bin/reina run dark-vocals
 ./bin/reina net-check --offline
 ```
 
@@ -147,10 +150,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Portal de despacho (Día 6) | ✅ `reina run` ejecuta o declara con honestidad |
 | Familia `bass` (Día 7) | ✅ 5 presets `active` |
 | Familia `low-end` (Día 8) | ✅ 3 presets `active` |
-| Resto del catálogo | 🌫️ En `planned` — Días 9–19 por delante |
+| Familia `vocals-atmospheric` (Día 9) | ✅ 4 presets `active` |
+| Resto del catálogo | 🎙️ En `planned` — Días 10–19 por delante |
 
 ---
 
-*El desierto ya tiene llama y pozo. Lo que sigue es abrir el espacio interior de la voz.*
+*El desierto ya tiene llama, pozo y cielo interior. Lo que sigue es purificar la voz frontal.*
 
-🌫️ **Próximo paso:** Día 9 — familia `vocals-atmospheric`
+🎙️ **Próximo paso:** Día 10 — familia `female-vocal`

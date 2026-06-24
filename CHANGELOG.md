@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 9–19).
+- Implementación de los presets restantes (Días 10–19).
 - Licencia pública explícita.
+
+## [0.8.0-dev] — 2026-06-24 — 🌫️ Día 9: Espacio Interior de la Voz
+
+> *La familia `vocals-atmospheric` abre la voz como paisaje: sombra, brillo, continuidad y el eje camel como línea identitaria.*
+
+### Añadido
+
+- Familia `vocals-atmospheric`: `lib/presets/families/vocals-atmospheric.zsh` con matriz de espacio y densidad.
+- Cuatro presets `active`: `dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals`.
+- Eje camel documentado como línea de continuidad atmosférica (no gimmick).
+- Tests: `tests/presets_vocals_atmospheric.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `female-vox-1` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Doce presets activos en total.
 
 ## [0.7.0-dev] — 2026-06-24 — 🌊 Día 8: Purificación del Subsuelo Sonoro
 
