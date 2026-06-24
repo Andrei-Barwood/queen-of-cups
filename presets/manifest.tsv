@@ -21,10 +21,10 @@ drum bus drivin	drum-bus-drivin	drum-bus	drive	active	190	-	Empuje, glue y energ
 drum bus island	drum-bus-island	drum-bus	spaced	active	200	-	Variante mas abierta y separada.
 drum bus wild spring camel	drum-bus-wild-spring-camel	drum-bus	wild	active	210	-	Version mas elastica y energetica del bus.
 drum bus magic	drum-bus-magic	drum-bus	glue	active	220	-	Variante de cohesion y polish.
-parallel processing drums	parallel-processing-drums	drum-experimental	parallel	planned	230	-	Base experimental de capas paralelas.
-myon pop parallel magic	myon-pop-parallel-magic	drum-experimental	parallel-pop	planned	240	-	Paralelo mas pulido y pop.
-wildin camel drums	wildin-camel-drums	drum-experimental	parallel-wild	planned	250	-	Paralelo salvaje y contrastado.
-wierdly gated drums	wierdly-gated-drums	drum-experimental	gated	planned	260	-	Variante gated con cortes deliberados.
+parallel processing drums	parallel-processing-drums	drum-experimental	parallel	active	230	-	Base experimental de capas paralelas.
+myon pop parallel magic	myon-pop-parallel-magic	drum-experimental	parallel-pop	active	240	-	Paralelo mas pulido y pop.
+wildin camel drums	wildin-camel-drums	drum-experimental	parallel-wild	active	250	-	Paralelo salvaje y contrastado.
+wierdly gated drums	wierdly-gated-drums	drum-experimental	gated	active	260	-	Variante gated con cortes deliberados.
 kick	kick	drum-pieces-core	anchor	planned	270	-	Golpe ancla y pulso central.
 kick 2	kick-2	drum-pieces-core	anchor-tight	planned	280	-	Variante mas focalizada y seca de kick.
 snare	snare	drum-pieces-core	accent	planned	290	-	Acento principal del bloque.

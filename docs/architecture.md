@@ -464,6 +464,14 @@ La familia `drum-bus` purifica el colectivo ritmico:
 - cuatro variantes: drive, spaced, wild, glue
 - cuatro presets pasan a `active`; veintidos presets activos en total
 
+## Nota de implementacion del Dia 13
+
+La familia `drum-experimental` eleva capas paralelas con degradacion segura:
+
+- `lib/presets/families/drum-experimental.zsh` define texturas parallel y gated
+- fallback local via `reina_degrade` si faltan `curl`, red o `awk`
+- cuatro presets pasan a `active`; veintiseis presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

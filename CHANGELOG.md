@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 13–19).
+- Implementación de los presets restantes (Días 14–19).
 - Licencia pública explícita.
+
+## [0.12.0-dev] — 2026-06-24 — 🎛️ Día 13: Capas Paralelas Experimentales
+
+> *La familia `drum-experimental` eleva capas paralelas y texturas no lineales con degradación segura.*
+
+### Añadido
+
+- Familia `drum-experimental`: `lib/presets/families/drum-experimental.zsh`.
+- Cuatro presets `active`: `parallel-processing-drums`, `myon-pop-parallel-magic`, `wildin-camel-drums`, `wierdly-gated-drums`.
+- Degradación segura a fallback local si faltan `curl`, red o `awk`.
+- Tests: `tests/presets_drum_experimental.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `kick` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Veintiséis presets activos en total.
 
 ## [0.11.0-dev] — 2026-06-24 — 🥁 Día 12: Colectivo Rítmico
 

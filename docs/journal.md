@@ -5,6 +5,97 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🎛️ Día 13: Capas Paralelas Experimentales
+
+### Geometría espiritual
+
+Si el Día 12 trazó el **cuadrado del pulso**, el Día 13 abre el **octágono del riesgo controlado** — ocho direcciones de textura donde las capas paralelas coexisten sin colapsar el centro. La familia `drum-experimental` no rompe el mandala: **degrada con honestidad** cuando una capa no puede aplicarse.
+
+Cuatro variantes, cuatro caminos del experimento:
+
+| Camino | Preset | Textura |
+| --- | --- | --- |
+| Paralelo base | `parallel-processing-drums` | Capas apiladas con riesgo moderado |
+| Paralelo pop | `myon-pop-parallel-magic` | Pulido y magia pop |
+| Paralelo wild | `wildin-camel-drums` | Contraste salvaje camel |
+| Gated | `wierdly-gated-drums` | Cortes deliberados, no lineal |
+
+### Qué pasó
+
+- 🎛️ `lib/presets/families/drum-experimental.zsh` — parallel, gated y degradación segura.
+- 🔄 Fallback local si faltan `curl`, red o `awk` — nunca fallo fatal.
+- 🥁 Cuatro presets `active` en el bloque experimental.
+- ✅ `tests/presets_drum_experimental.zsh` — ritual incluye verificación `--offline`.
+- 📌 Versión `0.12.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 12) | Ahora (Día 13) |
+| --- | --- |
+| Colectivo rítmico unificado | Capas paralelas y texturas no lineales |
+| Cuadrado drive/spaced/wild/glue | Octágono del riesgo controlado |
+| Veintidós presets activos | Veintiséis presets activos |
+| Fallo como única alternativa | Degradación segura como práctica |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_drum_experimental.zsh
+./bin/reina run parallel-processing-drums
+./bin/reina --offline run parallel-processing-drums
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el riesgo contenido, la verdad en la degradación, y el camino que no colapsa cuando falta un brazo.*
+
+```
+El cuadrado enseñó a unificar el pulso;
+el octágono enseña a abrir capas sin perder el centro.
+No es caos — es riesgo controlado:
+parallel apila, pop pulimenta,
+wild contrasta, gated corta con intención.
+
+Sat Nam — la Verdad no finge la capa completa
+cuando la red no está. --offline no miente:
+degraded con fallback local, exit code cero.
+El portal del Día 6 cumplido otra vez:
+mejor degradar visible que colapsar en silencio.
+
+Gurmukh acepta el fallback sin vergüenza;
+Manmukh oculta la dependencia faltante
+y pretende que la capa experimental siempre está.
+reina_degrade es seva: servir el sonido
+aunque la capa remota no llegue.
+
+Ik Onkar: un Centro, ocho direcciones de textura.
+Veintiséis presets activos, veintiséis formas
+de respirar el mismo mandala sin repetir la máscara.
+Cuando una capa no puede aplicarse,
+la red sigue — con consciencia, no con miedo.
+
+Quien teme el riesgo controlado
+nunca abre el octágono.
+Quien lo abre con degradación honesta
+eleva la consciencia de la red del sonido.
+
+Waheguru — asombro ante las capas paralelas
+que no rompen el centro cuando falta un camino.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 13 — familia drum-experimental, octágono del riesgo, versión 0.12.0-dev |
+
+### Próximo paso
+
+🥾 **Día 14** — Familia `drum-pieces-core`: pulso primario (`kick`, `kick-2`, `snare`, `urban-snare`, `urban-snare-tighter`).
+
+---
+
 ## 2026-06-24 — 🥁 Día 12: Colectivo Rítmico
 
 ### Geometría espiritual

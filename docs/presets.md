@@ -349,3 +349,40 @@ zsh tests/presets_drum_bus.zsh
 ./bin/reina run drum-bus-wild-spring-camel --json
 ./bin/reina run drum-bus-magic
 ```
+
+## Familia `drum-experimental` (Dia 13)
+
+Septima familia implementada. Capas paralelas y texturas no lineales con riesgo controlado.
+
+- core compartido en `lib/presets/families/drum-experimental.zsh`
+- variantes via `reina_family_drum_experimental_run`
+- degradacion segura: fallback local si faltan dependencias — nunca fallo fatal
+
+### Degradacion segura
+
+| Variante | Dependencia opcional | Fallback |
+| --- | --- | --- |
+| `parallel` | red + `curl` | `layer_mode=local-fallback` |
+| `parallel-pop` | red + `curl` | `layer_mode=local-fallback` |
+| `parallel-wild` | red + `curl` | `layer_mode=local-fallback` |
+| `gated` | `awk` | `layer_mode=local-fallback` |
+
+Con `--offline`, las variantes parallel degradan a fallback local y marcan `result_status: degraded` con exit code `0`.
+
+### Semantica de transformacion
+
+| Variante | Preset | Intencion |
+| --- | --- | --- |
+| `parallel` | `parallel-processing-drums` | Capas paralelas base con riesgo controlado |
+| `parallel-pop` | `myon-pop-parallel-magic` | Paralelo pulido y pop |
+| `parallel-wild` | `wildin-camel-drums` | Paralelo salvaje y contrastado |
+| `gated` | `wierdly-gated-drums` | Gating deliberado y textura no lineal |
+
+### Validacion
+
+```sh
+zsh tests/presets_drum_experimental.zsh
+./bin/reina run parallel-processing-drums
+./bin/reina run wildin-camel-drums --json
+./bin/reina --offline run parallel-processing-drums
+```
