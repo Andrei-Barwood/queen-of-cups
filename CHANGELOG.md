@@ -9,8 +9,23 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 8–19).
+- Implementación de los presets restantes (Días 9–19).
 - Licencia pública explícita.
+
+## [0.7.0-dev] — 2026-06-24 — 🌊 Día 8: Purificación del Subsuelo Sonoro
+
+> *La familia `low-end` profundiza bajo 120 Hz: organicidad, síntesis e impacto controlado, en diálogo con el core `bass`.*
+
+### Añadido
+
+- Familia `low-end`: `lib/presets/families/low-end.zsh` con política de subgrave, herencia opcional de `bass` y gobernador `808`.
+- Tres presets `active`: `upright-bass`, `synth-bass`, `808-boom-control`.
+- Tests: `tests/presets_low_end.zsh` con verificación de no-interferencia entre `upright-bass` y `synth-bass`.
+- Relación documentada `bass` ↔ `low-end` en `docs/presets.md`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `dark-vocals` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ## [0.6.0-dev] — 2026-06-24 — 🌵 Día 7: Primera Respiración del Low-End
 

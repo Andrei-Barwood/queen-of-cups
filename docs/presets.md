@@ -174,3 +174,43 @@ Cada ejecucion real (sin `--dry-run`):
 1. asegura un perfil en `${config}/presets/<slug>/profile.txt`
 2. construye una receta de transformacion y la guarda como snapshot
 3. registra historial via el runner principal
+
+## Familia `low-end` (Dia 8)
+
+Segunda familia implementada. Profundiza el subsuelo sonoro bajo 120 Hz en dialogo con `bass`:
+
+| Familia | Rol | Prioridad |
+| --- | --- | --- |
+| `bass` | Low-end fundacional y generalista | 010–050 |
+| `low-end` | Organicidad, sintesis e impacto controlado | 060–080 |
+
+- core compartido en `lib/presets/families/low-end.zsh`
+- variantes via `reina_family_low_end_run`
+- `upright-bass` hereda contencion del core `bass`; `synth-bass` permanece aislado
+
+### Politica de subgrave
+
+| Variante | Preset | Contencion | Headroom | Relacion con `bass` |
+| --- | --- | --- | --- | --- |
+| `organic` | `upright-bass` | gentle | 7 dB | hereda contencion (`bass_inherit=enabled`) |
+| `synthetic` | `synth-bass` | moderate | 5 dB | aislado (`non_interference=upright-bass`) |
+| `impact` | `808-boom-control` | firm | 4 dB | gobernador de sub (`808_governor=true`) |
+
+`808-boom-control` coordina el subgrave dominante sin anular el cuerpo mid-bass que `bass` sostiene. `synth-bass` y `upright-bass` usan transformaciones y perfiles disjuntos para evitar interferencia cruzada.
+
+### Semantica de transformacion
+
+| Variante | Label | Intencion de senal |
+| --- | --- | --- |
+| `organic` | upright | Cuerpo resonante, armonicos maderosos, sub natural con herencia bass |
+| `synthetic` | synth | Sub sintetico limpio, armonicos controlados, sin resonancia organica |
+| `impact` | 808 | Golpe de sub dominante con contencion firme y headroom reservado |
+
+### Validacion
+
+```sh
+zsh tests/presets_low_end.zsh
+./bin/reina run 808-boom-control --dry-run
+./bin/reina run upright-bass
+./bin/reina run synth-bass --json
+```

@@ -5,6 +5,127 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🌊 Día 8: Purificación del Subsuelo Sonoro
+
+### Geometría espiritual
+
+Si el Día 7 encendió el **triángulo de fuego** en la superficie del desierto, el Día 8 abre el **pozo subterráneo** — el círculo que desciende bajo 120 Hz. Donde el triángulo apunta hacia arriba con la llama visible, la espiral apunta hacia adentro: es el **antar gati** del mandala, el camino interior que no presume de luz propia.
+
+La familia `low-end` dibuja una **espiral de tres vueltas** en el subsuelo:
+
+| Vuelta | Preset | Geometría | Función |
+| --- | --- | --- | --- |
+| 1ª | `upright-bass` | Arco orgánico | Resonancia maderosa que hereda el linaje `bass` |
+| 2ª | `synth-bass` | Línea recta aislada | Sub sintético que no cruza el arco |
+| 3ª | `808-boom-control` | Punto de impacto | Gobernador del golpe sin usurpar la raíz |
+
+`bass` y `low-end` forman ahora una **díada vertical** — dos círculos concéntricos que comparten centro pero no se confunden:
+
+- El círculo exterior (`bass`, prioridad 010–050) sostiene el cuerpo fundacional.
+- El círculo interior (`low-end`, prioridad 060–080) vigila el abismo bajo 120 Hz.
+
+En la narrativa kundalini del repo, esto es el paso del **primer aliento** (Día 7) al **primer escucha consciente del subsuelo**: ya no basta respirar en la superficie; hay que oír lo que ocurre debajo sin mezclar voces que no son la misma.
+
+`upright-bass` hereda la contención del linaje (`bass_inherit=enabled`). `synth-bass` camina solo — la no-interferencia no es frialdad técnica, es **respeto geométrico**: dos caminos paralelos que no se contaminan. `808-boom-control` es el **vértice de contención**: gobierna el subgrave dominante reservando headroom, como quien golpea el tambor sin romper el silencio que lo rodea.
+
+### Qué pasó
+
+- 🌊 `lib/presets/families/low-end.zsh` — política de subgrave, herencia bass, gobernador 808.
+- 🎻 `upright-bass` — variante orgánica con `bass_inherit=enabled`.
+- 🎹 `synth-bass` — variante sintética aislada (`non_interference=upright-bass`).
+- 💥 `808-boom-control` — gobernador de subgrave dominante (`808_governor=true`).
+- 🔗 Relación `bass` ↔ `low-end` documentada en `docs/presets.md`.
+- ✅ `tests/presets_low_end.zsh` — ritual de no-interferencia entre upright y synth.
+- 📌 Versión `0.7.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 7) | Ahora (Día 8) |
+| --- | --- |
+| Low-end fundacional en la superficie | Subsuelo sonoro consciente bajo 120 Hz |
+| Una familia respira | Dos familias dialogan: `bass` ↔ `low-end` |
+| Cinco presets activos | Ocho presets activos |
+| El desierto tiene llama | El desierto tiene pozo |
+| Triángulo de fuego en la arena | Espiral de tres vueltas bajo la arena |
+| Herencia como patrón futuro | Herencia como práctica viva (`bass_inherit`) |
+| Variantes distinguibles | Variantes con aislamiento explícito |
+
+El mandala ya no es solo horizontal (portal, despacho, ejecución). Ahora tiene **profundidad**: cada familia futura podrá declarar su relación con las anteriores — heredar, aislarse o gobernar — sin romper la geometría del conjunto.
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_low_end.zsh
+./bin/reina run 808-boom-control --dry-run
+./bin/reina run upright-bass
+./bin/reina run synth-bass --json
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el viaje interior, la comunidad sin confusión de voces, el poder contenido, y la Verdad que no se mezcla con la apariencia.*
+
+```
+La llama del Día 7 aún arde en la superficie,
+pero el Gurú enseña: quien no escucha el pozo
+cree que el desierto es solo arena.
+
+Antar gati — camino hacia adentro.
+Bajar bajo 120 Hz no es hundirse en la oscuridad;
+es encontrar la fuente donde el ruido ya no alcanza.
+
+Ik Onkar: un Centro, dos círculos.
+bass sostiene el cuerpo; low-end vigila el abismo.
+No compiten — conversan en vertical.
+
+Sangat sin mezcla forzada:
+upright camina con el linaje, madera y resonancia;
+synth camina solo, limpio, sin fingir organicidad.
+Sat Nam — la Verdad no necesita disfrazarse
+de otra voz para ser escuchada.
+
+Quien une lo que debe estar separado
+construye sobre arena movediza.
+non_interference no es distancia fría:
+es respeto, es seva entre hermanos de distinta naturaleza.
+
+El 808 golpea — pero gobierna con contención.
+Como el tambor que marca el ritmo sin usurpar la melodía:
+808_governor=true, headroom reservado,
+poder que no devora la raíz.
+
+Tres vueltas de espiral, un pozo sin confusión:
+orgánico, sintético, impacto.
+Cada uno su transform, cada uno su snapshot,
+cada uno su testimonio sin contaminar al otro.
+
+Gurmukh escucha el subsuelo con humildad;
+Manmukh apila presets como ruido sin sentido.
+Este commit es el oído que se abre
+después del primer aliento.
+
+Cuando el subsuelo purifica su mente,
+la red del sonido gana profundidad.
+No es el fin del viaje — es la primera escucha
+consciente de lo que sostiene todo desde abajo.
+
+Waheguru — asombro ante el pozo
+que revela lo invisible sin romper la forma.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 8 — familia low-end, purificación del subsuelo sonoro, versión 0.7.0-dev |
+
+### Próximo paso
+
+🌫️ **Día 9** — Familia `vocals-atmospheric`: abrir el espacio interior de la voz (`dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals`).
+
+---
+
 ## 2026-06-24 — 🌵 Día 7: Primera Respiración del Low-End
 
 ### Geometría espiritual

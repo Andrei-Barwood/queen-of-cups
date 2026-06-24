@@ -422,6 +422,15 @@ La familia `bass` es la primera invocacion viva del portal:
 - `reina_storage_config_put` completa el contrato de `reina_preset_profile_put`
 - cinco presets pasan a `active`; el resto del catalogo sigue en `planned`
 
+## Nota de implementacion del Dia 8
+
+La familia `low-end` profundiza el subsuelo sonoro:
+
+- `lib/presets/families/low-end.zsh` define politica de subgrave y `reina_family_low_end_run`
+- `upright-bass` hereda opcionalmente el core `bass`; `synth-bass` y `upright-bass` declaran aislamiento mutuo
+- `808-boom-control` actua como gobernador de subgrave dominante con headroom reservado
+- tres presets pasan a `active`; ocho presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

@@ -48,17 +48,17 @@ function assert_eq() {
 }
 
 stderr_file="$(mktemp)"
-"$REINA_BIN" run upright-bass >/dev/null 2>"$stderr_file"
+"$REINA_BIN" run dark-vocals >/dev/null 2>"$stderr_file"
 exit_code=$?
 stderr_output="$(<"$stderr_file")"
 rm -f "$stderr_file"
 
 assert_eq "3" "$exit_code" "preset planned sin implementacion usa exit code 3" || exit 1
 assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "run falla con ERR_PRESET_NOT_IMPLEMENTED" || exit 1
-assert_contains "$stderr_output" "upright-bass" "error menciona el slug" || exit 1
+assert_contains "$stderr_output" "dark-vocals" "error menciona el slug" || exit 1
 
 stderr_file="$(mktemp)"
-"$REINA_BIN" run upright-bass --dry-run >/dev/null 2>"$stderr_file"
+"$REINA_BIN" run dark-vocals --dry-run >/dev/null 2>"$stderr_file"
 exit_code=$?
 stderr_output="$(<"$stderr_file")"
 rm -f "$stderr_file"
@@ -66,7 +66,7 @@ rm -f "$stderr_file"
 assert_eq "3" "$exit_code" "dry-run tampoco finge exito en preset no implementado" || exit 1
 assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "dry-run reporta no implementado" || exit 1
 
-run_json_output="$("$REINA_BIN" --json run upright-bass 2>/dev/null)"
+run_json_output="$("$REINA_BIN" --json run dark-vocals 2>/dev/null)"
 assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa ERR_PRESET_NOT_IMPLEMENTED" || exit 1
 
 typeset -gx REINA_PROJECT_ROOT="$PROJECT_ROOT"
