@@ -2,6 +2,8 @@
 
 Reina de Copas es un CLI shell-first para convertir un catalogo de presets en comandos utilitarios de `zsh`, con un core compartido para `network`, `storage` y `errors`.
 
+Su proposito es analogo al kundalini yoga aplicado a la red del sonido: **purificar la mente de la fuente de sonido** y **elevar la consciencia de la red del sonido**.
+
 El cierre del Dia 1 deja lista la base del sistema:
 
 - estructura oficial del repo
@@ -75,6 +77,20 @@ tests/
 
 ## Estado actual
 
-El Dia 5 deja `errors` como contrato formal para runner, network y storage: fallos fatales, warnings recuperables, degradaciones por fallback, JSON estructurado y exit codes estables. `run` todavia ejecuta un placeholder mientras prepara contexto real para presets futuros.
+La infraestructura de los Dias 1–5 esta integrada en `main`:
 
-Mas detalles en `docs/distribution.md`.
+- runner CLI con flags globales y resolucion de presets
+- servicios compartidos `network`, `storage` y `errors`
+- distribucion local (`make install`, `make dist`)
+- 53 presets catalogados en `planned`; `run` aun usa placeholder
+
+## Documentacion
+
+| Archivo | Contenido |
+| --- | --- |
+| [`docs/roadmap.md`](docs/roadmap.md) | Plan de implementacion Días 0–22 |
+| [`docs/journal.md`](docs/journal.md) | Bitacora de lo que ocurre en el repo |
+| [`CHANGELOG.md`](CHANGELOG.md) | Historial de cambios por version |
+| [`docs/architecture.md`](docs/architecture.md) | Arquitectura y contratos de servicios |
+| [`docs/presets.md`](docs/presets.md) | Politica de naming y familias |
+| [`docs/distribution.md`](docs/distribution.md) | Instalacion y distribucion |
