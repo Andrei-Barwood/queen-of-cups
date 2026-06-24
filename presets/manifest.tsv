@@ -14,9 +14,9 @@ warm springy vocals	warm-springy-vocals	vocals-atmospheric	warm	active	120	-	Var
 female vox 1	female-vox-1	female-vocal	dry	active	130	-	Base clara y frontal del bloque female-vocal.
 female vox 1 wet	female-vox-1-wet	female-vocal	wet	active	140	-	Derivacion humeda de female-vox-1.
 female vocal wet	female-vocal-wet	female-vocal	wet-wide	active	150	-	Variante mas amplia y mezclada.
-pop lead vocal	pop-lead-vocal	vocal-utility	lead	planned	160	-	Voz principal y foco frontal.
-vocal help	vocal-help	vocal-utility	assist	planned	170	-	Preset diagnostico y asistivo.
-give backgrounds some life	give-backgrounds-some-life	vocal-utility	background	planned	180	-	Capa de apoyo y movimiento contextual.
+pop lead vocal	pop-lead-vocal	vocal-utility	lead	active	160	-	Voz principal y foco frontal.
+vocal help	vocal-help	vocal-utility	assist	active	170	-	Preset diagnostico y asistivo.
+give backgrounds some life	give-backgrounds-some-life	vocal-utility	background	active	180	-	Capa de apoyo y movimiento contextual.
 drum bus drivin	drum-bus-drivin	drum-bus	drive	planned	190	-	Empuje, glue y energia de conjunto.
 drum bus island	drum-bus-island	drum-bus	spaced	planned	200	-	Variante mas abierta y separada.
 drum bus wild spring camel	drum-bus-wild-spring-camel	drum-bus	wild	planned	210	-	Version mas elastica y energetica del bus.

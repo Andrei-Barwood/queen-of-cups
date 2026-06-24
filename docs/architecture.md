@@ -448,6 +448,14 @@ La familia `female-vocal` modela derivacion sin duplicacion:
 - cadena `female-vox-1` → `female-vox-1-wet` → `female-vocal-wet` documentada en perfiles y snapshots
 - tres presets pasan a `active`; quince presets activos en total
 
+## Nota de implementacion del Dia 11
+
+La familia `vocal-utility` eleva consciencia operativa:
+
+- `lib/presets/families/vocal-utility.zsh` define roles lead/assist/background
+- `vocal-help` produce diagnostico util via `REINA_PRESET_RESULT_MESSAGE` en humano y `--json`
+- tres presets pasan a `active`; dieciocho presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

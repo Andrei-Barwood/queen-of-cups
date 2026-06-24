@@ -288,3 +288,37 @@ zsh tests/presets_female_vocal.zsh
 ./bin/reina run female-vox-1-wet
 ./bin/reina run female-vocal-wet --json
 ```
+
+## Familia `vocal-utility` (Dia 11)
+
+Quinta familia implementada. Eleva la consciencia operativa: la red aprende a asistir, no solo a embellecer.
+
+- core compartido en `lib/presets/families/vocal-utility.zsh`
+- variantes via `reina_family_vocal_utility_run`
+- `vocal-help` es preset **diagnostico**: reporta estado util en humano y `--json`
+
+### Roles operativos
+
+| Preset | Variante | Rol |
+| --- | --- | --- |
+| `pop-lead-vocal` | `lead` | Voz principal, foco frontal, liderazgo en la mezcla |
+| `vocal-help` | `assist` | Diagnostico de red, runtime y cadena vocal |
+| `give-backgrounds-some-life` | `background` | Fondos con vida y movimiento contextual |
+
+### vocal-help diagnostico
+
+`vocal-help` no solo procesa: expone en `REINA_PRESET_RESULT_MESSAGE`:
+
+- `network_mode` y `network_status`
+- rutas de `config` y `state`
+- `vocal_stack` activo
+- `recommendation` operativa
+
+### Validacion
+
+```sh
+zsh tests/presets_vocal_utility.zsh
+./bin/reina run vocal-help
+./bin/reina run vocal-help --json
+./bin/reina run pop-lead-vocal
+```

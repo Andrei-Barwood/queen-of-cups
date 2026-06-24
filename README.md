@@ -28,9 +28,10 @@ Día 7      🔺 Triángulo de fuego — la familia bass respira en el desierto
 Día 8      🌀 Espiral hacia adentro — la familia low-end abre el pozo bajo 120 Hz
 Día 9      🌫️ Cúpula atmosférica — la familia vocals-atmospheric abre el espacio de la voz
 Día 10     🎙️ Flecha frontal — la familia female-vocal purifica la presencia sin máscara
+Día 11     🛠️ Triángulo operativo — la familia vocal-utility asiste y diagnostica
 ```
 
-**Versión actual:** `0.9.0-dev` · **Día 10** · **15 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.10.0-dev` · **Día 11** · **18 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -42,10 +43,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | `low-end` | `upright-bass`, `synth-bass`, `808-boom-control` | Espiral de tres vueltas — orgánico, sintético, impacto |
 | `vocals-atmospheric` | `dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals` | Cuadrilátero de aire — sombra, niebla, brillo, calor |
 | `female-vocal` | `female-vox-1`, `female-vox-1-wet`, `female-vocal-wet` | Flecha frontal — dry → wet → wet-wide |
+| `vocal-utility` | `pop-lead-vocal`, `vocal-help`, `give-backgrounds-some-life` | Triángulo operativo — lead, assist, background |
 
-`bass` y `low-end` forman una **díada vertical**; `vocals-atmospheric` levanta la **cúpula**; `female-vocal` traza la **flecha frontal** — presencia directa con cadena de derivación sin duplicar lógica.
+`bass` y `low-end` forman una **díada vertical**; `vocals-atmospheric` levanta la **cúpula**; `female-vocal` traza la **flecha frontal**; `vocal-utility` despliega el **triángulo operativo** — la red aprende a asistir y diagnosticar.
 
-Los **38 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **35 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -74,6 +76,8 @@ Escucha el subsuelo y habita el espacio de la voz:
 ./bin/reina run dark-vocals
 ./bin/reina run female-vox-1
 ./bin/reina run female-vocal-wet --json
+./bin/reina run vocal-help
+./bin/reina run vocal-help --json
 ./bin/reina net-check --offline
 ```
 
@@ -156,10 +160,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `low-end` (Día 8) | ✅ 3 presets `active` |
 | Familia `vocals-atmospheric` (Día 9) | ✅ 4 presets `active` |
 | Familia `female-vocal` (Día 10) | ✅ 3 presets `active` |
-| Resto del catálogo | 🛠️ En `planned` — Días 11–19 por delante |
+| Familia `vocal-utility` (Día 11) | ✅ 3 presets `active` |
+| Resto del catálogo | 🥁 En `planned` — Días 12–19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior y flecha frontal. Lo que sigue es la consciencia operativa.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal y triángulo operativo. Lo que sigue es el colectivo rítmico.*
 
-🛠️ **Próximo paso:** Día 11 — familia `vocal-utility`
+🥁 **Próximo paso:** Día 12 — familia `drum-bus`

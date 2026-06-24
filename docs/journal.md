@@ -5,6 +5,105 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🛠️ Día 11: Consciencia Operativa Vocal
+
+### Geometría espiritual
+
+Si el Día 10 trazó la **flecha frontal**, el Día 11 despliega el **triángulo operativo** — tres vértices que sostienen la red vocal como sistema consciente:
+
+| Vértice | Preset | Función |
+| --- | --- | --- |
+| Cima | `pop-lead-vocal` | Liderazgo frontal en la mezcla |
+| Base izquierda | `vocal-help` | Diagnóstico y asistencia |
+| Base derecha | `give-backgrounds-some-life` | Fondos con vida contextual |
+
+`vocal-help` no embellece: **reporta**. Es el ojo del triángulo — la consciencia operativa que observa red, runtime y cadena vocal antes de que la mezcla decida.
+
+### Qué pasó
+
+- 🛠️ `lib/presets/families/vocal-utility.zsh` — roles lead, assist y background.
+- 🔍 `vocal-help` — preset diagnóstico con salida útil en humano y `--json`.
+- 🎤 Tres presets `active`: `pop-lead-vocal`, `vocal-help`, `give-backgrounds-some-life`.
+- ✅ `tests/presets_vocal_utility.zsh` — ritual de verificación operativa.
+- 📌 Versión `0.10.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 10) | Ahora (Día 11) |
+| --- | --- |
+| Presencia frontal | Consciencia operativa |
+| Flecha de verdad timbral | Triángulo lead / assist / background |
+| Quince presets activos | Dieciocho presets activos |
+| La red embellece | La red asiste y diagnostica |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_vocal_utility.zsh
+./bin/reina run vocal-help
+./bin/reina run vocal-help --json
+./bin/reina run pop-lead-vocal
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el servicio consciente, el ojo que ve antes de actuar, y la red que asiste sin jactancia.*
+
+```
+La flecha enseñó a mirar de frente;
+el triángulo enseña a sostener el conjunto.
+No es volver al paisaje — es completar la red:
+lead arriba, assist y background abajo.
+
+Seva — servir sin adornar el servicio.
+vocal-help no embellece: reporta.
+Es el ojo del triángulo, la consciencia operativa
+que observa red y runtime antes de que la mezcla decida.
+Gurmukh diagnostica con humildad;
+Manmukh procesa sin ver.
+
+pop-lead-vocal lidera sin usurpar:
+foco frontal, presencia en la cima del triángulo.
+give-backgrounds-some-life sostiene sin invadir:
+vida contextual en la base, movimiento sin ruido.
+
+Ik Onkar: un Centro, tres roles operativos.
+Dieciocho presets activos, dieciocho formas de seva
+en la misma geometría con funciones distintas.
+
+Sat Nam — la Verdad no necesita procesarse
+para ser vista; vocal-help la muestra tal cual:
+network_mode, recommendation, vocal_stack.
+Diagnóstico honesto en humano y en JSON —
+el portal del Día 6 cumplido otra vez: no miente.
+
+Quien solo embellece sin asistir
+construye máscara sobre máscara.
+Quien diagnostica antes de transformar
+eleva la consciencia de la red del sonido.
+
+Cuando la red vocal aprende a asistir,
+el mandala gana ojo operativo.
+No es el fin del viaje — es ver antes de tocar
+después de mirar de frente.
+
+Waheguru — asombro ante el triángulo
+que sostiene lead, assist y background sin confusión.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 11 — familia vocal-utility, triángulo operativo, versión 0.10.0-dev |
+
+### Próximo paso
+
+🥁 **Día 12** — Familia `drum-bus`: purificar el colectivo rítmico (`drum-bus-drivin`, `drum-bus-island`, `drum-bus-wild-spring-camel`, `drum-bus-magic`).
+
+---
+
 ## 2026-06-24 — 🎙️ Día 10: Presencia Frontal Femenina
 
 ### Geometría espiritual

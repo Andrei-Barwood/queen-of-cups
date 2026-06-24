@@ -9,8 +9,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 11–19).
+- Implementación de los presets restantes (Días 12–19).
 - Licencia pública explícita.
+
+## [0.10.0-dev] — 2026-06-24 — 🛠️ Día 11: Consciencia Operativa Vocal
+
+> *La familia `vocal-utility` eleva la red vocal de embellecer a asistir: lead, diagnóstico y fondos con vida.*
+
+### Añadido
+
+- Familia `vocal-utility`: `lib/presets/families/vocal-utility.zsh`.
+- `vocal-help` como preset diagnóstico con salida útil en humano y `--json`.
+- Tres presets `active`: `pop-lead-vocal`, `vocal-help`, `give-backgrounds-some-life`.
+- Tests: `tests/presets_vocal_utility.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `drum-bus-drivin` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Dieciocho presets activos en total.
 
 ## [0.9.0-dev] — 2026-06-24 — 🎙️ Día 10: Presencia Frontal Femenina
 
