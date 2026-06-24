@@ -456,6 +456,14 @@ La familia `vocal-utility` eleva consciencia operativa:
 - `vocal-help` produce diagnostico util via `REINA_PRESET_RESULT_MESSAGE` en humano y `--json`
 - tres presets pasan a `active`; dieciocho presets activos en total
 
+## Nota de implementacion del Dia 12
+
+La familia `drum-bus` purifica el colectivo ritmico:
+
+- `lib/presets/families/drum-bus.zsh` define matriz de compresion, espacio y cohesion
+- cuatro variantes: drive, spaced, wild, glue
+- cuatro presets pasan a `active`; veintidos presets activos en total
+
 ## Distribucion
 
 El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.

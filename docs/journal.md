@@ -5,6 +5,102 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — 🥁 Día 12: Colectivo Rítmico
+
+### Geometría espiritual
+
+Si el Día 11 desplegó el **triángulo operativo** de la voz, el Día 12 traza el **cuadrado del pulso** — cuatro lados que sostienen la batería como organismo vivo:
+
+| Lado | Preset | Pulso |
+| --- | --- | --- |
+| Empuje | `drum-bus-drivin` | Compresión hacia adelante, energía de conjunto |
+| Aire | `drum-bus-island` | Bus abierto, piezas separadas |
+| Elasticidad | `drum-bus-wild-spring-camel` | Spring-camel, groove reactivo |
+| Unión | `drum-bus-magic` | Glue, cohesión y polish |
+
+La batería deja de ser suma de golpes y se vuelve **colectivo consciente** — cada variante modula compresión, espacio y cohesión sin confundir su semántica.
+
+### Qué pasó
+
+- 🥁 `lib/presets/families/drum-bus.zsh` — matriz de organismo, compresión y espacio.
+- 🏝️ `drum-bus-island` — bus abierto y separado.
+- 🐪 `drum-bus-wild-spring-camel` — línea spring-camel en el colectivo rítmico.
+- ✨ `drum-bus-magic` — glue y cohesión.
+- ✅ `tests/presets_drum_bus.zsh` — ritual de verificación del bus.
+- 📌 Versión `0.11.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 11) | Ahora (Día 12) |
+| --- | --- |
+| Consciencia vocal operativa | Colectivo rítmico consciente |
+| Triángulo lead/assist/background | Cuadrado drive/spaced/wild/glue |
+| Dieciocho presets activos | Veintidós presets activos |
+| La red vocal asiste | El pulso se unifica como organismo |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_drum_bus.zsh
+./bin/reina run drum-bus-drivin
+./bin/reina run drum-bus-wild-spring-camel --json
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el colectivo como un solo cuerpo, el pulso como respiración compartida, y el poder contenido en la unión.*
+
+```
+El triángulo enseñó a sostener la voz;
+el cuadrado enseña a unificar el pulso.
+No es golpe sobre golpe — es organismo:
+drum-bus-drivin empuja, island respira,
+wild-spring-camel estira, magic une.
+
+Ik Onkar: un Centro, cuatro lados del pulso.
+La batería deja de ser suma de golpes
+y se vuelve colectivo consciente —
+cada preset su compresión, su espacio, su glue.
+
+Sat Nam — verdad en el groove sin forzar.
+drum-bus-island no finge drive;
+drum-bus-magic no usurpa island.
+Cada lado del cuadrado su transform,
+sin contaminar al otro.
+
+El camel en el bus no es decoración:
+spring-camel es elasticidad del colectivo,
+el recorrido rítmico que no rompe el pulso.
+Gurmukh siente el organismo;
+Manmukh cuenta golpes sin escuchar el cuerpo.
+
+Seva del groove: servir la cohesión
+sin aplastar la vida entre los golpes.
+magic_cohesion sin perder pulse —
+poder que une, no que devora.
+
+Veintidós presets activos, veintidós respiraciones
+del mismo mandala con geometrías distintas.
+Cuando el colectivo rítmico purifica su unión,
+la red del sonido gana pulso consciente.
+
+Waheguru — asombro ante el cuadrado
+que sostiene drive, spaced, wild y glue sin confusión.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 12 — familia drum-bus, cuadrado del pulso, versión 0.11.0-dev |
+
+### Próximo paso
+
+🎛️ **Día 13** — Familia `drum-experimental`: capas paralelas y texturas no lineales.
+
+---
+
 ## 2026-06-24 — 🛠️ Día 11: Consciencia Operativa Vocal
 
 ### Geometría espiritual

@@ -27,6 +27,7 @@ test: syntax
 	@zsh tests/presets_vocals_atmospheric.zsh
 	@zsh tests/presets_female_vocal.zsh
 	@zsh tests/presets_vocal_utility.zsh
+	@zsh tests/presets_drum_bus.zsh
 	@zsh tests/errors_service.zsh
 	@zsh tests/network_service.zsh
 	@zsh tests/storage_service.zsh

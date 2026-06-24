@@ -322,3 +322,30 @@ zsh tests/presets_vocal_utility.zsh
 ./bin/reina run vocal-help --json
 ./bin/reina run pop-lead-vocal
 ```
+
+## Familia `drum-bus` (Dia 12)
+
+Sexta familia implementada. Purifica el colectivo ritmico: la bateria como organismo, no como suma de golpes.
+
+- core compartido en `lib/presets/families/drum-bus.zsh`
+- matriz de compresion, espacio y cohesion: `compression_character`, `space_cohesion`, `organism_mode`
+- variantes via `reina_family_drum_bus_run`
+
+### Semantica de transformacion
+
+| Variante | Preset | Compresion / espacio / cohesion |
+| --- | --- | --- |
+| `drive` | `drum-bus-drivin` | Empuje hacia adelante, glue energetico, punch firme |
+| `spaced` | `drum-bus-island` | Bus abierto, piezas separadas, aire entre golpes |
+| `wild` | `drum-bus-wild-spring-camel` | Elasticidad spring-camel, groove reactivo |
+| `glue` | `drum-bus-magic` | Cohesion, polish, magia de union sin perder pulso |
+
+### Validacion
+
+```sh
+zsh tests/presets_drum_bus.zsh
+./bin/reina run drum-bus-drivin
+./bin/reina run drum-bus-island
+./bin/reina run drum-bus-wild-spring-camel --json
+./bin/reina run drum-bus-magic
+```

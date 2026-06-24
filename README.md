@@ -29,9 +29,10 @@ Día 8      🌀 Espiral hacia adentro — la familia low-end abre el pozo bajo 
 Día 9      🌫️ Cúpula atmosférica — la familia vocals-atmospheric abre el espacio de la voz
 Día 10     🎙️ Flecha frontal — la familia female-vocal purifica la presencia sin máscara
 Día 11     🛠️ Triángulo operativo — la familia vocal-utility asiste y diagnostica
+Día 12     🥁 Cuadrado del pulso — la familia drum-bus unifica el colectivo rítmico
 ```
 
-**Versión actual:** `0.10.0-dev` · **Día 11** · **18 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.11.0-dev` · **Día 12** · **22 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -44,10 +45,11 @@ El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv
 | `vocals-atmospheric` | `dark-vocals`, `dreamy-camel-vocals`, `sparkley-camel-vocals`, `warm-springy-vocals` | Cuadrilátero de aire — sombra, niebla, brillo, calor |
 | `female-vocal` | `female-vox-1`, `female-vox-1-wet`, `female-vocal-wet` | Flecha frontal — dry → wet → wet-wide |
 | `vocal-utility` | `pop-lead-vocal`, `vocal-help`, `give-backgrounds-some-life` | Triángulo operativo — lead, assist, background |
+| `drum-bus` | `drum-bus-drivin`, `drum-bus-island`, `drum-bus-wild-spring-camel`, `drum-bus-magic` | Cuadrado del pulso — drive, spaced, wild, glue |
 
-`bass` y `low-end` forman una **díada vertical**; `vocals-atmospheric` levanta la **cúpula**; `female-vocal` traza la **flecha frontal**; `vocal-utility` despliega el **triángulo operativo** — la red aprende a asistir y diagnosticar.
+`bass` y `low-end` forman una **díada vertical**; las familias vocales levantan cúpula, flecha y triángulo; `drum-bus` traza el **cuadrado del pulso** — la batería como organismo, no como suma de golpes.
 
-Los **35 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
+Los **31 presets restantes** aguardan su talla en el roadmap. El portal no miente: si no hay implementación, responde `ERR_PRESET_NOT_IMPLEMENTED`.
 
 ---
 
@@ -78,6 +80,8 @@ Escucha el subsuelo y habita el espacio de la voz:
 ./bin/reina run female-vocal-wet --json
 ./bin/reina run vocal-help
 ./bin/reina run vocal-help --json
+./bin/reina run drum-bus-drivin
+./bin/reina run drum-bus-wild-spring-camel --json
 ./bin/reina net-check --offline
 ```
 
@@ -161,10 +165,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `vocals-atmospheric` (Día 9) | ✅ 4 presets `active` |
 | Familia `female-vocal` (Día 10) | ✅ 3 presets `active` |
 | Familia `vocal-utility` (Día 11) | ✅ 3 presets `active` |
-| Resto del catálogo | 🥁 En `planned` — Días 12–19 por delante |
+| Familia `drum-bus` (Día 12) | ✅ 4 presets `active` |
+| Resto del catálogo | 🎛️ En `planned` — Días 13–19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior, flecha frontal y triángulo operativo. Lo que sigue es el colectivo rítmico.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo y cuadrado del pulso. Lo que sigue son las capas paralelas.*
 
-🥁 **Próximo paso:** Día 12 — familia `drum-bus`
+🎛️ **Próximo paso:** Día 13 — familia `drum-experimental`

@@ -9,8 +9,23 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 12–19).
+- Implementación de los presets restantes (Días 13–19).
 - Licencia pública explícita.
+
+## [0.11.0-dev] — 2026-06-24 — 🥁 Día 12: Colectivo Rítmico
+
+> *La familia `drum-bus` purifica la batería como organismo: empuje, espacio, wildness y glue.*
+
+### Añadido
+
+- Familia `drum-bus`: `lib/presets/families/drum-bus.zsh` con matriz de compresión, espacio y cohesión.
+- Cuatro presets `active`: `drum-bus-drivin`, `drum-bus-island`, `drum-bus-wild-spring-camel`, `drum-bus-magic`.
+- Tests: `tests/presets_drum_bus.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `parallel-processing-drums` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Veintidós presets activos en total.
 
 ## [0.10.0-dev] — 2026-06-24 — 🛠️ Día 11: Consciencia Operativa Vocal
 
