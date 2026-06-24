@@ -5,25 +5,52 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
-## 2026-06-24 — Día 6: dispatcher de presets
+## 2026-06-24 — 🔺 Día 6: El Portal del Despacho
+
+### Geometría espiritual
+
+Los Días 1–5 trazaron un **hexágono de servicios**: seis caras de un panal donde `network`, `storage` y `errors` se repiten en capas hasta formar una célula estable. El Día 6 abre la **vesica piscis** — el ojo de dos círculos que se tocan — entre la infraestructura (círculo del sistema) y el preset (círculo del alma sonora). Ese ojo es `reina_preset_dispatch`: el único umbral por donde la intención poética del manifiesto puede encarnarse en acción.
+
+`reina run` deja de ser espejo que devuelve su propio reflejo (placeholder) y se convierte en **portal**: o deja pasar la energía del preset, o declara con honestidad que el canal aún no está tallado (`ERR_PRESET_NOT_IMPLEMENTED`). En la narrativa kundalini del repo, esto es el paso del **muladhara** (raíz técnica firme) al **svadhisthana** (fuente creativa que aún no fluye): la base ya sostiene; ahora toca abrir el cauce.
+
+La resolución por slug y por familia dibuja un **merkaba** simbólico: dos tetraedros — individuo (`reina_preset_*_run`) y linaje (`reina_family_*_run`) — que giran en sentidos opuestos hasta encontrar un eje común. `family-core.zsh` es ese eje: memoria de perfil, snapshot e historial como práctica de **retención consciente**, no acumulación ciega.
 
 ### Qué pasó
 
-- Implementado `lib/presets/dispatcher.zsh` y `lib/presets/family-core.zsh`.
-- `reina run` despacha runners por slug o familia; sin implementación responde `ERR_PRESET_NOT_IMPLEMENTED`.
-- Añadidos tests `preset_dispatcher.zsh`; actualizados smoke y distribution.
-- Versión `0.5.0-dev`.
+- 🔮 `lib/presets/dispatcher.zsh` — portal de despacho sin subshells que dispersen la energía.
+- 🌊 `lib/presets/family-core.zsh` — eje compartido: perfil, snapshot, historial, resultado.
+- 🚫 `ERR_PRESET_NOT_IMPLEMENTED` — el sistema ya no miente: 53 presets en `planned` esperan su talla.
+- ✅ `tests/preset_dispatcher.zsh` — ritual de verificación del umbral.
+- 📌 Versión `0.5.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 5) | Ahora (Día 6) |
+| --- | --- |
+| El cuerpo nervioso respira | El portal está tallado; falta la primera invocación viva |
+| `run` preparaba contexto y sonreía en vacío | `run` pregunta: ¿existe alma ejecutable? |
+| Poética solo en el manifiesto | Poética con obligación de comportamiento distinguible |
+| Purificación de la mente del sistema | Purificación de la mente de la fuente: sin implementación, sin ilusión |
+
+El **Bass in the Desert** (`bass-in-the-desert`) sigue en el horizonte como punto cardinal del mandala — prioridad `010`, variante `foundational` — pero el desierto aún no responde al llamado. Eso es coherencia, no fracaso: un oráculo honesto vale más que un milagro falso.
 
 ### Validación
 
 ```sh
 make test
-./bin/reina run bass-in-the-desert
+./bin/reina run bass-in-the-desert   # ERR_PRESET_NOT_IMPLEMENTED — portal cerrado hasta Día 7
 ```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| `78fe9e5` | Implementación técnica del dispatcher |
+| *(este)* | Narrativa del Día 6 — geometría espiritual y bitácora |
 
 ### Próximo paso
 
-Día 7 del roadmap: familia `bass` y preset fundacional `bass-in-the-desert`.
+🌵 **Día 7** — Familia `bass` y `bass-in-the-desert`: primera respiración del low-end fundacional. El portal ya existe; toca encender la primera llama en el desierto.
 
 ---
 

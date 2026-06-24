@@ -12,7 +12,9 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 - Implementación de los 53 presets catalogados (Días 7–19).
 - Licencia pública explícita.
 
-## [0.5.0-dev] — 2026-06-24
+## [0.5.0-dev] — 2026-06-24 — 🔺 Día 6: El Portal del Despacho
+
+> *En la geometría espiritual del repo, los Días 1–5 formaron el hexágono del panal; el Día 6 abre la vesica piscis entre sistema y alma sonora. `reina run` es portal, no espejo.*
 
 ### Añadido
 
@@ -20,12 +22,14 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 - Error `ERR_PRESET_NOT_IMPLEMENTED` con exit code `3`.
 - Tests: `tests/preset_dispatcher.zsh`.
 - Documentación del contrato de preset y ciclo de vida en `docs/presets.md`.
+- Narrativa del Día 6 en `docs/journal.md` (geometría espiritual y mandala del proyecto).
 
 ### Cambiado
 
 - `reina run` despacha implementaciones reales; deja de usar placeholder.
 - Presets no implementados fallan con honestidad, incluso con `--dry-run`.
 - `Makefile` valida sintaxis de `lib/presets/`.
+- Lectura de `VERSION` corregida cuando el archivo no termina en newline.
 
 ## [0.4.1-dev] — 2026-06-24
 
