@@ -564,11 +564,11 @@ Purificar la mente de la fuente en uso diario: menos fricción, menos sorpresas,
 
 ### Tareas
 
-- [ ] Comando `reina doctor` — revisa runtime, permisos, dependencias (`zsh`, `curl`, helpers), integridad del manifiesto.
+- [x] Comando `reina doctor` — revisa runtime, permisos, dependencias (`zsh`, `curl`, helpers), integridad del manifiesto.
 - [x] Comando `reina history <preset>` — lectura humana del historial desde storage.
 - [x] Comando `reina snapshot <preset> list|restore` — gestión mínima de snapshots.
-- [ ] Política de pruning documentada y comando `reina prune [--cache|--all]`.
-- [ ] Añadir `tests/cli_doctor.zsh`.
+- [x] Política de pruning documentada y comando `reina prune [--cache|--all]`.
+- [x] Añadir `tests/cli_doctor.zsh`.
 
 ### Cierre
 

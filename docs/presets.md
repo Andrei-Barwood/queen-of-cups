@@ -533,6 +533,7 @@ zsh tests/presets_guitar_acoustic.zsh
 ./bin/reina run muted-cuatro --json
 ./bin/reina run muted-cuatro-wet
 ```
+
 ## Familia `keys-and-piano` (Dia 18)
 
 Duodecima familia implementada. Eleva la consciencia armonica: las teclas como territorio de lectura, no de correccion.
@@ -571,107 +572,7 @@ zsh tests/presets_keys_and_piano.zsh
 ./bin/reina run rock-piano
 ./bin/reina run piano-beef
 ```
-## Familia `keys-and-piano` (Dia 18)
 
-Duodecima familia implementada. Eleva la consciencia armonica: las teclas como territorio de lectura, no de correccion.
-
-- core compartido en `lib/presets/families/keys-and-piano.zsh`
-- variantes via `reina_family_keys_and_piano_run`
-- matriz armonica via `reina_keys_and_piano_harmonic_matrix`
-- politica `correction_policy=read-not-fix`
-
-### Eje camel armonico
-
-`keys-riding-a-camel` activa `camel_axis=active` para recorrido armonico continuo. Las variantes `jazz`, `rock` y `beef` comparten la matriz sin forzar la linea camel.
-
-| Preset | Variante | Eje camel |
-| --- | --- | --- |
-| `keys-riding-a-camel` | `base` | `camel_axis=active` |
-| `jazz-piano` | `jazz` | `camel_axis=latent` |
-| `rock-piano` | `rock` | `camel_axis=latent` |
-| `piano-beef` | `beef` | `camel_axis=latent` |
-
-### Semantica de transformacion
-
-| Variante | Preset | Intencion |
-| --- | --- | --- |
-| `base` | `keys-riding-a-camel` | Lectura armonica general con eje camel |
-| `jazz` | `jazz-piano` | Color jazz, voicings flexibles y extensiones |
-| `rock` | `rock-piano` | Empuje, ataque y presencia rock |
-| `beef` | `piano-beef` | Cuerpo reforzado, densidad y peso piano |
-
-### Validacion
-
-```sh
-zsh tests/presets_keys_and_piano.zsh
-./bin/reina run keys-riding-a-camel
-./bin/reina run jazz-piano --json
-./bin/reina run rock-piano
-./bin/reina run piano-beef
-```
-## Familia `utility-texture-and-master` (Dia 19)
-
-Decimotercera familia implementada. Cierra el ciclo del catalogo: refresco, memoria lofi y sonrisa final.
-
-- core compartido en `lib/presets/families/utility-texture-and-master.zsh`
-- variantes via `reina_family_utility_texture_and_master_run`
-- matriz utilitaria via `reina_utility_texture_and_master_utility_matrix`
-- `camels-need-water` es preset de recuperacion con recovery report operativo
-
-### Semantica de transformacion
-
-| Variante | Preset | Intencion |
-| --- | --- | --- |
-| `refresh` | `camels-need-water` | Recuperacion, reset util e hidratacion de contexto |
-| `lofi` | `lofi-looper` | Textura repetitiva, memoria corta, degradacion amable |
-| `master` | `master-smiley-face` | Balance final, sweetening y consciencia del conjunto |
-
-### Validacion
-
-```sh
-zsh tests/presets_utility_master.zsh
-./bin/reina run camels-need-water
-./bin/reina run lofi-looper
-./bin/reina run master-smiley-face --json
-```
-## Familia `keys-and-piano` (Dia 18)
-
-Duodecima familia implementada. Eleva la consciencia armonica: las teclas como territorio de lectura, no de correccion.
-
-- core compartido en `lib/presets/families/keys-and-piano.zsh`
-- variantes via `reina_family_keys_and_piano_run`
-- matriz armonica via `reina_keys_and_piano_harmonic_matrix`
-- politica `correction_policy=read-not-fix`
-
-### Eje camel armonico
-
-`keys-riding-a-camel` activa `camel_axis=active` para recorrido armonico continuo. Las variantes `jazz`, `rock` y `beef` comparten la matriz sin forzar la linea camel.
-
-| Preset | Variante | Eje camel |
-| --- | --- | --- |
-| `keys-riding-a-camel` | `base` | `camel_axis=active` |
-| `jazz-piano` | `jazz` | `camel_axis=latent` |
-| `rock-piano` | `rock` | `camel_axis=latent` |
-| `piano-beef` | `beef` | `camel_axis=latent` |
-
-### Semantica de transformacion
-
-| Variante | Preset | Intencion |
-| --- | --- | --- |
-| `base` | `keys-riding-a-camel` | Lectura armonica general con eje camel |
-| `jazz` | `jazz-piano` | Color jazz, voicings flexibles y extensiones |
-| `rock` | `rock-piano` | Empuje, ataque y presencia rock |
-| `beef` | `piano-beef` | Cuerpo reforzado, densidad y peso piano |
-
-### Validacion
-
-```sh
-zsh tests/presets_keys_and_piano.zsh
-./bin/reina run keys-riding-a-camel
-./bin/reina run jazz-piano --json
-./bin/reina run rock-piano
-./bin/reina run piano-beef
-```
 ## Familia `utility-texture-and-master` (Dia 19)
 
 Decimotercera familia implementada. Cierra el ciclo del catalogo: refresco, memoria lofi y sonrisa final.

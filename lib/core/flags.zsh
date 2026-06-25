@@ -43,6 +43,14 @@ function reina_parse_global_flags() {
         REINA_POSITIONAL_ARGS+=("$@")
         break
         ;;
+      --cache|--all)
+        if [[ "${REINA_POSITIONAL_ARGS[1]:-}" == "prune" ]]; then
+          REINA_POSITIONAL_ARGS+=("$1")
+        else
+          reina_fail ERR_INPUT_INVALID_FLAG "flag global no soportada: $1" "cli" "flag=$1"
+          return $?
+        fi
+        ;;
       --*)
         reina_fail ERR_INPUT_INVALID_FLAG "flag global no soportada: $1" "cli" "flag=$1"
         return $?

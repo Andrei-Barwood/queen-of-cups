@@ -33,6 +33,8 @@ help_output="$("$REINA_BIN" help)"
 assert_contains "$help_output" "reina list" "help expone el subcomando list" || exit 1
 assert_contains "$help_output" "reina info <preset>" "help expone el subcomando info" || exit 1
 assert_contains "$help_output" "reina graph <preset>" "help expone el subcomando graph" || exit 1
+assert_contains "$help_output" "reina doctor" "help expone el subcomando doctor" || exit 1
+assert_contains "$help_output" "reina history <preset>" "help expone el subcomando history" || exit 1
 assert_contains "$help_output" "reina version" "help expone el subcomando version" || exit 1
 
 version_output="$("$REINA_BIN" version)"

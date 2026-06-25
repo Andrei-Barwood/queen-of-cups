@@ -11,6 +11,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 - Integración, licencia y release 1.0.0 (Día 22).
 - Licencia pública explícita.
+
+## [0.20.0-dev] — 2026-06-24 — 🩺 Día 21: Purificación Operativa
+
+> *El sistema se autoexamina con honestidad: `doctor` diagnostica el runtime, `history` y `snapshot` gestionan memoria, y `prune` purifica cache vencida.*
+
+### Añadido
+
+- Módulo `lib/core/operations.zsh` — doctor, historial, snapshots y pruning.
+- Comando `reina doctor` — runtime, dependencias, permisos e integridad del manifiesto.
+- Comando `reina history <preset>` — lectura humana y `--json` del historial.
+- Comando `reina snapshot <preset> list|restore [key]` — gestión mínima de snapshots.
+- Comando `reina prune [--cache|--all]` — política de limpieza documentada.
+- Tests: `tests/cli_doctor.zsh`.
+
+### Cambiado
+
+- `reina doctor` reporta `ok`, `degraded` o `failed` según checks acumulados.
+
 ## [0.19.0-dev] — 2026-06-24 — 🌐 Día 20: Consciencia de Red
 
 > *El preset deja de ser un nodo aislado: perfiles remotos con política offline-first, grafo de familia en `run --json`, y comandos `graph` e `info` con relaciones de red.*

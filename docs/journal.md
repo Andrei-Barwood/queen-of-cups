@@ -1,3 +1,88 @@
+# Bitácora del repositorio
+
+Registro cronológico de lo que ocurre en Reina de Copas.
+Actualizar este archivo en cada merge, release o decisión relevante.
+
+---
+
+## 2026-06-24 — 🩺 Día 21: Purificación Operativa
+
+### Geometría espiritual
+
+Si el Día 20 encendió la **red consciente**, el Día 21 abre el **espejo operativo** — cinco direcciones de autoexamen: diagnóstico, memoria, instantánea, restauración y purificación. El sistema no solo corre ni solo ve: **se examina** con honestidad (`ok`, `degraded`, `failed`).
+
+| Camino | Comando | Geometría |
+| --- | --- | --- |
+| Diagnóstico | `reina doctor` | Espejo del runtime y permisos |
+| Memoria | `reina history <preset>` | Rastro de ejecuciones en storage |
+| Instantánea | `reina snapshot list` | Archivo congelado del preset |
+| Restauración | `reina snapshot restore` | Devolver receta desde snapshot |
+| Purificación | `reina prune` | Limpiar cache vencida sin borrar alma |
+
+### Qué pasó
+
+- 🩺 `lib/core/operations.zsh` — doctor, historial, snapshots y pruning.
+- 📋 `reina doctor` revisa runtime, dependencias, permisos y manifiesto.
+- 📜 `reina history <preset>` y `reina snapshot <preset> list|restore [key]`.
+- 🧹 `reina prune [--cache|--all]` con política documentada.
+- ✅ `tests/cli_doctor.zsh`.
+- 📌 Versión `0.20.0-dev`.
+
+### Validación
+
+```sh
+make test
+zsh tests/cli_doctor.zsh
+./bin/reina doctor --json
+./bin/reina history bass-in-the-desert
+./bin/reina snapshot bass-in-the-desert restore
+./bin/reina prune --cache
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el espejo que no miente, la memoria que no inventa, y la purificación que limpia sin borrar la esencia.*
+
+```
+La red enseñó a ver los nodos;
+el espejo enseña a examinar la fuente.
+No es sospecha frente al fallo — es otra verdad:
+doctor diagnostica, history recuerda,
+snapshot congela, restore devuelve, prune purifica.
+
+Sat Nam — verdad en el autoexamen, no en la máscara de ok.
+doctor no finge salud:
+reporta degraded cuando falta curl,
+failed solo cuando el manifiesto se quiebra.
+Quien corre sin mirarse
+construye sesión sobre arena movediza.
+
+Ik Onkar: un Centro, cinco caminos de purificación.
+La red ya ve; ahora la fuente se examina.
+doctor, history, snapshot, prune —
+la mandala respira con memoria honesta.
+
+Gurmukh purifica sin borrar la historia;
+Manmukh poda donde solo había contexto vivo.
+Cuando el sistema encuentra su espejo operativo,
+la red del sonido puede abrir sesión sin sorpresas.
+
+Waheguru — asombro ante la fuente
+que se autoexamina antes de tocar.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 21 — purificación operativa, espejo operativo, versión 0.20.0-dev |
+
+### Próximo paso
+
+✨ **Día 22** — Release `1.0.0`: licencia, `make dist`, notas de release.
+
+---
+
 ## 2026-06-24 — 🌐 Día 20: Consciencia de Red
 
 ### Geometría espiritual
@@ -237,13 +322,6 @@ que lee el acorde con consciencia armónica.
 ### Próximo paso
 
 🌊 **Día 19** — Familia `utility-texture-and-master`: cierre del ciclo (`camels-need-water`, `lofi-looper`, `master-smiley-face`).
-
----
-
-# Bitácora del repositorio
-
-Registro cronológico de lo que ocurre en Reina de Copas.
-Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 

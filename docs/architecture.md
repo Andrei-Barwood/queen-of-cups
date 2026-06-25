@@ -504,18 +504,6 @@ La familia `guitar-acoustic-and-plucked` purifica cuerda resonante y ataque natu
 - alias `ac-gtr` resuelve a `acoustic-gtr` en `run` e `info` sin crear preset nuevo
 - cuatro presets pasan a `active`; cuarenta y seis presets activos en total
 
-## Distribucion
-
-El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.
-
-- version del paquete: `VERSION`
-- instalador: `scripts/install.zsh`
-- desinstalador: `scripts/uninstall.zsh`
-- comando instalado: `$PREFIX/bin/reina`
-- arbol instalado: `$PREFIX/lib/reina-de-copas`
-- tarball local: `make dist`
-
-La politica de licencia queda pendiente de decision explicita antes de una distribucion publica estable. Ver `docs/distribution.md`.
 ## Nota de implementacion del Dia 18
 
 La familia `keys-and-piano` eleva consciencia armonica:
@@ -523,6 +511,7 @@ La familia `keys-and-piano` eleva consciencia armonica:
 - `lib/presets/families/keys-and-piano.zsh` define matriz armonica y eje camel en `keys-riding-a-camel`
 - politica `read-not-fix`: las teclas son territorio de lectura, no de correccion
 - cuatro presets pasan a `active`; cincuenta presets activos en total
+
 ## Nota de implementacion del Dia 19
 
 La familia `utility-texture-and-master` cierra el ciclo del catalogo:
@@ -530,6 +519,7 @@ La familia `utility-texture-and-master` cierra el ciclo del catalogo:
 - `lib/presets/families/utility-texture-and-master.zsh` define refresh, lofi y master
 - `camels-need-water` emite recovery report operativo
 - tres presets pasan a `active`; **53/53 presets activos**
+
 ## Consciencia de red (Dia 20)
 
 Un preset deja de ser un nodo aislado: `reina run`, `reina info` y `reina graph` exponen su lugar en la red.
@@ -566,3 +556,44 @@ El grafo se serializa en `reina run --json` como `network_graph` y se imprime en
 - `reina graph <preset>` — vista exploratoria del grafo
 - `reina info <preset>` — metadata del manifiesto + seccion `Network:`
 - `reina run <preset> --json` — resultado de ejecucion + `network_graph`
+
+## Purificacion operativa (Dia 21)
+
+El sistema se autoexamina antes de abrir sesion. Modulo: `lib/core/operations.zsh`.
+
+### Comandos
+
+| Comando | Rol |
+| --- | --- |
+| `reina doctor` | revisa zsh, helpers, curl, manifiesto, storage y permisos |
+| `reina history <preset>` | lectura del historial en `${state}/history/<preset>/` |
+| `reina snapshot <preset> list` | lista snapshots en `${state}/snapshots/<preset>/` |
+| `reina snapshot <preset> restore [key]` | restaura snapshot a `${config}/presets/<slug>/profile.txt` |
+| `reina prune [--cache\|--all]` | limpia cache vencida |
+
+### Politica de pruning
+
+| Modo | Alcance |
+| --- | --- |
+| `prune` / `prune --cache` | cache `network` y `presets` con TTL 86400s |
+| `prune --all` | cache vencida + temporales en `runtime/tmp` + locks obsoletos (>300s) |
+
+Reglas:
+
+- `doctor` reporta `ok`, `degraded` o `failed`; exit code `3` solo en `failed`
+- `curl` ausente degrada, no falla el doctor
+- `snapshot restore` sin `key` usa el snapshot mas reciente
+- historial y snapshots nunca se podan automaticamente en Dia 21
+
+## Distribucion
+
+El repo se instala como arbol completo, no como archivo unico, porque `bin/reina` carga modulos desde `lib/` y datos desde `presets/`.
+
+- version del paquete: `VERSION`
+- instalador: `scripts/install.zsh`
+- desinstalador: `scripts/uninstall.zsh`
+- comando instalado: `$PREFIX/bin/reina`
+- arbol instalado: `$PREFIX/lib/reina-de-copas`
+- tarball local: `make dist`
+
+La politica de licencia queda pendiente de decision explicita antes de una distribucion publica estable. Ver `docs/distribution.md`.

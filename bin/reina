@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-setopt NO_UNSET PIPE_FAIL
+setopt NO_UNSET PIPE_FAIL EXTENDED_GLOB NULL_GLOB
 
 typeset -gx REINA_PROJECT_ROOT="${0:A:h:h}"
 
@@ -13,6 +13,7 @@ source "$REINA_PROJECT_ROOT/lib/core/flags.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/bootstrap.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/manifest.zsh"
 source "$REINA_PROJECT_ROOT/lib/core/context.zsh"
+source "$REINA_PROJECT_ROOT/lib/core/operations.zsh"
 source "$REINA_PROJECT_ROOT/lib/presets/dispatcher.zsh"
 
 function reina_cmd_help() {
@@ -26,6 +27,10 @@ Uso:
   reina info <preset>
   reina graph <preset>
   reina run <preset>
+  reina doctor
+  reina history <preset>
+  reina snapshot <preset> list|restore [key]
+  reina prune [--cache|--all]
   reina net-check [url]
   reina <preset>
 
@@ -36,6 +41,10 @@ Comandos:
   info    muestra metadata de un preset resolviendo slug, alias o nombre
   graph   muestra el grafo de red del preset: familia, hermanos, perfil remoto
   run     ejecuta el flujo base de un preset
+  doctor  revisa runtime, dependencias, permisos y manifiesto
+  history muestra el historial de ejecuciones de un preset
+  snapshot lista o restaura snapshots de un preset
+  prune   limpia cache vencida; --all incluye tmp y locks obsoletos
   net-check valida reachability de un endpoint sin depender de presets
 
 Flags globales:
@@ -51,10 +60,39 @@ Ejemplos:
   reina info bass-in-the-desert
   reina run bass-in-the-desert --dry-run
   reina net-check --offline
+  reina doctor --json
+  reina history bass-in-the-desert
+  reina snapshot bass-in-the-desert list
+  reina prune --cache
   reina ac-gtr --offline
 EOF
 }
 
+function reina_cmd_resolve_preset_or_fail() {
+  emulate -L zsh
+  local identifier="${1:-}"
+  local command_name="${2:-cli}"
+  local status_code
+
+  [[ -n "$identifier" ]] || {
+    reina_fail ERR_INPUT_ARGUMENT_MISSING "falta preset" "cli" "command=$command_name"
+    return $?
+  }
+
+  reina_resolve_preset_to_global "$identifier"
+  status_code=$?
+  if (( status_code != 0 )); then
+    if (( status_code == 1 )); then
+      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier" "preset" "identifier=$identifier"
+      return $?
+    fi
+
+    return "$status_code"
+  fi
+
+  reina_manifest_record_to_preset "$REINA_RESOLVED_PRESET_RECORD" || return $?
+  return 0
+}
 
 function reina_version() {
   emulate -L zsh
@@ -250,9 +288,120 @@ function reina_cmd_run() {
   reina_preset_run_print_human "$runtime_ready" "$history_recorded"
 }
 
+function reina_cmd_doctor() {
+  emulate -L zsh
 
+  if (( $# != 0 )); then
+    reina_fail ERR_CLI_USAGE "reina doctor no acepta argumentos posicionales" "cli" "command=doctor args=$*"
+    return $?
+  fi
 
+  reina_ops_doctor_run
 
+  if (( REINA_JSON )); then
+    reina_ops_doctor_print_json
+  else
+    reina_ops_doctor_print_human
+  fi
+
+  if [[ "$REINA_DOCTOR_STATUS" == "failed" ]]; then
+    return 3
+  fi
+
+  return 0
+}
+
+function reina_cmd_history() {
+  emulate -L zsh
+  local identifier="${1:-}"
+
+  if (( $# != 1 )); then
+    reina_fail ERR_CLI_USAGE "uso: reina history <preset>" "cli" "command=history args=$*"
+    return $?
+  fi
+
+  reina_cmd_resolve_preset_or_fail "$identifier" "history" || return $?
+
+  if (( REINA_JSON )); then
+    reina_ops_history_print_json "$REINA_PRESET_SLUG"
+  else
+    reina_ops_history_print_human "$REINA_PRESET_SLUG"
+  fi
+}
+
+function reina_cmd_snapshot() {
+  emulate -L zsh
+  local identifier="${1:-}"
+  local action="${2:-}"
+  local snapshot_key="${3:-}"
+
+  if [[ -z "$identifier" || -z "$action" ]]; then
+    reina_fail ERR_CLI_USAGE "uso: reina snapshot <preset> list|restore [key]" "cli" "command=snapshot"
+    return $?
+  fi
+
+  if (( $# > 3 )); then
+    reina_fail ERR_CLI_USAGE "reina snapshot acepta como maximo preset, accion y key opcional" "cli" "command=snapshot args=$*"
+    return $?
+  fi
+
+  reina_cmd_resolve_preset_or_fail "$identifier" "snapshot" || return $?
+
+  case "$action" in
+    list)
+      if (( REINA_JSON )); then
+        reina_ops_snapshot_print_list_json "$REINA_PRESET_SLUG"
+      else
+        reina_ops_snapshot_print_list_human "$REINA_PRESET_SLUG"
+      fi
+      ;;
+    restore)
+      reina_ops_snapshot_restore "$REINA_PRESET_SLUG" "$snapshot_key" || return $?
+      if (( REINA_JSON )); then
+        reina_ops_snapshot_print_restore_json "$REINA_PRESET_SLUG"
+      else
+        reina_ops_snapshot_print_restore_human "$REINA_PRESET_SLUG"
+      fi
+      ;;
+    *)
+      reina_fail ERR_CLI_USAGE "accion de snapshot invalida: $action" "cli" "command=snapshot action=$action"
+      return $?
+      ;;
+  esac
+}
+
+function reina_cmd_prune() {
+  emulate -L zsh
+  local mode="cache"
+  local arg
+
+  for arg in "$@"; do
+    case "$arg" in
+      --cache)
+        mode="cache"
+        ;;
+      --all)
+        mode="all"
+        ;;
+      *)
+        reina_fail ERR_CLI_USAGE "reina prune acepta solo --cache o --all" "cli" "command=prune args=$*"
+        return $?
+        ;;
+    esac
+  done
+
+  if [[ "$mode" == "all" ]]; then
+    reina_ops_prune_all || return $?
+  else
+    reina_ops_prune_cache || return $?
+  fi
+
+  if (( REINA_JSON )); then
+    reina_ops_prune_print_json "$mode"
+  else
+    reina_ops_prune_print_human "$mode"
+  fi
+}
 
 function reina_cmd_net_check() {
   emulate -L zsh
@@ -344,6 +493,22 @@ function reina_main() {
       ;;
     run)
       reina_cmd_run "${rest[@]}"
+      return $?
+      ;;
+    doctor)
+      reina_cmd_doctor "${rest[@]}"
+      return $?
+      ;;
+    history)
+      reina_cmd_history "${rest[@]}"
+      return $?
+      ;;
+    snapshot)
+      reina_cmd_snapshot "${rest[@]}"
+      return $?
+      ;;
+    prune)
+      reina_cmd_prune "${rest[@]}"
       return $?
       ;;
     net-check)
