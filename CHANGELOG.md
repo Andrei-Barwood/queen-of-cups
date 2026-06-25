@@ -11,6 +11,24 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 - Integración, licencia y release 1.0.0 (Día 22).
 - Licencia pública explícita.
+## [0.19.0-dev] — 2026-06-24 — 🌐 Día 20: Consciencia de Red
+
+> *El preset deja de ser un nodo aislado: perfiles remotos con política offline-first, grafo de familia en `run --json`, y comandos `graph` e `info` con relaciones de red.*
+
+### Añadido
+
+- Módulo `lib/presets/network-consciousness.zsh` — sync remoto, grafo y binding de perfiles.
+- Esquema de perfiles remotos en `${cache}/network` y `${config}/presets/<slug>/`.
+- Comando `reina graph <preset>` — vista exploratoria del grafo de red.
+- `network_graph` en `reina run --json`: familia, hermanos, perfil remoto y último snapshot.
+- Sección `Network:` en `reina info` y `reina run` (humano).
+- Tests: `tests/network_consciousness.zsh`.
+
+### Cambiado
+
+- `reina run` sincroniza perfil remoto opcional vía `reina_network_fetch_to_cache` antes del dispatch.
+- En `--offline`, degradación a cache sin romper la cadena sonora.
+
 ## [0.18.0-dev] — 2026-06-24 — 🌊 Día 19: Cierre del Ciclo
 
 > *La familia `utility-texture-and-master` cierra el mandala: refresh con `camels-need-water`, memoria lofi y sonrisa final en `master-smiley-face` — **53/53 presets implementados**.*

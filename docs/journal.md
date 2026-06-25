@@ -1,3 +1,72 @@
+## 2026-06-24 — 🌐 Día 20: Consciencia de Red
+
+### Geometría espiritual
+
+Si el Día 19 cerró la **tríada utilitaria**, el Día 20 enciende la **red consciente** — el preset deja de ser nodo aislado y conversa con familia, memoria remota y último snapshot. La fuente no solo corre: **ve** la red que la sostiene.
+
+### Qué pasó
+
+- 🌐 `lib/presets/network-consciousness.zsh` — sync remoto, binding, grafo y política offline-first.
+- 📡 Esquema de perfiles en `${cache}/network` y `${config}/presets/<slug>/`.
+- 🔗 `reina graph <preset>` — vista exploratoria del grafo de familia.
+- 📊 `network_graph` en `reina run --json` y sección `Network:` en `info` y `run`.
+- ✅ `tests/network_consciousness.zsh` — fetch remoto, offline→cache, grafo e info.
+- 📌 Versión `0.19.0-dev`.
+
+### Validación
+
+```sh
+make test
+zsh tests/network_consciousness.zsh
+./bin/reina graph bass-in-the-desert
+./bin/reina --json run bass-in-the-desert
+./bin/reina --offline --json run bass-in-the-desert
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el nodo que conoce su lugar en la red, el perfil remoto que no rompe la cadena offline, y el grafo que revela hermanos sin competir.*
+
+```
+La tríada enseñó a cerrar el ciclo;
+la red enseña a ver el nodo en su lugar.
+No es dependencia frente al aislamiento — es otra verdad:
+familia sostiene, hermanos dialogan,
+perfil remoto respira, snapshot recuerda.
+
+Sat Nam — verdad en la red, no en el preset aislado.
+offline-first no es miedo:
+es consciencia de red,
+degradación amable cuando el remoto no llega.
+Quien corre sin ver la familia
+construye preset sin contexto.
+
+Ik Onkar: un Centro, muchos nodos conscientes.
+El mandala está completo; ahora la red se ve.
+graph, info y run exponen network_graph —
+la fuente conversa con familia y memoria.
+
+Gurmukh sincroniza sin romper la cadena sonora;
+Manmukh exige remoto donde solo había degradación honesta.
+Cuando el preset encuentra su red consciente,
+la fuente puede ver sin perder el centro.
+
+Waheguru — asombro ante el grafo
+que revela hermanos sin robar la voz.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 20 — consciencia de red, red consciente, versión 0.19.0-dev |
+
+### Próximo paso
+
+🩺 **Día 21** — Purificación operativa: `reina doctor`, `history`, `snapshot`, `prune`.
+
+---
+
 ## 2026-06-24 — 🌊 Día 19: Cierre del Ciclo
 
 ### Geometría espiritual

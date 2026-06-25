@@ -35,8 +35,17 @@ test: syntax
 	@zsh tests/presets_guitar_acoustic.zsh
 @zsh tests/presets_keys_and_piano.zsh
 @zsh tests/presets_utility_master.zsh
+@zsh tests/network_consciousness.zsh
 @zsh tests/presets_keys_and_piano.zsh
 @zsh tests/presets_utility_master.zsh
+@zsh tests/network_consciousness.zsh
+@zsh tests/presets_utility_master.zsh
+@zsh tests/network_consciousness.zsh
+@zsh tests/presets_keys_and_piano.zsh
+@zsh tests/presets_utility_master.zsh
+@zsh tests/network_consciousness.zsh
+@zsh tests/presets_utility_master.zsh
+@zsh tests/network_consciousness.zsh
 	@zsh tests/errors_service.zsh
 	@zsh tests/network_service.zsh
 	@zsh tests/storage_service.zsh

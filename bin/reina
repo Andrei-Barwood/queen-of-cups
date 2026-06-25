@@ -24,6 +24,7 @@ Uso:
   reina version
   reina list
   reina info <preset>
+  reina graph <preset>
   reina run <preset>
   reina net-check [url]
   reina <preset>
@@ -33,6 +34,7 @@ Comandos:
   version muestra la version instalada
   list    lista los presets registrados en presets/manifest.tsv
   info    muestra metadata de un preset resolviendo slug, alias o nombre
+  graph   muestra el grafo de red del preset: familia, hermanos, perfil remoto
   run     ejecuta el flujo base de un preset
   net-check valida reachability de un endpoint sin depender de presets
 
@@ -52,6 +54,7 @@ Ejemplos:
   reina ac-gtr --offline
 EOF
 }
+
 
 function reina_version() {
   emulate -L zsh
@@ -130,7 +133,7 @@ function reina_cmd_info() {
   log_debug "resolved $identifier -> $REINA_PRESET_SLUG"
 
   if (( REINA_JSON )); then
-    reina_preset_json
+    reina_network_consciousness_info_json
     print -- ""
     return 0
   fi
@@ -144,6 +147,45 @@ function reina_cmd_info() {
   print -- "  priority:     $REINA_PRESET_PRIORITY"
   print -- "  aliases:      $REINA_PRESET_ALIASES"
   print -- "  notes:        $REINA_PRESET_NOTES"
+  print -- ""
+  reina_network_consciousness_print_human
+}
+
+function reina_cmd_graph() {
+  emulate -L zsh
+  local identifier="${1:-}"
+  local status_code
+
+  if [[ -z "$identifier" ]]; then
+    reina_fail ERR_INPUT_ARGUMENT_MISSING "uso: reina graph <preset>" "cli" "command=graph"
+    return $?
+  fi
+
+  if (( $# > 1 )); then
+    reina_fail ERR_CLI_USAGE "reina graph acepta un solo preset" "cli" "command=graph args=$*"
+    return $?
+  fi
+
+  reina_resolve_preset_to_global "$identifier"
+  status_code=$?
+  if (( status_code != 0 )); then
+    if (( status_code == 1 )); then
+      reina_fail ERR_PRESET_NOT_FOUND "preset no encontrado: $identifier" "preset" "identifier=$identifier"
+      return $?
+    fi
+
+    return "$status_code"
+  fi
+
+  reina_manifest_record_to_preset "$REINA_RESOLVED_PRESET_RECORD" || return $?
+  log_debug "resolved $identifier -> $REINA_PRESET_SLUG for graph"
+
+  if (( REINA_JSON )); then
+    reina_network_consciousness_graph_print_json
+    return 0
+  fi
+
+  reina_network_consciousness_graph_print_human
 }
 
 function reina_cmd_run() {
@@ -182,6 +224,7 @@ function reina_cmd_run() {
     fi
     runtime_ready=1
     reina_preset_profile_get "profile" "" >/dev/null 2>&1 || true
+    reina_network_consciousness_sync_remote_profile "$REINA_PRESET_SLUG"
   fi
 
   reina_preset_dispatch "$runtime_ready"
@@ -194,6 +237,9 @@ function reina_cmd_run() {
     if reina_preset_history_record "${REINA_PRESET_RESULT_STATUS:-ok}" "$status_code"; then
       history_recorded=1
     fi
+    reina_network_consciousness_build_graph "$REINA_PRESET_SLUG"
+  else
+    reina_network_consciousness_build_graph "$REINA_PRESET_SLUG"
   fi
 
   if (( REINA_JSON )); then
@@ -203,6 +249,10 @@ function reina_cmd_run() {
 
   reina_preset_run_print_human "$runtime_ready" "$history_recorded"
 }
+
+
+
+
 
 function reina_cmd_net_check() {
   emulate -L zsh
@@ -286,6 +336,10 @@ function reina_main() {
       ;;
     info)
       reina_cmd_info "${rest[@]}"
+      return $?
+      ;;
+    graph)
+      reina_cmd_graph "${rest[@]}"
       return $?
       ;;
     run)

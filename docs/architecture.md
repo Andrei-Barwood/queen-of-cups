@@ -530,3 +530,39 @@ La familia `utility-texture-and-master` cierra el ciclo del catalogo:
 - `lib/presets/families/utility-texture-and-master.zsh` define refresh, lofi y master
 - `camels-need-water` emite recovery report operativo
 - tres presets pasan a `active`; **53/53 presets activos**
+## Consciencia de red (Dia 20)
+
+Un preset deja de ser un nodo aislado: `reina run`, `reina info` y `reina graph` exponen su lugar en la red.
+
+### Esquema de perfiles remotos
+
+| Ubicacion | Rol |
+| --- | --- |
+| `${cache}/network/preset-profile-<slug>.txt` | cuerpo remoto cacheado por `reina_network_fetch_to_cache` |
+| `${config}/presets/<slug>/remote-profile.txt` | espejo persistido en config |
+| `${config}/presets/<slug>/remote-profile-binding.txt` | metadata de sincronizacion (`source`, `endpoint`, `cache_key`, `network_status`) |
+
+Endpoint por defecto: `${REINA_REMOTE_PROFILE_BASE_URL:-https://example.com/reina/presets/}<slug>.profile`
+
+### Politica offline-first
+
+- `reina run` invoca `reina_network_consciousness_sync_remote_profile` antes del dispatch
+- en `--offline`, network lee cache si existe y marca `degraded` sin romper la cadena sonora
+- si no hay cache ni espejo local, el preset sigue ejecutandose con `remote_source=unavailable`
+
+### Grafo de dependencias
+
+`lib/presets/network-consciousness.zsh` construye `network_graph` con:
+
+- `family` y `variant` del manifiesto
+- `siblings`: variantes hermanas de la misma familia
+- `remote_profile`: fuente (`remote`, `cache`, `local`, `unavailable`) y rutas
+- `last_snapshot`: clave, ruta, contexto y origen del ultimo snapshot
+
+El grafo se serializa en `reina run --json` como `network_graph` y se imprime en humano bajo `Network:`.
+
+### Comandos
+
+- `reina graph <preset>` — vista exploratoria del grafo
+- `reina info <preset>` — metadata del manifiesto + seccion `Network:`
+- `reina run <preset> --json` — resultado de ejecucion + `network_graph`

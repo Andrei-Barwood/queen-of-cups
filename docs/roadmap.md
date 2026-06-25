@@ -537,13 +537,13 @@ Elevar la consciencia de la red del sonido más allá del preset aislado: la fue
 
 ### Tareas
 
-- [ ] Definir esquema de perfiles remotos en `${cache}/network` y `${config}/presets/`.
-- [ ] Implementar fetch opcional de metadata/perfil por preset vía `reina_network_fetch_to_cache`.
-- [ ] En `--offline`, degradar a cache sin romper la cadena sonora.
-- [ ] Exponer en `reina run --json` el grafo de dependencias: familia, variantes hermanas, último snapshot.
+- [x] Definir esquema de perfiles remotos en `${cache}/network` y `${config}/presets/`.
+- [x] Implementar fetch opcional de metadata/perfil por preset vía `reina_network_fetch_to_cache`.
+- [x] En `--offline`, degradar a cache sin romper la cadena sonora.
+- [x] Exponer en `reina run --json` el grafo de dependencias: familia, variantes hermanas, último snapshot.
 - [x] Comando exploratorio: `reina graph <preset>` o sección en `info` con relaciones de familia.
-- [ ] Documentar en `docs/architecture.md` la noción de “consciencia de red”.
-- [ ] Añadir `tests/network_consciousness.zsh`.
+- [x] Documentar en `docs/architecture.md` la noción de “consciencia de red”.
+- [x] Añadir `tests/network_consciousness.zsh`.
 
 ### Entregables
 

@@ -1,4 +1,5 @@
 source "$REINA_PROJECT_ROOT/lib/presets/family-core.zsh"
+source "$REINA_PROJECT_ROOT/lib/presets/network-consciousness.zsh"
 
 function reina_preset_load_slug_implementation() {
   emulate -L zsh
@@ -125,6 +126,7 @@ function reina_preset_run_json() {
   print -rn -- "\"preset\":$(reina_preset_json),"
   print -rn -- "\"result\":$(reina_preset_result_json),"
   print -rn -- "\"context\":$(reina_context_json "$runtime_ready"),"
+  print -rn -- "\"network_graph\":${REINA_PRESET_NETWORK_GRAPH_JSON:-null},"
   print -rn -- "\"warnings\":$(reina_error_records_json warnings),"
   print -rn -- "\"degradations\":$(reina_error_records_json degradations)"
   if [[ -n "${REINA_PRESET_RESULT_MESSAGE:-}" ]]; then
@@ -151,6 +153,8 @@ function reina_preset_run_print_human() {
   print -- "  status:  $REINA_PRESET_STATUS"
   print -- ""
   reina_context_print_human "$runtime_ready"
+  print -- ""
+  reina_network_consciousness_print_human
   print -- "  runner_kind: ${REINA_PRESET_RUNNER_KIND:-}"
   print -- "  implementation: ${REINA_PRESET_RESULT_IMPLEMENTATION:-}"
   print -- "  history_recorded: $(reina_json_bool "$history_recorded")"
