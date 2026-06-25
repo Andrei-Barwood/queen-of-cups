@@ -35,9 +35,11 @@ Día 14     🥾 Punto cardinal — la familia drum-pieces-core ancla kick y sna
 Día 15     🌬️ Hexágono del aire — la familia drum-detail-and-space abre overheads, room y fills
 Día 16     ⚡ Pentágono eléctrico — la familia guitar-heavy-and-electric carga drive y cuerpo metálico
 Día 17     🪕 Cuadrilátero resonante — la familia guitar-acoustic-and-plucked abre ataque y cola natural
+Día 18–21  🎹🌊🌐🩺 Tetracordio, tríada, red y espejo — mandala completo y autoexamen
+Día 22     ✨ Circunferencia — release 1.0.0, licencia MIT, distribución estable
 ```
 
-**Versión actual:** `0.20.0-dev` · **Día 21** · **53 presets activos** de 53 en el manifiesto.
+**Versión actual:** `1.0.0` · **Día 22** · **53 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -164,7 +166,9 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | [`docs/architecture.md`](docs/architecture.md) | Contratos de servicios, runtime, exit codes |
 | [`docs/presets.md`](docs/presets.md) | Familias, variantes, semántica de transformación |
 | [`docs/distribution.md`](docs/distribution.md) | Instalación y empaquetado |
+| [`docs/RELEASE-1.0.0.md`](docs/RELEASE-1.0.0.md) | Notas de la primera release estable |
 | [`CHANGELOG.md`](CHANGELOG.md) | Historial por versión |
+| [`LICENSE`](LICENSE) | Licencia MIT |
 
 ---
 
@@ -190,9 +194,10 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Catálogo completo | ✅ **53/53 presets `active`** |
 | Consciencia de red (Día 20) | ✅ Perfiles remotos, grafo y `reina graph` |
 | Purificación operativa (Día 21) | ✅ `doctor`, `history`, `snapshot`, `prune` |
+| Release estable (Día 22) | ✅ `1.0.0`, licencia MIT, `make dist` |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal, hexágono del aire, pentágono eléctrico, cuadrilátero resonante, tríada de cierre y red consciente. El mandala se autoexamina.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal, hexágono del aire, pentágono eléctrico, cuadrilátero resonante, tríada de cierre, red consciente y espejo operativo. El mandala cerró su circunferencia en `1.0.0`.*
 
-✨ **Próximo paso:** Día 22 — release `1.0.0` (licencia, `make dist`, notas de release)
+🏜️ **Release estable:** [`1.0.0`](docs/RELEASE-1.0.0.md) — instalable, documentada, licenciada bajo MIT.

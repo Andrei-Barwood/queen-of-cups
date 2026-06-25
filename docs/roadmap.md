@@ -584,13 +584,13 @@ Cerrar un ciclo kundalini: lo purificado se sostiene; lo elevado se comparte con
 
 ### Tareas
 
-- [ ] Decidir licencia (MIT, Apache-2.0, GPL u otra) y añadir archivo `LICENSE`.
-- [ ] Actualizar `docs/distribution.md` con política final.
-- [ ] Cambiar `VERSION` de `0.4.0-dev` a `1.0.0`.
-- [ ] Ejecutar `make dist` y verificar tarball.
-- [ ] Ejecutar suite completa: `make test`.
-- [ ] Revisar que los 53 presets están en `active` o justificar excepciones en el manifiesto.
-- [ ] Redactar notas de release (`docs/RELEASE-1.0.0.md` o sección en README).
+- [x] Decidir licencia (MIT, Apache-2.0, GPL u otra) y añadir archivo `LICENSE`.
+- [x] Actualizar `docs/distribution.md` con política final.
+- [x] Cambiar `VERSION` de `0.20.0-dev` a `1.0.0`.
+- [x] Ejecutar `make dist` y verificar tarball.
+- [x] Ejecutar suite completa: `make test`.
+- [x] Revisar que los 53 presets están en `active` o justificar excepciones en el manifiesto.
+- [x] Redactar notas de release (`docs/RELEASE-1.0.0.md` o sección en README).
 
 ### Validación
 

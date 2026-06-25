@@ -45,7 +45,7 @@ make uninstall PREFIX="$HOME/.local"
 make dist
 ```
 
-El artefacto queda en `dist/reina-de-copas-<version>.tar.gz`. El tarball incluye source, docs, scripts de instalacion y tests, pero excluye runtime local y metadata de git.
+El artefacto queda en `dist/reina-de-copas-<version>.tar.gz`. El tarball incluye source, docs, scripts de instalacion, tests, `LICENSE` y `CHANGELOG.md`, pero excluye runtime local y metadata de git.
 
 ## Version
 
@@ -57,7 +57,7 @@ reina --version
 reina --json version
 ```
 
-Durante desarrollo se usa el sufijo `-dev`. Las releases deberian quitarlo y agregar una nota breve de cambios.
+Durante desarrollo se usaba el sufijo `-dev` (serie `0.x-dev`). La release `1.0.0` elimina ese sufijo; las siguientes releases estables seguiran [Semantic Versioning](https://semver.org/) cuando corresponda.
 
 ## Runtime instalado
 
@@ -78,4 +78,14 @@ reina list
 
 ## Politica de licencia
 
-La licencia todavia no esta definida en el repo. Antes de una distribucion publica estable conviene elegir explicitamente una licencia, por ejemplo MIT, Apache-2.0, GPL o una politica cerrada. Hasta entonces, el proyecto debe tratarse como codigo sin licencia publica explicita.
+Reina de Copas se distribuye bajo la licencia **MIT**. El texto completo vive en `LICENSE` en la raiz del repositorio y en el tarball generado por `make dist`.
+
+| Aspecto | Politica |
+| --- | --- |
+| Uso | Libre para uso, copia, modificacion, distribucion y sublicencia |
+| Obligacion | Conservar el aviso de copyright y la licencia en copias sustanciales |
+| Garantia | Software provisto "tal cual", sin garantias implicitas |
+
+Versiones anteriores a `1.0.0` (sin archivo `LICENSE`) deben tratarse como codigo sin licencia publica explicita. A partir de `1.0.0`, la MIT aplica al arbol distribuido.
+
+Notas de release: `docs/RELEASE-1.0.0.md`.

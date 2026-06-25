@@ -596,4 +596,4 @@ El repo se instala como arbol completo, no como archivo unico, porque `bin/reina
 - arbol instalado: `$PREFIX/lib/reina-de-copas`
 - tarball local: `make dist`
 
-La politica de licencia queda pendiente de decision explicita antes de una distribucion publica estable. Ver `docs/distribution.md`.
+Licencia MIT desde `1.0.0`; ver `LICENSE` y `docs/distribution.md`.

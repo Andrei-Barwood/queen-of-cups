@@ -3,14 +3,27 @@
 Todos los cambios relevantes de Reina de Copas se documentan aquí.
 
 El formato sigue [Keep a Changelog](https://keepachangelog.com/es-ES/1.0.0/).
-Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fase de infraestructura.
+La serie `0.x-dev` cubrió la fase de infraestructura; `1.0.0` es la primera release estable.
 
 ## [Unreleased]
 
-### Pendiente
+_Sin cambios pendientes._
 
-- Integración, licencia y release 1.0.0 (Día 22).
-- Licencia pública explícita.
+## [1.0.0] — 2026-06-24 — ✨ Día 22: Release estable
+
+> *El mandala cierra su circunferencia: 53 presets activos, licencia MIT, tarball verificado y documentación de distribución completa.*
+
+### Añadido
+
+- Archivo `LICENSE` (MIT).
+- Notas de release: `docs/RELEASE-1.0.0.md`.
+- `LICENSE` y `CHANGELOG.md` incluidos en `make dist` y en la instalación.
+
+### Cambiado
+
+- `VERSION` pasa de `0.20.0-dev` a `1.0.0`.
+- `docs/distribution.md` documenta la política de licencia final.
+- Primera release estable instalable y empaquetable.
 
 ## [0.20.0-dev] — 2026-06-24 — 🩺 Día 21: Purificación Operativa
 

@@ -50,7 +50,7 @@ uninstall:
 
 dist: clean
 	@mkdir -p "$(DIST_DIR)/$(DIST_NAME)"
-	@cp -R bin docs lib presets scripts tests README.md VERSION Makefile .gitignore "$(DIST_DIR)/$(DIST_NAME)/"
+	@cp -R bin docs lib presets scripts tests README.md CHANGELOG.md LICENSE VERSION Makefile .gitignore "$(DIST_DIR)/$(DIST_NAME)/"
 	@tar -C "$(DIST_DIR)" -czf "$(DIST_DIR)/$(DIST_NAME).tar.gz" "$(DIST_NAME)"
 	@rm -rf "$(DIST_DIR)/$(DIST_NAME)"
 	@print -- "$(DIST_DIR)/$(DIST_NAME).tar.gz"

@@ -91,6 +91,8 @@ cp -R "$SOURCE_ROOT/lib" "$TMP_ROOT/lib" || exit 6
 cp -R "$SOURCE_ROOT/presets" "$TMP_ROOT/presets" || exit 6
 cp -R "$SOURCE_ROOT/docs" "$TMP_ROOT/docs" || exit 6
 cp "$SOURCE_ROOT/README.md" "$TMP_ROOT/README.md" || exit 6
+cp "$SOURCE_ROOT/CHANGELOG.md" "$TMP_ROOT/CHANGELOG.md" || exit 6
+[[ -f "$SOURCE_ROOT/LICENSE" ]] && cp "$SOURCE_ROOT/LICENSE" "$TMP_ROOT/LICENSE"
 cp "$SOURCE_ROOT/VERSION" "$TMP_ROOT/VERSION" || exit 6
 
 rm -rf "$dest_root" || exit 6

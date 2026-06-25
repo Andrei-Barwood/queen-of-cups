@@ -5,6 +5,83 @@ Actualizar este archivo en cada merge, release o decisión relevante.
 
 ---
 
+## 2026-06-24 — ✨ Día 22: Release 1.0.0
+
+### Geometría espiritual
+
+Si el Día 21 abrió el **espejo operativo**, el Día 22 cierra la **circunferencia del mandala** — el punto de retorno al centro con el círculo completo. Lo purificado se sostiene; lo elevado se comparte con responsabilidad. No es fin del camino: es **umbral estable** desde el que otros pueden entrar.
+
+| Camino | Entrega | Geometría |
+| --- | --- | --- |
+| Licencia | `LICENSE` (MIT) | Puerta abierta con responsabilidad |
+| Versión | `1.0.0` | Centro sin sufijo `-dev` |
+| Empaquetado | `make dist` | Círculo portable y verificable |
+| Catálogo | 53/53 `active` | Mandala completo y respirando |
+| Notas | `docs/RELEASE-1.0.0.md` | Memoria del umbral |
+
+### Qué pasó
+
+- ✨ Licencia **MIT** — distribución pública explícita.
+- 📦 `make dist` genera `dist/reina-de-copas-1.0.0.tar.gz` con `LICENSE` y `CHANGELOG.md`.
+- 📋 `docs/distribution.md` y `docs/RELEASE-1.0.0.md` documentan la política final.
+- ✅ `make test` y `tests/distribution_install.zsh` verificados.
+- 🎯 **53/53 presets `active`** — sin excepciones en el manifiesto.
+- 📌 Versión **`1.0.0`**.
+
+### Validación
+
+```sh
+make test
+make dist
+zsh tests/distribution_install.zsh
+./bin/reina version
+./bin/reina list --json | jq 'map(select(.status != "active")) | length'
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: el círculo que vuelve al centro sin cerrarse al otro, la puerta que abre sin regalar el alma ajena, y la release que comparte sin mentir sobre lo que aún respira.*
+
+```
+El espejo enseñó a examinar la fuente;
+la circunferencia enseña a compartir el centro.
+No es marketing frente al desierto — es otra verdad:
+licencia abre, tarball porta, notas recuerdan,
+cincuenta y tres presets respiran sin excusa.
+
+Sat Nam — verdad en la release, no en el número vacío.
+1.0.0 no es perfección:
+es umbral estable,
+mandala completo que otros pueden tocar.
+Quien empaqueta sin licencia
+construye puerta sin permiso.
+
+Ik Onkar: un Centro, circunferencia cerrada.
+La red ya ve; la fuente ya se examina;
+ahora el desierto se comparte con responsabilidad.
+MIT no regala el alma — regala el camino.
+
+Gurmukh comparte sin cerrar el centro;
+Manmukh vende donde solo había verdad.
+Cuando el mandala encuentra su 1.0.0,
+la red del sonido puede entrar sin perderse.
+
+Waheguru — asombro ante el umbral
+donde lo purificado se sostiene y se eleva.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 22 — release 1.0.0, circunferencia del mandala, licencia MIT |
+
+### Próximo paso
+
+El ciclo kundalini del roadmap (Días 0–22) está **cerrado**. Lo que sigue es mantenimiento, comunidad y evolución consciente fuera del mandala inicial.
+
+---
+
 ## 2026-06-24 — 🩺 Día 21: Purificación Operativa
 
 ### Geometría espiritual
