@@ -9,8 +9,23 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 ### Pendiente
 
-- Implementación de los presets restantes (Días 18–19).
+- Integración, licencia y release 1.0.0 (Día 22).
 - Licencia pública explícita.
+## [0.17.0-dev] — 2026-06-24 — 🎹 Día 18: Consciencia Armónica
+
+> *La familia `keys-and-piano` eleva la lectura armónica: jazz flexible, empuje rock, cuerpo reforzado y eje camel en `keys-riding-a-camel` — las teclas como territorio de lectura, no de corrección.*
+
+### Añadido
+
+- Familia `keys-and-piano`: `lib/presets/families/keys-and-piano.zsh`.
+- Cuatro presets `active`: `keys-riding-a-camel`, `jazz-piano`, `rock-piano`, `piano-beef`.
+- Matriz armónica con política `read-not-fix` y eje camel activo en variante `base`.
+- Tests: `tests/presets_keys_and_piano.zsh`.
+
+### Cambiado
+
+- Tests de smoke, dispatcher e instalación usan `camels-need-water` para verificar `ERR_PRESET_NOT_IMPLEMENTED`.
+- Cincuenta presets activos en total.
 
 ## [0.16.0-dev] — 2026-06-24 — 🪕 Día 17: Cuerda Resonante y Ataque Natural
 

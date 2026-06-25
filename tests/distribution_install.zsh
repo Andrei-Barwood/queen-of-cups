@@ -89,13 +89,13 @@ stderr_file="$(mktemp)"
 REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
 REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
 REINA_STATE_ROOT="${TMP_DIR}/state-root" \
-"$PREFIX/bin/reina" run keys-riding-a-camel >/dev/null 2>"$stderr_file"
+"$PREFIX/bin/reina" run camels-need-water >/dev/null 2>"$stderr_file"
 run_exit_code=$?
 run_stderr="$(<"$stderr_file")"
 rm -f "$stderr_file"
 
 if [[ "$run_exit_code" -ne 3 ]]; then
-  print -u2 -- "FAIL: instalacion declara preset no implementado con exit code 3 y llego $run_exit_code"
+  print -u2 -- "FAIL: instalacion declara preset sin runner con exit code 3 y llego $run_exit_code"
   exit 1
 fi
 

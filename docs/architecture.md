@@ -516,3 +516,10 @@ El repo se instala como arbol completo, no como archivo unico, porque `bin/reina
 - tarball local: `make dist`
 
 La politica de licencia queda pendiente de decision explicita antes de una distribucion publica estable. Ver `docs/distribution.md`.
+## Nota de implementacion del Dia 18
+
+La familia `keys-and-piano` eleva consciencia armonica:
+
+- `lib/presets/families/keys-and-piano.zsh` define matriz armonica y eje camel en `keys-riding-a-camel`
+- politica `read-not-fix`: las teclas son territorio de lectura, no de correccion
+- cuatro presets pasan a `active`; cincuenta presets activos en total

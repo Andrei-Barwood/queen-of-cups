@@ -533,3 +533,41 @@ zsh tests/presets_guitar_acoustic.zsh
 ./bin/reina run muted-cuatro --json
 ./bin/reina run muted-cuatro-wet
 ```
+## Familia `keys-and-piano` (Dia 18)
+
+Duodecima familia implementada. Eleva la consciencia armonica: las teclas como territorio de lectura, no de correccion.
+
+- core compartido en `lib/presets/families/keys-and-piano.zsh`
+- variantes via `reina_family_keys_and_piano_run`
+- matriz armonica via `reina_keys_and_piano_harmonic_matrix`
+- politica `correction_policy=read-not-fix`
+
+### Eje camel armonico
+
+`keys-riding-a-camel` activa `camel_axis=active` para recorrido armonico continuo. Las variantes `jazz`, `rock` y `beef` comparten la matriz sin forzar la linea camel.
+
+| Preset | Variante | Eje camel |
+| --- | --- | --- |
+| `keys-riding-a-camel` | `base` | `camel_axis=active` |
+| `jazz-piano` | `jazz` | `camel_axis=latent` |
+| `rock-piano` | `rock` | `camel_axis=latent` |
+| `piano-beef` | `beef` | `camel_axis=latent` |
+
+### Semantica de transformacion
+
+| Variante | Preset | Intencion |
+| --- | --- | --- |
+| `base` | `keys-riding-a-camel` | Lectura armonica general con eje camel |
+| `jazz` | `jazz-piano` | Color jazz, voicings flexibles y extensiones |
+| `rock` | `rock-piano` | Empuje, ataque y presencia rock |
+| `beef` | `piano-beef` | Cuerpo reforzado, densidad y peso piano |
+
+### Validacion
+
+```sh
+zsh tests/presets_keys_and_piano.zsh
+./bin/reina run keys-riding-a-camel
+./bin/reina run jazz-piano --json
+./bin/reina run rock-piano
+./bin/reina run piano-beef
+```

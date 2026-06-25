@@ -33,6 +33,7 @@ test: syntax
 	@zsh tests/presets_drum_detail_and_space.zsh
 	@zsh tests/presets_guitar_heavy_and_electric.zsh
 	@zsh tests/presets_guitar_acoustic.zsh
+@zsh tests/presets_keys_and_piano.zsh
 	@zsh tests/errors_service.zsh
 	@zsh tests/network_service.zsh
 	@zsh tests/storage_service.zsh

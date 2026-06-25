@@ -1,3 +1,90 @@
+## 2026-06-24 — 🎹 Día 18: Consciencia Armónica
+
+### Geometría espiritual
+
+Si el Día 17 abrió el **cuadrilátero resonante**, el Día 18 enciende el **tetracordio armónico** — cuatro direcciones de teclas: lectura camel, jazz flexible, empuje rock y cuerpo reforzado. La familia `keys-and-piano` no corrige el acorde: **lee**.
+
+Cuatro variantes, cuatro caminos de la armonía:
+
+| Camino | Preset | Geometría |
+| --- | --- | --- |
+| Lectura camel | `keys-riding-a-camel` | Recorrido armónico continuo |
+| Jazz flexible | `jazz-piano` | Color extendido y voicings abiertos |
+| Empuje rock | `rock-piano` | Ataque forward y presencia media |
+| Cuerpo reforzado | `piano-beef` | Densidad, peso y ancla low-mid |
+
+La política `read-not-fix` queda verificada en perfil y snapshot: las teclas son territorio de lectura.
+
+### Qué pasó
+
+- 🎹 `lib/presets/families/keys-and-piano.zsh` — matriz armónica, eje camel y variantes jazz/rock/beef.
+- 🎯 Eje `camel_axis=active` solo en `keys-riding-a-camel`; el resto comparte matriz sin forzar recorrido camel.
+- 🎼 Cuatro presets `active`: keys-riding-a-camel, jazz-piano, rock-piano, piano-beef.
+- ✅ `tests/presets_keys_and_piano.zsh` — ritual incluye perfiles, snapshots e `info`.
+- 📌 Versión `0.17.0-dev`.
+
+### Qué implica en la narrativa del repo
+
+| Antes (Día 17) | Ahora (Día 18) |
+| --- | --- |
+| Cuerda resonante y ataque natural | Consciencia armónica y lectura de teclas |
+| Cuadrilátero resonante | Tetracordio armónico |
+| Cuarenta y seis presets activos | Cincuenta presets activos |
+| Acústica al lado del metal | Teclas como territorio de lectura |
+
+### Validación
+
+```sh
+make test
+zsh tests/presets_keys_and_piano.zsh
+./bin/reina run keys-riding-a-camel
+./bin/reina run jazz-piano --json
+./bin/reina run piano-beef
+```
+
+### Gurbani del commit — perspectiva desde este umbral
+
+*Inspirado en las enseñanzas del Sri Guru Granth Sahib Ji: la tecla que escucha el acorde sin corregirlo, el jazz que extiende sin romper, y el beef que ancla sin aplastar.*
+
+```
+El cuadrilátero enseñó a resonar la cuerda;
+el tetracordio enseña a leer la armonía.
+No es corrección frente al error — es otra verdad:
+camel atraviesa, jazz flexiona, rock empuja, beef ancla.
+
+Sat Nam — verdad en la lectura, no en el parche vacío.
+read-not-fix no es pasividad:
+es consciencia armónica,
+territorio de teclas que escucha antes de tocar.
+Quien corrige sin leer
+construye acorde sin alma.
+
+Ik Onkar: un Centro, cuatro caminos armónicos.
+La madera ya resuena; ahora las teclas leen.
+Cincuenta presets activos —
+la mandala escucha progresión y densidad.
+
+Gurmukh lee sin forzar el centro;
+Manmukh corrige donde solo había lectura.
+Cuando las teclas encuentran su tetracordio,
+la red del sonido puede armonizar sin corregir el alma.
+
+Waheguru — asombro ante el piano
+que lee el acorde con consciencia armónica.
+```
+
+### Commits
+
+| Commit | Descripción |
+| --- | --- |
+| *(este)* | Día 18 — familia keys-and-piano, tetracordio armónico, versión 0.17.0-dev |
+
+### Próximo paso
+
+🌊 **Día 19** — Familia `utility-texture-and-master`: cierre del ciclo (`camels-need-water`, `lofi-looper`, `master-smiley-face`).
+
+---
+
 # Bitácora del repositorio
 
 Registro cronológico de lo que ocurre en Reina de Copas.

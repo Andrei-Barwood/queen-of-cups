@@ -48,25 +48,25 @@ function assert_eq() {
 }
 
 stderr_file="$(mktemp)"
-"$REINA_BIN" run keys-riding-a-camel >/dev/null 2>"$stderr_file"
+"$REINA_BIN" run camels-need-water >/dev/null 2>"$stderr_file"
 exit_code=$?
 stderr_output="$(<"$stderr_file")"
 rm -f "$stderr_file"
 
-assert_eq "3" "$exit_code" "preset planned sin implementacion usa exit code 3" || exit 1
+assert_eq "3" "$exit_code" "preset sin runner usa exit code 3" || exit 1
 assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "run falla con ERR_PRESET_NOT_IMPLEMENTED" || exit 1
-assert_contains "$stderr_output" "keys-riding-a-camel" "error menciona el slug" || exit 1
+assert_contains "$stderr_output" "camels-need-water" "error menciona el slug" || exit 1
 
 stderr_file="$(mktemp)"
-"$REINA_BIN" run keys-riding-a-camel --dry-run >/dev/null 2>"$stderr_file"
+"$REINA_BIN" run camels-need-water --dry-run >/dev/null 2>"$stderr_file"
 exit_code=$?
 stderr_output="$(<"$stderr_file")"
 rm -f "$stderr_file"
 
-assert_eq "3" "$exit_code" "dry-run tampoco finge exito en preset no implementado" || exit 1
+assert_eq "3" "$exit_code" "dry-run tampoco finge exito sin runner" || exit 1
 assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "dry-run reporta no implementado" || exit 1
 
-run_json_output="$("$REINA_BIN" --json run keys-riding-a-camel 2>/dev/null)"
+run_json_output="$("$REINA_BIN" --json run camels-need-water 2>/dev/null)"
 assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa ERR_PRESET_NOT_IMPLEMENTED" || exit 1
 
 typeset -gx REINA_PROJECT_ROOT="$PROJECT_ROOT"

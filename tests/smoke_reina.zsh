@@ -60,7 +60,7 @@ acgtr_output="$("$REINA_BIN" ac-gtr --dry-run --offline 2>/dev/null)"
 assert_contains "$acgtr_output" "result_status: ok" "forma corta ac-gtr ejecuta acoustic-gtr" || exit 1
 assert_contains "$acgtr_output" "slug:    acoustic-gtr" "forma corta resuelve slug canonico" || exit 1
 
-run_json_output="$("$REINA_BIN" --json run keys-riding-a-camel 2>/dev/null)"
+run_json_output="$("$REINA_BIN" --json run camels-need-water 2>/dev/null)"
 assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa preset no implementado" || exit 1
 
 net_check_offline_output="$("$REINA_BIN" net-check --offline)"

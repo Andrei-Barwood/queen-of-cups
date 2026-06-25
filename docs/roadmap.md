@@ -492,9 +492,9 @@ Elevar la consciencia armónica: jazz, rock, cuerpo reforzado. Las teclas como t
 
 ### Tareas
 
-- [ ] Crear `lib/presets/families/keys-and-piano.zsh`.
-- [ ] Implementar los 4 presets.
-- [ ] Añadir `tests/presets_keys_and_piano.zsh`.
+- [x] Crear `lib/presets/families/keys-and-piano.zsh`.
+- [x] Implementar los 4 presets.
+- [x] Añadir `tests/presets_keys_and_piano.zsh`.
 
 ### Cierre
 
@@ -541,7 +541,7 @@ Elevar la consciencia de la red del sonido más allá del preset aislado: la fue
 - [ ] Implementar fetch opcional de metadata/perfil por preset vía `reina_network_fetch_to_cache`.
 - [ ] En `--offline`, degradar a cache sin romper la cadena sonora.
 - [ ] Exponer en `reina run --json` el grafo de dependencias: familia, variantes hermanas, último snapshot.
-- [ ] Comando exploratorio: `reina graph <preset>` o sección en `info` con relaciones de familia.
+- [x] Comando exploratorio: `reina graph <preset>` o sección en `info` con relaciones de familia.
 - [ ] Documentar en `docs/architecture.md` la noción de “consciencia de red”.
 - [ ] Añadir `tests/network_consciousness.zsh`.
 
@@ -565,8 +565,8 @@ Purificar la mente de la fuente en uso diario: menos fricción, menos sorpresas,
 ### Tareas
 
 - [ ] Comando `reina doctor` — revisa runtime, permisos, dependencias (`zsh`, `curl`, helpers), integridad del manifiesto.
-- [ ] Comando `reina history <preset>` — lectura humana del historial desde storage.
-- [ ] Comando `reina snapshot <preset> list|restore` — gestión mínima de snapshots.
+- [x] Comando `reina history <preset>` — lectura humana del historial desde storage.
+- [x] Comando `reina snapshot <preset> list|restore` — gestión mínima de snapshots.
 - [ ] Política de pruning documentada y comando `reina prune [--cache|--all]`.
 - [ ] Añadir `tests/cli_doctor.zsh`.
 

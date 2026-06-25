@@ -37,7 +37,7 @@ Día 16     ⚡ Pentágono eléctrico — la familia guitar-heavy-and-electric c
 Día 17     🪕 Cuadrilátero resonante — la familia guitar-acoustic-and-plucked abre ataque y cola natural
 ```
 
-**Versión actual:** `0.16.0-dev` · **Día 17** · **46 presets activos** de 53 en el manifiesto.
+**Versión actual:** `0.17.0-dev` · **Día 18** · **50 presets activos** de 53 en el manifiesto.
 
 El preset fundacional sigue siendo [**Bass in the Desert**](presets/manifest.tsv) (`bass-in-the-desert`, prioridad 010): la primera llama en la arena y la referencia arquitectónica de todo lo que viene después.
 
@@ -185,10 +185,11 @@ Convenciones: funciones con prefijo `reina_`; familias y variantes definidas en 
 | Familia `drum-detail-and-space` (Día 15) | ✅ 6 presets `active` |
 | Familia `guitar-heavy-and-electric` (Día 16) | ✅ 5 presets `active` |
 | Familia `guitar-acoustic-and-plucked` (Día 17) | ✅ 4 presets `active` |
-| Resto del catálogo | 🎹 En `planned` — Días 18–19 por delante |
+| Familia `keys-and-piano` (Día 18) | ✅ 4 presets `active` |
+| Resto del catálogo | 🎹 En `planned` — Día 19 por delante |
 
 ---
 
-*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal, hexágono del aire, pentágono eléctrico y cuadrilátero resonante. Lo que sigue es la consciencia armónica.*
+*El desierto ya tiene llama, pozo, cielo interior, flecha frontal, triángulo operativo, cuadrado del pulso, octágono experimental, punto cardinal, hexágono del aire, pentágono eléctrico y cuadrilátero resonante. Lo que sigue es el cierre del ciclo.*
 
-🎹 **Próximo paso:** Día 18 — familia `keys-and-piano`
+🌊 **Próximo paso:** Día 19 — familia `utility-texture-and-master`
