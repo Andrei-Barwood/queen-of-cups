@@ -85,10 +85,16 @@ run_output="$(
 )"
 assert_contains "$run_output" "result_status: ok" "instalacion ejecuta preset fundacional" || exit 1
 
+typeset -r EMPTY_IMPL_DIR="${TMP_DIR}/empty-implementations"
+typeset -r EMPTY_FAMILY_DIR="${TMP_DIR}/empty-families"
+mkdir -p "$EMPTY_IMPL_DIR" "$EMPTY_FAMILY_DIR"
+
 stderr_file="$(mktemp)"
 REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
 REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
 REINA_STATE_ROOT="${TMP_DIR}/state-root" \
+REINA_PRESET_IMPL_DIR="$EMPTY_IMPL_DIR" \
+REINA_PRESET_FAMILIES_DIR="$EMPTY_FAMILY_DIR" \
 "$PREFIX/bin/reina" run camels-need-water >/dev/null 2>"$stderr_file"
 run_exit_code=$?
 run_stderr="$(<"$stderr_file")"
@@ -100,6 +106,14 @@ if [[ "$run_exit_code" -ne 3 ]]; then
 fi
 
 assert_contains "$run_stderr" "ERR_PRESET_NOT_IMPLEMENTED" "instalacion ejecuta dispatcher honesto" || exit 1
+
+master_output="$(
+  REINA_CONFIG_ROOT="${TMP_DIR}/config-root" \
+  REINA_CACHE_ROOT="${TMP_DIR}/cache-root" \
+  REINA_STATE_ROOT="${TMP_DIR}/state-root" \
+  "$PREFIX/bin/reina" run master-smiley-face --dry-run 2>/dev/null
+)"
+assert_contains "$master_output" "result_status: ok" "instalacion ejecuta cierre del catalogo" || exit 1
 
 zsh "$PROJECT_ROOT/scripts/uninstall.zsh" --prefix "$PREFIX" >/dev/null || exit 1
 assert_not_exists "$PREFIX/bin/reina" "uninstall remueve symlink" || exit 1

@@ -7,6 +7,8 @@ typeset -r REINA_BIN="${PROJECT_ROOT}/bin/reina"
 typeset -r TMP_DIR="$(mktemp -d)"
 typeset -r FIXTURE_IMPL_DIR="${TMP_DIR}/implementations"
 typeset -r FIXTURE_FAMILY_DIR="${TMP_DIR}/families"
+typeset -r EMPTY_IMPL_DIR="${TMP_DIR}/empty-implementations"
+typeset -r EMPTY_FAMILY_DIR="${TMP_DIR}/empty-families"
 
 function cleanup() {
   rm -rf "$TMP_DIR"
@@ -18,7 +20,7 @@ typeset -gx REINA_CONFIG_ROOT="${TMP_DIR}/config-root"
 typeset -gx REINA_CACHE_ROOT="${TMP_DIR}/cache-root"
 typeset -gx REINA_STATE_ROOT="${TMP_DIR}/state-root"
 
-mkdir -p "$FIXTURE_IMPL_DIR" "$FIXTURE_FAMILY_DIR"
+mkdir -p "$FIXTURE_IMPL_DIR" "$FIXTURE_FAMILY_DIR" "$EMPTY_IMPL_DIR" "$EMPTY_FAMILY_DIR"
 
 function assert_contains() {
   emulate -L zsh
@@ -48,6 +50,8 @@ function assert_eq() {
 }
 
 stderr_file="$(mktemp)"
+REINA_PRESET_IMPL_DIR="$EMPTY_IMPL_DIR" \
+REINA_PRESET_FAMILIES_DIR="$EMPTY_FAMILY_DIR" \
 "$REINA_BIN" run camels-need-water >/dev/null 2>"$stderr_file"
 exit_code=$?
 stderr_output="$(<"$stderr_file")"
@@ -58,6 +62,8 @@ assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "run falla con ERR
 assert_contains "$stderr_output" "camels-need-water" "error menciona el slug" || exit 1
 
 stderr_file="$(mktemp)"
+REINA_PRESET_IMPL_DIR="$EMPTY_IMPL_DIR" \
+REINA_PRESET_FAMILIES_DIR="$EMPTY_FAMILY_DIR" \
 "$REINA_BIN" run camels-need-water --dry-run >/dev/null 2>"$stderr_file"
 exit_code=$?
 stderr_output="$(<"$stderr_file")"
@@ -66,7 +72,11 @@ rm -f "$stderr_file"
 assert_eq "3" "$exit_code" "dry-run tampoco finge exito sin runner" || exit 1
 assert_contains "$stderr_output" "ERR_PRESET_NOT_IMPLEMENTED" "dry-run reporta no implementado" || exit 1
 
-run_json_output="$("$REINA_BIN" --json run camels-need-water 2>/dev/null)"
+run_json_output="$(
+  REINA_PRESET_IMPL_DIR="$EMPTY_IMPL_DIR" \
+  REINA_PRESET_FAMILIES_DIR="$EMPTY_FAMILY_DIR" \
+  "$REINA_BIN" --json run camels-need-water 2>/dev/null
+)"
 assert_contains "$run_json_output" "\"code\":\"ERR_PRESET_NOT_IMPLEMENTED\"" "run --json serializa ERR_PRESET_NOT_IMPLEMENTED" || exit 1
 
 typeset -gx REINA_PROJECT_ROOT="$PROJECT_ROOT"

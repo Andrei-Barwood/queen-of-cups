@@ -49,6 +49,6 @@ keys riding a camel	keys-riding-a-camel	keys-and-piano	base	active	470	-	Preset 
 jazz piano	jazz-piano	keys-and-piano	jazz	active	480	-	Piano con color jazz y lectura mas flexible.
 rock piano	rock-piano	keys-and-piano	rock	active	490	-	Piano con empuje y ataque rock.
 piano beef	piano-beef	keys-and-piano	beef	active	500	-	Piano con cuerpo reforzado y densidad.
-camels need water	camels-need-water	utility-texture-and-master	refresh	planned	510	-	Preset de refresh o recuperacion dentro del bloque utilitario.
-lofi looper	lofi-looper	utility-texture-and-master	lofi	planned	520	-	Textura repetitiva, memoria corta y degradacion amable.
-master smiley face	master-smiley-face	utility-texture-and-master	master	planned	530	-	Balance final, sweetening y cierre amable.
+camels need water	camels-need-water	utility-texture-and-master	refresh	active	510	-	Preset de refresh o recuperacion dentro del bloque utilitario.
+lofi looper	lofi-looper	utility-texture-and-master	lofi	active	520	-	Textura repetitiva, memoria corta y degradacion amable.
+master smiley face	master-smiley-face	utility-texture-and-master	master	active	530	-	Balance final, sweetening y cierre amable.

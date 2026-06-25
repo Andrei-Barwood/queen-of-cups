@@ -518,10 +518,10 @@ Cierre del ciclo: refresco, memoria lofi, sonrisa final. Purificar el máster; e
 
 ### Tareas
 
-- [ ] Crear `lib/presets/families/utility-texture-and-master.zsh`.
-- [ ] Implementar `camels-need-water` como preset de recuperación/reset útil.
-- [ ] Implementar `lofi-looper` y `master-smiley-face`.
-- [ ] Añadir `tests/presets_utility_master.zsh`.
+- [x] Crear `lib/presets/families/utility-texture-and-master.zsh`.
+- [x] Implementar `camels-need-water` como preset de recuperación/reset útil.
+- [x] Implementar `lofi-looper` y `master-smiley-face`.
+- [x] Añadir `tests/presets_utility_master.zsh`.
 
 ### Cierre
 

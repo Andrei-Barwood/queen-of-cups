@@ -11,6 +11,23 @@ Este proyecto aún no publica versiones estables; la serie `0.x-dev` cubre la fa
 
 - Integración, licencia y release 1.0.0 (Día 22).
 - Licencia pública explícita.
+## [0.18.0-dev] — 2026-06-24 — 🌊 Día 19: Cierre del Ciclo
+
+> *La familia `utility-texture-and-master` cierra el mandala: refresh con `camels-need-water`, memoria lofi y sonrisa final en `master-smiley-face` — **53/53 presets implementados**.*
+
+### Añadido
+
+- Familia `utility-texture-and-master`: `lib/presets/families/utility-texture-and-master.zsh`.
+- Tres presets `active`: `camels-need-water`, `lofi-looper`, `master-smiley-face`.
+- `camels-need-water` como preset de recuperación con recovery report operativo.
+- Tests: `tests/presets_utility_master.zsh`.
+
+### Cambiado
+
+- Catálogo completo: 53 presets `active`.
+- Smoke test valida cierre con `master-smiley-face` en lugar de `ERR_PRESET_NOT_IMPLEMENTED`.
+- Tests de dispatcher e instalación verifican `ERR_PRESET_NOT_IMPLEMENTED` con directorios de implementación vacíos.
+
 ## [0.17.0-dev] — 2026-06-24 — 🎹 Día 18: Consciencia Armónica
 
 > *La familia `keys-and-piano` eleva la lectura armónica: jazz flexible, empuje rock, cuerpo reforzado y eje camel en `keys-riding-a-camel` — las teclas como territorio de lectura, no de corrección.*
